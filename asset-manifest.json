@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/forminotion-web-app/static/css/main.cb2b0967.css",
+    "main.js": "/forminotion-web-app/static/js/main.3461bcdc.js",
+    "index.html": "/forminotion-web-app/index.html",
+    "main.cb2b0967.css.map": "/forminotion-web-app/static/css/main.cb2b0967.css.map",
+    "main.3461bcdc.js.map": "/forminotion-web-app/static/js/main.3461bcdc.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.cb2b0967.css",
+    "static/js/main.3461bcdc.js"
+  ]
+}
