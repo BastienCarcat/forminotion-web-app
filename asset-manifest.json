@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/forminotion-web-app/static/css/main.cb2b0967.css",
-    "main.js": "/forminotion-web-app/static/js/main.3461bcdc.js",
+    "main.js": "/forminotion-web-app/static/js/main.294bd30d.js",
     "index.html": "/forminotion-web-app/index.html",
     "main.cb2b0967.css.map": "/forminotion-web-app/static/css/main.cb2b0967.css.map",
-    "main.3461bcdc.js.map": "/forminotion-web-app/static/js/main.3461bcdc.js.map"
+    "main.294bd30d.js.map": "/forminotion-web-app/static/js/main.294bd30d.js.map"
   },
   "entrypoints": [
     "static/css/main.cb2b0967.css",
-    "static/js/main.3461bcdc.js"
+    "static/js/main.294bd30d.js"
   ]
 }
