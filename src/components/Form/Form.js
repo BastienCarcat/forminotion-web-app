@@ -111,7 +111,7 @@ const MainForm = (props) => {
     })
   }
 
-  if (!databaseInfo) return null
+  if (!databaseInfo) return <div>No database loaded</div>
 
   //Do a global Comp const with both name and label in common and specify Comp as the field type
   return (
