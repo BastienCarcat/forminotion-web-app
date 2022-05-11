@@ -64,51 +64,67 @@ const MainForm = (props) => {
   }, [databaseInfo])
 
   const retrieveDatabaseInfo = async () => {
-    const data = await axios({
-      method: 'GET',
-      url: 'notion/getDbInformations'
-    })
-    return data
+    // const data = await axios({
+    //   method: 'GET',
+    //   url: 'notion/getDbInformations'
+    // })
+    try {
+      const data = await axios.get(
+        'https://forminotion-back.herokuapp.com/api/notion/getDbInformations'
+      )
+
+      return data
+    } catch (e) {
+      console.error(e)
+    }
   }
   const onSubmit = async (values) => {
-    const fields = {}
-    _.chain(databaseInfo)
-      .forEach((field, name) => {
-        switch (_.get(field, 'type')) {
-          case 'title':
-            if (values[name]) {
-              _.set(fields, name, {
-                title: [{ text: { content: values[name] } }]
-              })
-            }
-            break
-          case 'rich_text':
-            if (values[name]) {
-              _.set(fields, name, {
-                rich_text: [{ text: { content: values[name] } }]
-              })
-            }
-            break
-          case 'number':
-            if (values[name]) {
-              _.set(fields, name, { number: _.toNumber(values[name]) })
-            }
-            break
+    try {
+      const fields = {}
+      _.chain(databaseInfo)
+        .forEach((field, name) => {
+          switch (_.get(field, 'type')) {
+            case 'title':
+              if (values[name]) {
+                _.set(fields, name, {
+                  title: [{ text: { content: values[name] } }]
+                })
+              }
+              break
+            case 'rich_text':
+              if (values[name]) {
+                _.set(fields, name, {
+                  rich_text: [{ text: { content: values[name] } }]
+                })
+              }
+              break
+            case 'number':
+              if (values[name]) {
+                _.set(fields, name, { number: _.toNumber(values[name]) })
+              }
+              break
 
-          default:
-            if (values[name]) {
-              _.set(fields, `${name}.${_.get(field, 'type')}`, values[name])
-            }
-            break
-        }
-      })
-      .value()
+            default:
+              if (values[name]) {
+                _.set(fields, `${name}.${_.get(field, 'type')}`, values[name])
+              }
+              break
+          }
+        })
+        .value()
+      await axios.post(
+        'https://forminotion-back.herokuapp.com/api/notion/createDbItem',
+        cleanDeep(fields)
+      )
+    } catch (e) {
+      console.eroor(e)
+    }
 
-    await axios({
-      method: 'POST',
-      url: 'notion/createDbItem',
-      data: cleanDeep(fields)
-    })
+    // await axios({
+    //   method: 'POST',
+    //   url: 'notion/createDbItem',
+    //   data: cleanDeep(fields)
+    // })
   }
 
   if (!databaseInfo) return <div>No database loaded</div>
