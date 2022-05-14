@@ -3,6 +3,8 @@ import React, { useEffect } from 'react'
 import Form from '../components/Form/Form'
 import axios from 'axios'
 import app from '../app.json'
+import { Routes, Route } from 'react-router-dom'
+import LogIn from '../components/Authentication/LogIn'
 
 const useStyles = makeStyles({
   root: {
@@ -22,7 +24,10 @@ const Home = (props) => {
 
   return (
     <div className={classes.root}>
-      <Form />
+      <Routes>
+        <Route path="/" element={<LogIn />} />
+        <Route path="form" element={<Form />} />
+      </Routes>
     </div>
   )
 }

@@ -1,4 +1,5 @@
-import { Button, Grid } from '@mui/material'
+import { useAuth0 } from '@auth0/auth0-react'
+import { Button, CircularProgress, Grid } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import axios from 'axios'
 import cleanDeep from 'clean-deep'
@@ -26,16 +27,19 @@ const useStyles = makeStyles({
     },
     '& .button-submit': {
       display: 'flex',
-      justifyContent: 'flex-end',
+      justifyContent: 'space-between',
       padding: '10px'
     }
   }
 })
 
-const MainForm = (props) => {
+const MainForm = () => {
   const classes = useStyles()
   //TODO: put databaseInfo in a context
   const [databaseInfo, setDatabaseInfo] = useState(null)
+  const [loading, setLoading] = useState(false)
+
+  const { logout, user, isLoading } = useAuth0()
 
   const initialValues = useMemo(() => {
     const init = {}
@@ -63,12 +67,17 @@ const MainForm = (props) => {
     console.log('databaseInfo', databaseInfo)
   }, [databaseInfo])
 
+  useEffect(() => {
+    console.log('user', user)
+  }, [user])
+
   const retrieveDatabaseInfo = async () => {
     // const data = await axios({
     //   method: 'GET',
     //   url: 'notion/getDbInformations'
     // })
     try {
+      setLoading(true)
       const data = await axios.get(
         'https://forminotion-back.herokuapp.com/api/notion/getDbInformations'
       )
@@ -76,6 +85,8 @@ const MainForm = (props) => {
       return data
     } catch (e) {
       console.error(e)
+    } finally {
+      setLoading(false)
     }
   }
   const onSubmit = async (values) => {
@@ -127,98 +138,112 @@ const MainForm = (props) => {
     // })
   }
 
+  if (loading || isLoading) return <CircularProgress />
+
   if (!databaseInfo) return <div>No database loaded</div>
 
   //Do a global Comp const with both name and label in common and specify Comp as the field type
   return (
-    <Form
-      onSubmit={onSubmit}
-      initialValues={initialValues}
-      render={({ handleSubmit }) => (
-        <form onSubmit={handleSubmit}>
-          <div className={classes.form}>
-            <Grid container className="grid-container">
-              {_.map(_.values(databaseInfo), (field, key) => (
-                <>
-                  <Grid item xs={12}>
-                    {(() => {
-                      switch (_.get(field, 'type')) {
-                        case 'title':
-                          return (
-                            <TextField
-                              name={_.get(field, 'name')}
-                              label={_.get(field, 'name')}
-                            />
-                          )
-
-                        case 'number':
-                          return (
-                            <NumberField
-                              name={_.get(field, 'name')}
-                              label={_.get(field, 'name')}
-                            />
-                          )
-
-                        case 'checkbox':
-                          return (
-                            <div className="switch">
-                              <SwitchField
+    <>
+      <Form
+        onSubmit={onSubmit}
+        initialValues={initialValues}
+        render={({ handleSubmit }) => (
+          <form onSubmit={handleSubmit}>
+            <div className={classes.form}>
+              <Grid container className="grid-container">
+                {_.map(_.values(databaseInfo), (field, key) => (
+                  <>
+                    <Grid item xs={12}>
+                      {(() => {
+                        switch (_.get(field, 'type')) {
+                          case 'title':
+                            return (
+                              <TextField
                                 name={_.get(field, 'name')}
                                 label={_.get(field, 'name')}
                               />
-                            </div>
-                          )
+                            )
 
-                        case 'rich_text':
-                          return (
-                            <TextField
-                              name={_.get(field, 'name')}
-                              label={_.get(field, 'name')}
-                            />
-                          )
+                          case 'number':
+                            return (
+                              <NumberField
+                                name={_.get(field, 'name')}
+                                label={_.get(field, 'name')}
+                              />
+                            )
 
-                        case 'select':
-                          return (
-                            <SelectField
-                              name={_.get(field, 'name')}
-                              label={_.get(field, 'name')}
-                              options={_.get(field, 'select.options', [])}
-                              getOptionLabel={(option) =>
-                                _.get(option, 'name', '')
-                              }
-                            />
-                          )
+                          case 'checkbox':
+                            return (
+                              <div className="switch">
+                                <SwitchField
+                                  name={_.get(field, 'name')}
+                                  label={_.get(field, 'name')}
+                                />
+                              </div>
+                            )
 
-                        case 'multi_select':
-                          return (
-                            <MultiSelectField
-                              name={_.get(field, 'name')}
-                              label={_.get(field, 'name')}
-                              options={_.get(field, 'multi_select.options', [])}
-                              getOptionLabel={(option) =>
-                                _.get(option, 'name', '')
-                              }
-                            />
-                          )
+                          case 'rich_text':
+                            return (
+                              <TextField
+                                name={_.get(field, 'name')}
+                                label={_.get(field, 'name')}
+                              />
+                            )
 
-                        default:
-                          return <div>Field not found</div>
-                      }
-                    })()}
-                  </Grid>
-                </>
-              ))}
-            </Grid>
-            <Debug />
-            <div className="button-submit">
-              <Button variant="outlined" type="submit">
-                Validate
-              </Button>
+                          case 'select':
+                            return (
+                              <SelectField
+                                name={_.get(field, 'name')}
+                                label={_.get(field, 'name')}
+                                options={_.get(field, 'select.options', [])}
+                                getOptionLabel={(option) =>
+                                  _.get(option, 'name', '')
+                                }
+                              />
+                            )
+
+                          case 'multi_select':
+                            return (
+                              <MultiSelectField
+                                name={_.get(field, 'name')}
+                                label={_.get(field, 'name')}
+                                options={_.get(
+                                  field,
+                                  'multi_select.options',
+                                  []
+                                )}
+                                getOptionLabel={(option) =>
+                                  _.get(option, 'name', '')
+                                }
+                              />
+                            )
+
+                          default:
+                            return <div>Field not found</div>
+                        }
+                      })()}
+                    </Grid>
+                  </>
+                ))}
+              </Grid>
+              <Debug />
+              <div className="button-submit">
+                <Button variant="outlined" type="submit">
+                  Validate
+                </Button>
+                <Button
+                  onClick={() => logout({ returnTo: 'http://localhost:3000' })}
+                  variant="outlined"
+                >
+                  Logout
+                </Button>
+              </div>
             </div>
-          </div>
-        </form>
-      )}
-    />
+          </form>
+        )}
+      />
+    </>
   )
 }
 
