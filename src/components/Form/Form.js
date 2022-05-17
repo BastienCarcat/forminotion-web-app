@@ -39,7 +39,7 @@ const MainForm = () => {
   const [databaseInfo, setDatabaseInfo] = useState(null)
   const [loading, setLoading] = useState(false)
 
-  const { logout, user, isLoading } = useAuth0()
+  const { logout, isLoading } = useAuth0()
 
   const initialValues = useMemo(() => {
     const init = {}
@@ -63,24 +63,10 @@ const MainForm = () => {
     init()
   }, [])
 
-  useEffect(() => {
-    console.log('databaseInfo', databaseInfo)
-  }, [databaseInfo])
-
-  useEffect(() => {
-    console.log('user', user)
-  }, [user])
-
   const retrieveDatabaseInfo = async () => {
-    // const data = await axios({
-    //   method: 'GET',
-    //   url: 'notion/getDbInformations'
-    // })
     try {
       setLoading(true)
-      const data = await axios.get(
-        'https://forminotion-back.herokuapp.com/api/notion/getDbInformations'
-      )
+      const data = await axios.get('notion/getDbInformations')
 
       return data
     } catch (e) {
@@ -123,19 +109,10 @@ const MainForm = () => {
           }
         })
         .value()
-      await axios.post(
-        'https://forminotion-back.herokuapp.com/api/notion/createDbItem',
-        cleanDeep(fields)
-      )
+      await axios.post('notion/createDbItem', cleanDeep(fields))
     } catch (e) {
       console.eroor(e)
     }
-
-    // await axios({
-    //   method: 'POST',
-    //   url: 'notion/createDbItem',
-    //   data: cleanDeep(fields)
-    // })
   }
 
   if (loading || isLoading) return <CircularProgress />
