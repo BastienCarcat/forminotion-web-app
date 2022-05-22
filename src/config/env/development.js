@@ -1,8 +1,8 @@
 export const development = {
   baseUrl: 'http://localhost:8080/api/',
   auth0: {
-    domain: 'dev-bsnqztah.us.auth0.com',
-    clientId: 'mOnHPYAn9ElR6dZabe2EJAKIZ0pkNsWg',
-    audience: 'https://dev-bsnqztah.us.auth0.com/api/v2/'
+    domain: process.env.REACT_APP_AUTH0_DOMAIN,
+    clientId: process.env.REACT_APP_AUTH0_CLIENT_ID,
+    audience: process.env.REACT_APP_AUTH0_AUDIENCE
   }
 }

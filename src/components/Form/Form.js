@@ -39,7 +39,7 @@ const MainForm = () => {
   const [databaseInfo, setDatabaseInfo] = useState(null)
   const [loading, setLoading] = useState(false)
 
-  const { logout, isLoading } = useAuth0()
+  const { isAuthenticated } = useAuth0()
 
   const initialValues = useMemo(() => {
     const init = {}
@@ -115,7 +115,9 @@ const MainForm = () => {
     }
   }
 
-  if (loading || isLoading) return <CircularProgress />
+  if (loading) return <CircularProgress />
+
+  if (!isAuthenticated) return <div>Not connected</div>
 
   if (!databaseInfo) return <div>No database loaded</div>
 
@@ -208,12 +210,6 @@ const MainForm = () => {
               <div className="button-submit">
                 <Button variant="outlined" type="submit">
                   Validate
-                </Button>
-                <Button
-                  onClick={() => logout({ returnTo: 'http://localhost:3000' })}
-                  variant="outlined"
-                >
-                  Logout
                 </Button>
               </div>
             </div>

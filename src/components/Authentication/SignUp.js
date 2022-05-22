@@ -19,8 +19,15 @@ const LogIn = (props) => {
 
   return (
     <div className={classes.authentication}>
-      <Button onClick={loginWithRedirect} variant="outlined">
-        Login
+      <Button
+        onClick={() =>
+          loginWithRedirect({
+            screen_hint: 'signup'
+          })
+        }
+        variant="outlined"
+      >
+        Sign up
       </Button>
     </div>
   )
