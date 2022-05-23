@@ -13,7 +13,7 @@ code {
 }
 
 .forminotion {
-  height: 100vh;
+  min-height: 100vh;
   background-color: #051526;
   color: #fff;
 }

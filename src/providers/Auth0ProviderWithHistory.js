@@ -1,7 +1,7 @@
 import { Auth0Provider } from '@auth0/auth0-react'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { config } from '../../config'
+import { config } from '../config'
 
 const Auth0ProviderWithHistory = ({ children }) => {
   const navigate = useNavigate()

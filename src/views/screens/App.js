@@ -5,23 +5,22 @@ import axios from 'axios'
 import _ from 'lodash'
 import React, { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
-import AuthenticationButton from '../components/Authentication/Button'
-import Form from '../components/Form/Form'
-import { config } from '../config'
+import NavigationBar from '../components/AppBar/AppBar'
+import { config } from './../../config/index'
+import FormScreen from './Form'
+import HomeScreen from './Home'
 
 const useStyles = makeStyles({
-  root: {
+  main: {
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '100%',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    alignItems: 'center'
   }
 })
 
 const App = () => {
-  const { baseUrl } = config || {}
   const classes = useStyles()
+  const { baseUrl } = config || {}
   const { isAuthenticated, getAccessTokenSilently, isLoading, user } =
     useAuth0()
 
@@ -55,10 +54,11 @@ const App = () => {
   if (isLoading) return <CircularProgress />
 
   return (
-    <div className={classes.root}>
-      <AuthenticationButton />
+    <div className={classes.main}>
+      <NavigationBar />
       <Routes>
-        <Route path="/" element={<Form />} />
+        <Route path="/" element={<HomeScreen />} />
+        <Route path="/form" element={<FormScreen />} />
       </Routes>
     </div>
   )
