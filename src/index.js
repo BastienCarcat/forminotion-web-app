@@ -9,7 +9,29 @@ import App from './views/screens/App'
 const root = ReactDOM.createRoot(document.getElementById('root'))
 const theme = createTheme({
   palette: {
-    mode: 'dark'
+    mode: 'light',
+    primary: {
+      main: '#ff6726'
+    }
+  },
+  typography: {
+    fontFamily: 'DM Sans'
+  },
+  MuiTypography: {
+    defaultProps: {
+      variantMapping: {
+        h1: 'h1',
+        h2: 'h2',
+        h3: 'h3',
+        h4: 'h4',
+        h5: 'h5',
+        h6: 'h6',
+        subtitle1: 'h6',
+        subtitle2: 'h6',
+        body1: 'p',
+        body2: 'span'
+      }
+    }
   }
 })
 
