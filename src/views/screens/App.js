@@ -57,7 +57,7 @@ const App = () => {
     <div className={classes.main}>
       <NavigationBar />
       <Routes>
-        <Route path="/" element={<HomeScreen />} />
+        <Route index path="/" element={<HomeScreen />} />
         <Route path="/form" element={<FormScreen />} />
       </Routes>
     </div>

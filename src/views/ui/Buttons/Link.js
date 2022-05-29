@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
-import { colors } from '../../../tools/constants'
+import { colors, colorsRgb } from '../../../tools/constants'
 import clsx from 'clsx'
 import _ from 'lodash'
 
@@ -13,7 +13,10 @@ const useStyles = makeStyles({
     '& .text': {
       fontWeight: 600,
       fontSize: '16px',
-      color: colors.BLACK
+      color: colors.BLACK,
+      '&:hover': {
+        color: `rgb(${colorsRgb.BLACK}, 0.8)`
+      }
     }
   }
 })

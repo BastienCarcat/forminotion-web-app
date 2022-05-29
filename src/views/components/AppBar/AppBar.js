@@ -1,21 +1,24 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import {
   AppBar,
+  Avatar,
+  Fade,
+  Popper,
   Slide,
   Toolbar,
-  useScrollTrigger,
-  Button as ButtonMat
+  useScrollTrigger
 } from '@mui/material'
 import { makeStyles } from '@mui/styles'
-import React from 'react'
+import _ from 'lodash'
+import React, { useState } from 'react'
 import LinkButton from '../../ui/Buttons/Link'
 import { colors } from './../../../tools/constants'
 import Button from './../../ui/Buttons/Button'
+import UserPopper from './Menus/User'
 
 const useStyles = makeStyles({
   root: {
     width: '100%',
-    zIndex: 900,
     '& .MuiAppBar-root': {
       backgroundColor: '#FFF',
       boxShadow: 'none',
@@ -39,18 +42,39 @@ const useStyles = makeStyles({
         display: 'flex',
         justifyContent: 'flex-end',
 
-        '& .button': {
-          margin: '0 15px'
+        '& .avatar': {
+          marginRight: '8px',
+          width: '30px',
+          height: '30px'
         }
       }
     }
+  },
+  popper: {
+    zIndex: 1200
   }
 })
 
 const NavigationBar = (props) => {
+  const popperEntities = Object.freeze({ NONE: 0, USER: 1 })
+  const [popperOpened, setPopperOpened] = useState(popperEntities.NONE)
+  const [anchorEl, setAnchorEl] = useState(null)
+
   const classes = useStyles()
-  const { loginWithRedirect, isAuthenticated, logout } = useAuth0()
+
+  const { loginWithRedirect, isAuthenticated, user } = useAuth0()
   const trigger = useScrollTrigger()
+
+  const handleOpenPopper = (entity) => (event) => {
+    setAnchorEl(event.currentTarget)
+    setPopperOpened(_.get(popperEntities, entity))
+  }
+
+  const handleClickAway = () => {
+    setAnchorEl(null)
+    setPopperOpened(popperEntities.NONE)
+  }
+
   return (
     <div className={classes.root}>
       <Slide in={!trigger}>
@@ -66,18 +90,16 @@ const NavigationBar = (props) => {
 
               <div className="authentication">
                 {isAuthenticated ? (
-                  <>
-                    <ButtonMat
-                      onClick={() =>
-                        logout({
-                          returnTo: window.location.origin
-                        })
-                      }
-                      variant="text"
-                    >
-                      Logout
-                    </ButtonMat>
-                  </>
+                  <Button onClick={handleOpenPopper('USER')} variant="text">
+                    <>
+                      <Avatar
+                        className="avatar"
+                        sizes="6px"
+                        src={_.get(user, 'picture')}
+                      />
+                      <div>{_.get(user, 'nickname')}</div>
+                    </>
+                  </Button>
                 ) : (
                   <>
                     <Button
@@ -101,6 +123,29 @@ const NavigationBar = (props) => {
           </Toolbar>
         </AppBar>
       </Slide>
+
+      <Popper
+        className={classes.popper}
+        open={!trigger && popperOpened !== 0}
+        anchorEl={anchorEl}
+        transition
+      >
+        {({ TransitionProps }) => (
+          <Fade {...TransitionProps} timeout={200}>
+            <div>
+              {(() => {
+                switch (popperOpened) {
+                  case popperEntities.USER:
+                    return <UserPopper onClickAway={handleClickAway} />
+
+                  default:
+                    return <div>default</div>
+                }
+              })()}
+            </div>
+          </Fade>
+        )}
+      </Popper>
     </div>
   )
 }
