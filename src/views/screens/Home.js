@@ -5,6 +5,7 @@ import { colors } from './../../tools/constants'
 
 const useStyles = makeStyles({
   home: {
+    paddingTop: '64px',
     height: '300vh',
     width: '100%',
     display: 'flex',

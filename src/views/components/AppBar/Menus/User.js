@@ -11,6 +11,7 @@ import {
 import { makeStyles } from '@mui/styles'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const useStyles = makeStyles({
   root: {
@@ -35,26 +36,33 @@ const useStyles = makeStyles({
   }
 })
 
-const UserPopper = ({ onClickAway }) => {
+const UserPopper = ({ closePopper }) => {
   const classes = useStyles()
 
   const { logout } = useAuth0()
+  const navigate = useNavigate()
+
+  const handleNavigate = (path) => {
+    closePopper()
+    navigate(path)
+  }
+
+  const handleLogout = () => {
+    closePopper()
+    logout({
+      returnTo: window.location.origin
+    })
+  }
 
   return (
-    <ClickAwayListener onClickAway={onClickAway}>
+    <ClickAwayListener onClickAway={closePopper}>
       <div>
         <MenuList className={classes.root}>
-          <MenuItem>
-            <ListItemText>Profile</ListItemText>
+          <MenuItem onClick={() => handleNavigate('/forms')}>
+            <ListItemText>My forms</ListItemText>
           </MenuItem>
           <Divider />
-          <MenuItem
-            onClick={() =>
-              logout({
-                returnTo: window.location.origin
-              })
-            }
-          >
+          <MenuItem onClick={handleLogout}>
             <ListItemIcon>
               <Logout />
             </ListItemIcon>
@@ -67,7 +75,7 @@ const UserPopper = ({ onClickAway }) => {
 }
 
 UserPopper.propTypes = {
-  onClickAway: PropTypes.func
+  closePopper: PropTypes.func
 }
 
 export default UserPopper

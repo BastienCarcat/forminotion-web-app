@@ -9,6 +9,7 @@ import NavigationBar from '../components/AppBar/AppBar'
 import { config } from './../../config/index'
 import FormScreen from './Form'
 import HomeScreen from './Home'
+import FormsListScreen from './Forms'
 
 const useStyles = makeStyles({
   main: {
@@ -59,6 +60,7 @@ const App = () => {
       <Routes>
         <Route index path="/" element={<HomeScreen />} />
         <Route path="/form" element={<FormScreen />} />
+        <Route path="/forms" element={<FormsListScreen />} />
       </Routes>
     </div>
   )

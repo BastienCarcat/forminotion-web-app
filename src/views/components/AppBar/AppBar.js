@@ -70,7 +70,7 @@ const NavigationBar = (props) => {
     setPopperOpened(_.get(popperEntities, entity))
   }
 
-  const handleClickAway = () => {
+  const handleClosePopper = () => {
     setAnchorEl(null)
     setPopperOpened(popperEntities.NONE)
   }
@@ -136,7 +136,7 @@ const NavigationBar = (props) => {
               {(() => {
                 switch (popperOpened) {
                   case popperEntities.USER:
-                    return <UserPopper onClickAway={handleClickAway} />
+                    return <UserPopper closePopper={handleClosePopper} />
 
                   default:
                     return <div>default</div>
