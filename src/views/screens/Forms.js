@@ -2,11 +2,15 @@ import { withAuthenticationRequired } from '@auth0/auth0-react'
 import { CircularProgress } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import React from 'react'
-import Forms from '../components/Forms/Forms'
+import Forms from '../components/Forms/List'
 
 const useStyles = makeStyles({
   root: {
-    paddingTop: '64px'
+    paddingTop: '64px',
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
   }
 })
 

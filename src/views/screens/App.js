@@ -2,12 +2,12 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { CircularProgress } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import axios from 'axios'
-import _ from 'lodash'
 import React, { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import NavigationBar from '../components/AppBar/AppBar'
 import { config } from './../../config/index'
 import FormScreen from './Form'
+import _ from 'lodash'
 import HomeScreen from './Home'
 import FormsListScreen from './Forms'
 
@@ -34,19 +34,35 @@ const App = () => {
           axios.defaults.headers.common[
             'Authorization'
           ] = `Bearer ${accessToken}`
+          axios.defaults.headers.common['sub'] = user.sub || null
+          console.log('resetToken', accessToken)
         }
       } catch (e) {
         console.error('getAccessTokenSilently', e)
       }
     }
-    if (isAuthenticated) {
+    const body = localStorage.getItem('body')
+
+    if (isAuthenticated && !_.get(body, 'access_token')) {
       getToken()
-      axios.defaults.headers.common['sub'] = _.get(user, 'sub', null)
-    } else {
-      axios.defaults.headers.common['Authorization'] = null
-      axios.defaults.headers.common['sub'] = null
     }
-  }, [isAuthenticated, getAccessTokenSilently, user])
+    // console.log('token')
+
+    // }
+    // else {
+    //   console.log('here')
+    //   axios.defaults.headers.common['Authorization'] = null
+    //   axios.defaults.headers.common['sub'] = null
+    // }
+  }, [getAccessTokenSilently, user?.sub, isAuthenticated])
+
+  useEffect(() => {
+    console.log('isAuthenticated', isAuthenticated)
+  }, [isAuthenticated])
+
+  useEffect(() => {
+    console.log('user', user)
+  }, [user])
 
   useEffect(() => {
     axios.defaults.baseURL = baseUrl
@@ -59,8 +75,8 @@ const App = () => {
       <NavigationBar />
       <Routes>
         <Route index path="/" element={<HomeScreen />} />
-        <Route path="/form" element={<FormScreen />} />
         <Route path="/forms" element={<FormsListScreen />} />
+        <Route path="/forms/:idForm" element={<FormScreen />} />
       </Routes>
     </div>
   )

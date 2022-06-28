@@ -10,7 +10,7 @@ import {
 } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import _ from 'lodash'
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import LinkButton from '../../ui/Buttons/Link'
 import { colors } from './../../../tools/constants'
 import Button from './../../ui/Buttons/Button'
@@ -65,6 +65,17 @@ const NavigationBar = (props) => {
   const { loginWithRedirect, isAuthenticated, user } = useAuth0()
   const trigger = useScrollTrigger()
 
+  const login = useCallback(
+    async (opt = {}) => {
+      try {
+        await loginWithRedirect({ ...opt })
+      } catch (e) {
+        console.error(e)
+      }
+    },
+    [loginWithRedirect]
+  )
+
   const handleOpenPopper = (entity) => (event) => {
     setAnchorEl(event.currentTarget)
     setPopperOpened(_.get(popperEntities, entity))
@@ -102,14 +113,10 @@ const NavigationBar = (props) => {
                   </Button>
                 ) : (
                   <>
-                    <Button
-                      onClick={loginWithRedirect}
-                      variant="text"
-                      title="Login"
-                    />
+                    <Button onClick={login} variant="text" title="Login" />
                     <Button
                       onClick={() =>
-                        loginWithRedirect({
+                        login({
                           screen_hint: 'signup'
                         })
                       }

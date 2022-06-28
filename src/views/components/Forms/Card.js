@@ -4,6 +4,7 @@ import React from 'react'
 import { colors } from '../../../tools/constants'
 import { PropTypes } from 'prop-types'
 import _ from 'lodash'
+import { useNavigate } from 'react-router-dom'
 
 const useStyles = makeStyles({
   card: {
@@ -17,10 +18,17 @@ const useStyles = makeStyles({
 
 const FormCard = ({ form }) => {
   const classes = useStyles()
+
+  const navigate = useNavigate()
+
+  const handleClickCard = () => {
+    navigate(`/forms/${_.get(form, 'idForm')}`)
+  }
+
   return (
     <div>
       <Card className={classes.card}>
-        <CardActionArea sx={{ flex: 1 }}>
+        <CardActionArea sx={{ flex: 1 }} onClick={handleClickCard}>
           <CardContent sx={{ padding: '0 0 0 10px' }}>
             <Typography
               variant="body2"
@@ -29,7 +37,7 @@ const FormCard = ({ form }) => {
               {_.get(form, 'title')}
             </Typography>
             <Typography variant="body2" sx={{ color: colors.LIGHT_GRAY }}>
-              {_.get(form, 'description', 'test')}
+              {_.get(form, 'description')}
             </Typography>
           </CardContent>
         </CardActionArea>
