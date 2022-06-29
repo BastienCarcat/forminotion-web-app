@@ -10,6 +10,7 @@ import FormScreen from './Form'
 import _ from 'lodash'
 import HomeScreen from './Home'
 import FormsListScreen from './Forms'
+import FormEditionScreen from "./FormEdition";
 
 const useStyles = makeStyles({
   main: {
@@ -77,6 +78,7 @@ const App = () => {
         <Route index path="/" element={<HomeScreen />} />
         <Route path="/forms" element={<FormsListScreen />} />
         <Route path="/forms/:idForm" element={<FormScreen />} />
+        <Route path="/edition" element={<FormEditionScreen />} />
       </Routes>
     </div>
   )

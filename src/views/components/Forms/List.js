@@ -5,6 +5,7 @@ import FormCard from './Card'
 import axios from 'axios'
 import _ from 'lodash'
 import Button from '../../ui/Buttons/Button'
+import {useNavigate} from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -32,6 +33,8 @@ const Forms = (props) => {
   const [loading, setLoading] = useState(false)
   const [forms, setForms] = useState([])
 
+  const navigate = useNavigate()
+
   useEffect(() => {
     getForms()
   }, [])
@@ -49,6 +52,10 @@ const Forms = (props) => {
     }
   }
 
+  const handleCreateForm = () => {
+    navigate('/edition')
+  }
+
   // useEffect(() => {
   //   console.log('forms', forms)
   // }, [forms])
@@ -58,7 +65,7 @@ const Forms = (props) => {
       <div className="header">
         <Typography variant="h2">My forms</Typography>
         <div>
-          <Button title="Create new form" variant="contained" />
+          <Button title="Create new form" variant="contained" onClick={handleCreateForm} />
         </div>
       </div>
       <div className="list">
