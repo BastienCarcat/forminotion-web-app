@@ -1,29 +1,11 @@
 import React from 'react'
-import { makeStyles } from '@mui/styles'
-import { Typography } from '@mui/material'
-import { colors } from './../../tools/constants'
 
-const useStyles = makeStyles({
-  home: {
-    paddingTop: '64px',
-    height: '300vh',
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    '& > h2': {
-      fontWeight: '900',
-      fontSize: '50px',
-      color: colors.BLACK
-    }
-  }
-})
-
-const HomeScreen = (props) => {
-  const classes = useStyles()
+const HomeScreen = props => {
   return (
-    <div className={classes.home}>
-      <Typography variant="h2">Home page !</Typography>
+    <div className="pt-16 h-[300vh] w-full flex justify-center items-center">
+      <div className="font-black text-5xl text-neutral-900 font-main">
+        Home page !
+      </div>
     </div>
   )
 }

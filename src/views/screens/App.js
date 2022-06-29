@@ -1,6 +1,4 @@
 import { useAuth0 } from '@auth0/auth0-react'
-import { CircularProgress } from '@mui/material'
-import { makeStyles } from '@mui/styles'
 import axios from 'axios'
 import React, { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
@@ -10,21 +8,17 @@ import FormScreen from './Form'
 import _ from 'lodash'
 import HomeScreen from './Home'
 import FormsListScreen from './Forms'
-import FormEditionScreen from "./FormEdition";
-
-const useStyles = makeStyles({
-  main: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center'
-  }
-})
+import FormEditionScreen from './FormEdition'
+import Loader from '../ui/Globals/Loader'
 
 const App = () => {
-  const classes = useStyles()
   const { baseUrl } = config || {}
-  const { isAuthenticated, getAccessTokenSilently, isLoading, user } =
-    useAuth0()
+  const {
+    isAuthenticated,
+    getAccessTokenSilently,
+    isLoading,
+    user
+  } = useAuth0()
 
   useEffect(() => {
     async function getToken() {
@@ -69,10 +63,10 @@ const App = () => {
     axios.defaults.baseURL = baseUrl
   }, [baseUrl])
 
-  if (isLoading) return <CircularProgress />
+  if (isLoading) return <Loader />
 
   return (
-    <div className={classes.main}>
+    <div className="flex flex-col items-center">
       <NavigationBar />
       <Routes>
         <Route index path="/" element={<HomeScreen />} />
