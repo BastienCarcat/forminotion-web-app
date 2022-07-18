@@ -1,40 +1,16 @@
 import { useAuth0 } from '@auth0/auth0-react'
-import { Button, CircularProgress, Grid } from '@mui/material'
-import { makeStyles } from '@mui/styles'
 import axios from 'axios'
 import cleanDeep from 'clean-deep'
 import _ from 'lodash'
-import { Debug } from 'mui-rff'
 import React, { useEffect, useMemo, useState } from 'react'
-import { Form, Field } from 'react-final-form'
-import MultiSelectField from './Fields/MultiSelect'
+import { Form } from 'react-final-form'
 import NumberField from './Fields/Number'
 import SelectField from './Fields/Select'
 import SwitchField from './Fields/Switch'
 import TextField from './Fields/Text'
-
-const useStyles = makeStyles({
-  form: {
-    width: '50vw',
-    '& .grid-container': {
-      '& > .MuiGrid-item': {
-        padding: '10px'
-      },
-      '& .switch': {
-        display: 'flex',
-        justifyContent: 'center'
-      }
-    },
-    '& .button-submit': {
-      display: 'flex',
-      justifyContent: 'space-between',
-      padding: '10px'
-    }
-  }
-})
+import Loader from '../../ui/Globals/Loader'
 
 const MainForm = () => {
-  const classes = useStyles()
   //TODO: put databaseInfo in a context
   const [databaseInfo, setDatabaseInfo] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -115,7 +91,7 @@ const MainForm = () => {
     }
   }
 
-  if (loading) return <CircularProgress />
+  if (loading) return <Loader />
 
   if (!isAuthenticated) return <div>Not connected</div>
 
@@ -129,60 +105,56 @@ const MainForm = () => {
         initialValues={initialValues}
         render={({ handleSubmit }) => (
           <form onSubmit={handleSubmit}>
-            <div className={classes.form}>
-              <Grid container className="grid-container">
-                {_.map(_.values(databaseInfo), (field, key) => (
-                  <>
-                    <Grid item xs={12}>
-                      {(() => {
-                        switch (_.get(field, 'type')) {
-                          case 'title':
-                            return (
-                              <TextField
-                                name={_.get(field, 'name')}
-                                label={_.get(field, 'name')}
-                              />
-                            )
+            <div className="w-96">
+              {_.map(_.values(databaseInfo), (field, key) => (
+                <div className="py-2">
+                  {(() => {
+                    switch (_.get(field, 'type')) {
+                      case 'title':
+                        return (
+                          <TextField
+                            name={_.get(field, 'name')}
+                            label={_.get(field, 'name')}
+                          />
+                        )
 
-                          case 'number':
-                            return (
-                              <NumberField
-                                name={_.get(field, 'name')}
-                                label={_.get(field, 'name')}
-                              />
-                            )
+                      case 'number':
+                        return (
+                          <NumberField
+                            name={_.get(field, 'name')}
+                            label={_.get(field, 'name')}
+                          />
+                        )
 
-                          case 'checkbox':
-                            return (
-                              <div className="switch">
-                                <SwitchField
-                                  name={_.get(field, 'name')}
-                                  label={_.get(field, 'name')}
-                                />
-                              </div>
-                            )
+                      case 'checkbox':
+                        return (
+                          <div className="flex justify-center">
+                            <SwitchField
+                              name={_.get(field, 'name')}
+                              label={_.get(field, 'name')}
+                            />
+                          </div>
+                        )
 
-                          case 'rich_text':
-                            return (
-                              <TextField
-                                name={_.get(field, 'name')}
-                                label={_.get(field, 'name')}
-                              />
-                            )
+                      case 'rich_text':
+                        return (
+                          <TextField
+                            name={_.get(field, 'name')}
+                            label={_.get(field, 'name')}
+                          />
+                        )
 
-                          case 'select':
-                            return (
-                              <SelectField
-                                name={_.get(field, 'name')}
-                                label={_.get(field, 'name')}
-                                options={_.get(field, 'select.options', [])}
-                                getOptionLabel={option =>
-                                  _.get(option, 'name', '')
-                                }
-                              />
-                            )
+                      case 'select':
+                        return (
+                          <SelectField
+                            name={_.get(field, 'name')}
+                            label={_.get(field, 'name')}
+                            options={_.get(field, 'select.options', [])}
+                            getOptionLabel={option => _.get(option, 'name', '')}
+                          />
+                        )
 
-                          /*  case 'multi_select':
+                      /*  case 'multi_select':
                             return (
                               <MultiSelectField
                                 name={_.get(field, 'name')}
@@ -198,19 +170,19 @@ const MainForm = () => {
                               />
                             )*/
 
-                          default:
-                            return <div>Field not found</div>
-                        }
-                      })()}
-                    </Grid>
-                  </>
-                ))}
-              </Grid>
-              <Debug />
-              <div className="button-submit">
-                <Button variant="outlined" type="submit">
+                      default:
+                        return <div>Field not found</div>
+                    }
+                  })()}
+                </div>
+              ))}
+              <div className="flex p-2 justify-end">
+                <button
+                  type="submit"
+                  className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
                   Validate
-                </Button>
+                </button>
               </div>
             </div>
           </form>

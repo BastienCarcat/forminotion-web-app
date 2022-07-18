@@ -1,19 +1,11 @@
 import { withAuthenticationRequired } from '@auth0/auth0-react'
-import { CircularProgress } from '@mui/material'
-import { makeStyles } from '@mui/styles'
 import React from 'react'
 import MainForm from '../components/Form/Form'
+import Loader from '../ui/Globals/Loader'
 
-const useStyles = makeStyles({
-  root: {
-    paddingTop: '64px'
-  }
-})
-
-const FormScreen = (props) => {
-  const classes = useStyles()
+const FormScreen = props => {
   return (
-    <div className={classes.root}>
+    <div className="pt-16">
       <MainForm />
     </div>
   )
@@ -22,5 +14,5 @@ const FormScreen = (props) => {
 FormScreen.propTypes = {}
 
 export default withAuthenticationRequired(FormScreen, {
-  onRedirecting: () => <CircularProgress />
+  onRedirecting: () => <Loader />
 })
