@@ -1,35 +1,11 @@
-import {CircularProgress, Typography} from '@mui/material'
-import { makeStyles } from '@mui/styles'
 import React, { useEffect, useState } from 'react'
 import FormCard from './Card'
 import axios from 'axios'
 import _ from 'lodash'
-import Button from '../../ui/Buttons/Button'
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from 'react-router-dom'
+import Loader from '../../ui/Globals/Loader'
 
-const useStyles = makeStyles({
-  root: {
-    paddingTop: '100px',
-    width: '1200px',
-    '& .header': {
-      display: 'flex',
-      justifyContent: 'space-between',
-      paddingBottom: '20px',
-      alignItems: 'center'
-    },
-    '& .list': {
-      display: 'flex',
-      justifyContent: 'center',
-      '& .card': {
-        padding: '0 30px'
-      }
-    }
-  }
-})
-
-const Forms = (props) => {
-  const classes = useStyles()
-
+const Forms = props => {
   const [loading, setLoading] = useState(false)
   const [forms, setForms] = useState([])
 
@@ -56,29 +32,32 @@ const Forms = (props) => {
     navigate('/edition')
   }
 
-  // useEffect(() => {
-  //   console.log('forms', forms)
-  // }, [forms])
-
   return (
-    <div className={classes.root}>
-      <div className="header">
-        <Typography variant="h2">My forms</Typography>
+    <div>
+      <div className="px-4 py-5 sm:px-6 flex justify-between w-full items-center">
+        <h2 className="text-2xl font-bold">My forms</h2>
+        <button
+          onClick={handleCreateForm}
+          type="button"
+          className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+        >
+          Create new form
+        </button>
+      </div>
+      {loading ? (
+        <Loader classes={{ root: 'mt-36' }} />
+      ) : (
         <div>
-          <Button title="Create new form" variant="contained" onClick={handleCreateForm} />
+          <ul
+            role="list"
+            className="mx-6 my-5 sm:mx-8 mt-3 flex flex-wrap justify-center"
+          >
+            {_.map([...forms, ...forms, ...forms], (form, key) => (
+              <FormCard form={form} key={key} />
+            ))}
+          </ul>
         </div>
-      </div>
-      <div className="list">
-        {loading ? (
-          <CircularProgress />
-        ) : (
-          _.map(forms, (form) => (
-            <div className="card">
-              <FormCard form={form} />
-            </div>
-          ))
-        )}
-      </div>
+      )}
     </div>
   )
 }

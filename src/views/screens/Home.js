@@ -2,7 +2,7 @@ import React from 'react'
 
 const HomeScreen = props => {
   return (
-    <div className="pt-16 h-[300vh] w-full flex justify-center items-center">
+    <div className="pt-16 h-[200vh] w-full flex justify-center items-center">
       <div className="font-black text-5xl text-neutral-900 font-main">
         Home page !
       </div>

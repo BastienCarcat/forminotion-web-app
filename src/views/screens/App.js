@@ -30,7 +30,6 @@ const App = () => {
             'Authorization'
           ] = `Bearer ${accessToken}`
           axios.defaults.headers.common['sub'] = user.sub || null
-          console.log('resetToken', accessToken)
         }
       } catch (e) {
         console.error('getAccessTokenSilently', e)
@@ -52,14 +51,6 @@ const App = () => {
   }, [getAccessTokenSilently, user?.sub, isAuthenticated])
 
   useEffect(() => {
-    console.log('isAuthenticated', isAuthenticated)
-  }, [isAuthenticated])
-
-  useEffect(() => {
-    console.log('user', user)
-  }, [user])
-
-  useEffect(() => {
     axios.defaults.baseURL = baseUrl
   }, [baseUrl])
 
@@ -73,6 +64,7 @@ const App = () => {
         <Route path="/forms" element={<FormsListScreen />} />
         <Route path="/forms/:idForm" element={<FormScreen />} />
         <Route path="/edition" element={<FormEditionScreen />} />
+        <Route path="/pricing" element={<HomeScreen />} />
       </Routes>
     </div>
   )

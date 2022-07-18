@@ -1,73 +1,16 @@
 import { useAuth0 } from '@auth0/auth0-react'
-import {
-  AppBar,
-  Avatar,
-  Fade,
-  Popper,
-  Slide,
-  Toolbar,
-  useScrollTrigger
-} from '@mui/material'
-import { makeStyles } from '@mui/styles'
 import _ from 'lodash'
-import React, { useCallback, useState } from 'react'
-import LinkButton from '../../ui/Buttons/Link'
-import { colors } from './../../../tools/constants'
-import Button from './../../ui/Buttons/Button'
-import UserPopper from './Menus/User'
-import { Fragment } from 'react'
+import React, { Fragment, useCallback } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import { PlusSmIcon } from '@heroicons/react/solid'
-
-const useStyles = makeStyles({
-  root: {
-    width: '100%',
-    '& .MuiAppBar-root': {
-      backgroundColor: '#FFF',
-      boxShadow: 'none',
-      borderBottom: `1px solid ${colors.LIGHT_GRAY}`
-    },
-    '& .nav-bar': {
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      width: '100%',
-      '& .logo': {
-        flex: 1
-      },
-      '& .navigation': {
-        flex: 1,
-        display: 'flex',
-        justifyContent: 'center'
-      },
-      '& .authentication': {
-        flex: 1,
-        display: 'flex',
-        justifyContent: 'flex-end',
-
-        '& .avatar': {
-          marginRight: '8px',
-          width: '30px',
-          height: '30px'
-        }
-      }
-    }
-  },
-  popper: {
-    zIndex: 1200
-  }
-})
+import clsx from 'clsx'
 
 const NavigationBar = props => {
-  const popperEntities = Object.freeze({ NONE: 0, USER: 1 })
-  const [popperOpened, setPopperOpened] = useState(popperEntities.NONE)
-  const [anchorEl, setAnchorEl] = useState(null)
-
-  const classes = useStyles()
-
-  const { loginWithRedirect, isAuthenticated, user } = useAuth0()
-  const trigger = useScrollTrigger()
+  const { loginWithRedirect, isAuthenticated, user, logout } = useAuth0()
+  const navigate = useNavigate()
+  const location = useLocation()
 
   const login = useCallback(
     async (opt = {}) => {
@@ -80,294 +23,223 @@ const NavigationBar = props => {
     [loginWithRedirect]
   )
 
-  const handleOpenPopper = entity => event => {
-    setAnchorEl(event.currentTarget)
-    setPopperOpened(_.get(popperEntities, entity))
+  const handleNavigate = path => {
+    navigate(path)
   }
 
-  const handleClosePopper = () => {
-    setAnchorEl(null)
-    setPopperOpened(popperEntities.NONE)
-  }
-
-  function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
+  const handleLogout = () => {
+    logout({
+      returnTo: window.location.origin
+    })
   }
 
   return (
-    /*<div className="w-full">
-      <Slide in={!trigger}>
-        <AppBar>
-          <Toolbar>
-            <div className="nav-bar">
-              <div className="logo">
-                <LinkButton to="/" title="Forminotion" />
-              </div>
-              <div className="navigation">
-                <LinkButton to="form" title="Create form" />
-              </div>
-
-              <div className="authentication">
-                {isAuthenticated ? (
-                  <Button onClick={handleOpenPopper('USER')} variant="text">
-                    <>
-                      <Avatar
-                        className="avatar"
-                        sizes="6px"
-                        src={_.get(user, 'picture')}
-                      />
-                      <div>{_.get(user, 'nickname')}</div>
-                    </>
-                  </Button>
-                ) : (
-                  <>
-                    <Button onClick={login} variant="text" title="Login" />
-                    <Button
-                      onClick={() =>
-                        login({
-                          screen_hint: 'signup'
-                        })
-                      }
-                      variant="outlined"
-                      title="Try for free"
-                    />
-                  </>
-                )}
-              </div>
-            </div>
-          </Toolbar>
-        </AppBar>
-      </Slide>
-
-      <Popper
-        className={classes.popper}
-        open={!trigger && popperOpened !== 0}
-        anchorEl={anchorEl}
-        transition
-      >
-        {({ TransitionProps }) => (
-          <Fade {...TransitionProps} timeout={200}>
-            <div>
-              {(() => {
-                switch (popperOpened) {
-                  case popperEntities.USER:
-                    return <UserPopper closePopper={handleClosePopper} />
-
-                  default:
-                    return <div>default</div>
-                }
-              })()}
-            </div>
-          </Fade>
-        )}
-      </Popper>
-    </div>*/
-    <Disclosure as="nav" className="bg-white shadow w-full">
-      {({ open }) => (
-        <>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between h-16">
-              <div className="flex">
-                <div className="-ml-2 mr-2 flex items-center md:hidden">
-                  {/* Mobile menu button */}
-                  <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
-                    <span className="sr-only">Open main menu</span>
-                    {open ? (
-                      <XIcon className="block h-6 w-6" aria-hidden="true" />
-                    ) : (
-                      <MenuIcon className="block h-6 w-6" aria-hidden="true" />
-                    )}
-                  </Disclosure.Button>
-                </div>
-                <div className="font-main flex items-center font-bold">
-                  Forminotion
-                </div>
-                <div className="hidden md:ml-6 md:flex md:space-x-8">
-                  {/* Current: "border-primary text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" */}
-                  <a
-                    href="#"
-                    className="border-primary text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                  >
-                    Pricing
-                  </a>
-                </div>
-              </div>
-              <div className="flex items-center">
-                <div className="flex-shrink-0">
-                  <button
-                    type="button"
-                    className="relative inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary shadow-sm hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-                  >
-                    <PlusSmIcon
-                      className="-ml-1 mr-2 h-5 w-5"
-                      aria-hidden="true"
-                    />
-                    <span>Create form</span>
-                  </button>
-                </div>
-                <div className="hidden md:ml-4 md:flex-shrink-0 md:flex md:items-center">
-                  <button
-                    type="button"
-                    className="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-                  >
-                    <span className="sr-only">View notifications</span>
-                    <BellIcon className="h-6 w-6" aria-hidden="true" />
-                  </button>
-
-                  {/* Profile dropdown */}
-                  <Menu as="div" className="ml-3 relative">
-                    <div>
-                      <Menu.Button className="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-                        <span className="sr-only">Open user menu</span>
-                        <img
-                          className="h-8 w-8 rounded-full"
-                          src={_.get(user, 'picture')}
-                          alt=""
+    <>
+      <Disclosure as="nav" className="bg-white shadow w-full">
+        {({ open }) => (
+          <>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="flex justify-between h-16">
+                <div className="flex">
+                  <div className="-ml-2 mr-2 flex items-center md:hidden">
+                    {/* Mobile menu button */}
+                    <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary">
+                      <span className="sr-only">Open main menu</span>
+                      {open ? (
+                        <XIcon className="block h-6 w-6" aria-hidden="true" />
+                      ) : (
+                        <MenuIcon
+                          className="block h-6 w-6"
+                          aria-hidden="true"
                         />
-                      </Menu.Button>
-                    </div>
-                    <Transition
-                      as={Fragment}
-                      enter="transition ease-out duration-200"
-                      enterFrom="transform opacity-0 scale-95"
-                      enterTo="transform opacity-100 scale-100"
-                      leave="transition ease-in duration-75"
-                      leaveFrom="transform opacity-100 scale-100"
-                      leaveTo="transform opacity-0 scale-95"
+                      )}
+                    </Disclosure.Button>
+                  </div>
+                  <div className="font-main flex items-center font-bold">
+                    <Link to="/">Forminotion</Link>
+                  </div>
+                  <div className="hidden md:ml-6 md:flex md:space-x-8">
+                    {/* Current: "border-primary text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" */}
+                    <button
+                      onClick={() => handleNavigate('pricing')}
+                      className={clsx(
+                        'inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium',
+                        _.get(location, 'pathname') === '/pricing'
+                          ? 'border-primary text-gray-900'
+                          : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
+                      )}
                     >
-                      <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                        <Menu.Item>
-                          {({ active }) => (
-                            <a
-                              href="#"
-                              className={classNames(
-                                active ? 'bg-gray-100' : '',
-                                'block px-4 py-2 text-sm text-gray-700 border-b border-gray-200'
-                              )}
-                            >
-                              {_.get(user, 'nickname')}
-                            </a>
-                          )}
-                        </Menu.Item>
-                        <Menu.Item>
-                          {({ active }) => (
-                            <a
-                              href="#"
-                              className={classNames(
-                                active ? 'bg-gray-100' : '',
-                                'block px-4 py-2 text-sm text-gray-700'
-                              )}
-                            >
-                              Settings
-                            </a>
-                          )}
-                        </Menu.Item>
-                        <Menu.Item>
-                          {({ active }) => (
-                            <a
-                              href="#"
-                              className={classNames(
-                                active ? 'bg-gray-100' : '',
-                                'block px-4 py-2 text-sm text-gray-700'
-                              )}
-                            >
-                              Sign out
-                            </a>
-                          )}
-                        </Menu.Item>
-                      </Menu.Items>
-                    </Transition>
-                  </Menu>
+                      Pricing
+                    </button>
+                  </div>
+                </div>
+                <div className="flex items-center">
+                  {isAuthenticated ? (
+                    <>
+                      <div className="flex-shrink-0">
+                        <button
+                          type="button"
+                          onClick={() => navigate('/form')}
+                          className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-primary hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                        >
+                          <PlusSmIcon
+                            className="-ml-1 mr-2 h-5 w-5"
+                            aria-hidden="true"
+                          />
+                          <span>Create form</span>
+                        </button>
+                      </div>
+                      <div className="hidden md:ml-4 md:flex-shrink-0 md:flex md:items-center">
+                        {/* Profile dropdown */}
+                        <Menu as="div" className="ml-3 relative">
+                          <div>
+                            <Menu.Button className="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                              <span className="sr-only">Open user menu</span>
+                              <img
+                                className="h-8 w-8 rounded-full"
+                                src={_.get(user, 'picture')}
+                                alt=""
+                              />
+                            </Menu.Button>
+                          </div>
+                          <Transition
+                            as={Fragment}
+                            enter="transition ease-out duration-200"
+                            enterFrom="transform opacity-0 scale-95"
+                            enterTo="transform opacity-100 scale-100"
+                            leave="transition ease-in duration-75"
+                            leaveFrom="transform opacity-100 scale-100"
+                            leaveTo="transform opacity-0 scale-95"
+                          >
+                            <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                              <Menu.Item>
+                                {({ active }) => (
+                                  <a
+                                    href="#"
+                                    className={clsx(
+                                      'block px-4 py-2 text-sm text-gray-700 border-b border-gray-200',
+                                      active ? 'bg-gray-100' : ''
+                                    )}
+                                  >
+                                    {_.get(user, 'nickname')}
+                                  </a>
+                                )}
+                              </Menu.Item>
+                              <Menu.Item>
+                                {({ active }) => (
+                                  <button
+                                    onClick={() => handleNavigate('/forms')}
+                                    className={clsx(
+                                      'flex px-4 py-2 text-sm text-gray-700 w-full',
+                                      active ? 'bg-gray-100' : ''
+                                    )}
+                                  >
+                                    My forms
+                                  </button>
+                                )}
+                              </Menu.Item>
+                              <Menu.Item>
+                                {({ active }) => (
+                                  <button
+                                    onClick={handleLogout}
+                                    className={clsx(
+                                      'flex px-4 py-2 text-sm text-gray-700 w-full',
+                                      active ? 'bg-gray-100' : ''
+                                    )}
+                                  >
+                                    Sign out
+                                  </button>
+                                )}
+                              </Menu.Item>
+                            </Menu.Items>
+                          </Transition>
+                        </Menu>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        onClick={login}
+                        type="button"
+                        className="inline-flex items-center mx-2 px-2.5 py-1.5 border border-transparent text-xs font-medium rounded text-primary hover:text-primary-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+                      >
+                        Sign in
+                      </button>
+                      <button
+                        onClick={() =>
+                          login({
+                            screen_hint: 'signup'
+                          })
+                        }
+                        type="button"
+                        className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-primary hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                      >
+                        Try for free
+                      </button>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
-          </div>
 
-          <Disclosure.Panel className="md:hidden">
-            <div className="pt-2 pb-3 space-y-1">
-              {/* Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" */}
-              <Disclosure.Button
-                as="a"
-                href="#"
-                className="bg-indigo-50 border-indigo-500 text-indigo-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium sm:pl-5 sm:pr-6"
-              >
-                Dashboard
-              </Disclosure.Button>
-              <Disclosure.Button
-                as="a"
-                href="#"
-                className="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium sm:pl-5 sm:pr-6"
-              >
-                Team
-              </Disclosure.Button>
-              <Disclosure.Button
-                as="a"
-                href="#"
-                className="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium sm:pl-5 sm:pr-6"
-              >
-                Projects
-              </Disclosure.Button>
-              <Disclosure.Button
-                as="a"
-                href="#"
-                className="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium sm:pl-5 sm:pr-6"
-              >
-                Calendar
-              </Disclosure.Button>
-            </div>
-            <div className="pt-4 pb-3 border-t border-gray-200">
-              <div className="flex items-center px-4 sm:px-6">
-                <div className="flex-shrink-0">
-                  <img
-                    className="h-10 w-10 rounded-full"
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                    alt=""
-                  />
-                </div>
-                <div className="ml-3">
-                  <div className="text-base font-medium text-gray-800">
-                    Tom Cook
-                  </div>
-                  <div className="text-sm font-medium text-gray-500">
-                    tom@example.com
-                  </div>
-                </div>
-                <button
-                  type="button"
-                  className="ml-auto flex-shrink-0 bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                  <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
-                </button>
-              </div>
-              <div className="mt-3 space-y-1">
+            <Disclosure.Panel className="md:hidden">
+              <div className="pt-2 pb-3 space-y-1">
+                {/* Current: "bg-primary-50 border-primary text-primary-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" */}
                 <Disclosure.Button
-                  as="a"
-                  href="#"
-                  className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 sm:px-6"
+                  as="button"
+                  onClick={() => handleNavigate('pricing')}
+                  className={clsx(
+                    'block pl-3 pr-4 py-2 border-l-4 text-base font-medium sm:pl-5 sm:pr-6 w-full flex',
+                    _.get(location, 'pathname') === '/pricing'
+                      ? 'bg-primary-50 border-primary text-primary-700'
+                      : 'border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700'
+                  )}
                 >
-                  Your Profile
-                </Disclosure.Button>
-                <Disclosure.Button
-                  as="a"
-                  href="#"
-                  className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 sm:px-6"
-                >
-                  Settings
-                </Disclosure.Button>
-                <Disclosure.Button
-                  as="a"
-                  href="#"
-                  className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 sm:px-6"
-                >
-                  Sign out
+                  Pricing
                 </Disclosure.Button>
               </div>
-            </div>
-          </Disclosure.Panel>
-        </>
-      )}
-    </Disclosure>
+              {isAuthenticated && (
+                <div className="pt-4 pb-3 border-t border-gray-200">
+                  <div className="flex items-center px-4 sm:px-6">
+                    <div className="flex-shrink-0">
+                      <img
+                        className="h-10 w-10 rounded-full"
+                        src={_.get(user, 'picture')}
+                        alt=""
+                      />
+                    </div>
+                    <div className="ml-3">
+                      <div className="text-base font-medium text-gray-800">
+                        {_.get(user, 'nickname')}
+                      </div>
+                      <div className="text-sm font-medium text-gray-500">
+                        {_.get(user, 'email')}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mt-3 space-y-1">
+                    <Disclosure.Button
+                      as="button"
+                      onClick={() => handleNavigate('/forms')}
+                      className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 sm:px-6"
+                    >
+                      My forms
+                    </Disclosure.Button>
+                    <Disclosure.Button
+                      as="button"
+                      onClick={handleLogout}
+                      className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 sm:px-6"
+                    >
+                      Sign out
+                    </Disclosure.Button>
+                  </div>
+                </div>
+              )}
+            </Disclosure.Panel>
+          </>
+        )}
+      </Disclosure>
+    </>
   )
 }
 

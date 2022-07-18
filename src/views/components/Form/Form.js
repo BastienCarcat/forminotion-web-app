@@ -6,7 +6,7 @@ import cleanDeep from 'clean-deep'
 import _ from 'lodash'
 import { Debug } from 'mui-rff'
 import React, { useEffect, useMemo, useState } from 'react'
-import { Form } from 'react-final-form'
+import { Form, Field } from 'react-final-form'
 import MultiSelectField from './Fields/MultiSelect'
 import NumberField from './Fields/Number'
 import SelectField from './Fields/Select'
@@ -45,7 +45,7 @@ const MainForm = () => {
     const init = {}
     _.chain(databaseInfo)
       .values()
-      .map((field) => {
+      .map(field => {
         if (_.get(field, 'type') === 'multi_select') {
           _.set(init, _.get(field, 'name'), [])
         }
@@ -75,7 +75,7 @@ const MainForm = () => {
       setLoading(false)
     }
   }
-  const onSubmit = async (values) => {
+  const onSubmit = async values => {
     try {
       const fields = {}
       _.chain(databaseInfo)
@@ -176,13 +176,13 @@ const MainForm = () => {
                                 name={_.get(field, 'name')}
                                 label={_.get(field, 'name')}
                                 options={_.get(field, 'select.options', [])}
-                                getOptionLabel={(option) =>
+                                getOptionLabel={option =>
                                   _.get(option, 'name', '')
                                 }
                               />
                             )
 
-                          case 'multi_select':
+                          /*  case 'multi_select':
                             return (
                               <MultiSelectField
                                 name={_.get(field, 'name')}
@@ -192,11 +192,11 @@ const MainForm = () => {
                                   'multi_select.options',
                                   []
                                 )}
-                                getOptionLabel={(option) =>
+                                getOptionLabel={option =>
                                   _.get(option, 'name', '')
                                 }
                               />
-                            )
+                            )*/
 
                           default:
                             return <div>Field not found</div>

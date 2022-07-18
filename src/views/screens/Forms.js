@@ -1,23 +1,11 @@
 import { withAuthenticationRequired } from '@auth0/auth0-react'
-import { CircularProgress } from '@mui/material'
-import { makeStyles } from '@mui/styles'
 import React from 'react'
 import Forms from '../components/Forms/List'
+import Loader from '../ui/Globals/Loader'
 
-const useStyles = makeStyles({
-  root: {
-    paddingTop: '64px',
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center'
-  }
-})
-
-const FormsListScreen = (props) => {
-  const classes = useStyles()
+const FormsListScreen = props => {
   return (
-    <div className={classes.root}>
+    <div className="mx-auto sm:px-6 lg:px-8 w-full lg:max-w-6xl sm:max-w-4xl">
       <Forms />
     </div>
   )
@@ -26,5 +14,5 @@ const FormsListScreen = (props) => {
 FormsListScreen.propTypes = {}
 
 export default withAuthenticationRequired(FormsListScreen, {
-  onRedirecting: () => <CircularProgress />
+  onRedirecting: () => <Loader />
 })

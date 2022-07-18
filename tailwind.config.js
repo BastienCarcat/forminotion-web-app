@@ -6,6 +6,7 @@ module.exports = {
       colors: {
         primary: {
           DEFAULT: '#ff6726',
+          50: '#ffccb6',
           100: '#ffa47d',
           200: '#ff9567',
           300: '#ff8551',
@@ -15,10 +16,14 @@ module.exports = {
           700: '#cc521e',
           800: '#b3481b',
           900: '#993e17'
-        }
+        },
+        white: '#FFF'
       },
       fontFamily: {
         main: ['DM Sans']
+      },
+      width: {
+        xl: '76rem'
       }
     }
   },
