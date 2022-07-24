@@ -2,9 +2,8 @@ import React from 'react'
 import { CheckIcon } from '@heroicons/react/solid'
 import { PropTypes } from 'prop-types'
 import _ from 'lodash'
-import { stepPositions } from '../Layout'
 
-const FormCreationStepper = ({ steps, setCurrentPosition }) => {
+const FormCreationStepper = ({ steps, setCurrentStep }) => {
   /*  const steps = useMemo(() => {
     const initialSteps = [
       { order: 1, name: 'Form', status: 'UPCOMING' },
@@ -23,7 +22,8 @@ const FormCreationStepper = ({ steps, setCurrentPosition }) => {
 
   const handleAddToNotion = () => {
     window.open(
-      'https://api.notion.com/v1/oauth/authorize?owner=user&client_id=9e763688-8c89-4028-8abc-4ee8dabf6a47&redirect_uri=https://bastiencarcat.github.io/forminotion-web-app/&response_type=code',
+      'https://api.notion.com/v1/oauth/authorize?owner=user&client_id=9e763688-8c89-4028-8abc-4ee8dabf6a47&response_type=code',
+      // 'https://api.notion.com/v1/oauth/authorize?owner=user&client_id=9e763688-8c89-4028-8abc-4ee8dabf6a47&redirect_uri=https://bastiencarcat.github.io/forminotion-web-app/&response_type=code',
       '_blank',
       'location=yes,height=800,width=600,scrollbars=yes,status=yes'
     )
@@ -31,7 +31,7 @@ const FormCreationStepper = ({ steps, setCurrentPosition }) => {
 
   return (
     <div>
-      <div className="px-4 py-5 sm:px-6 flex justify-between w-full items-center">
+      <div className="px-4 py-5 sm:px-6 ">
         <h2 className="text-2xl font-bold">Create a form</h2>
         <button
           onClick={handleAddToNotion}
@@ -50,8 +50,8 @@ const FormCreationStepper = ({ steps, setCurrentPosition }) => {
             <li key={key} className="relative md:flex-1 md:flex">
               {step.status === 'COMPLETE' ? (
                 <div
-                  onClick={() => setCurrentPosition(stepPositions.FORM)}
-                  className="group flex items-center w-full"
+                  onClick={() => setCurrentStep(_.get(step, 'position'))}
+                  className="group flex items-center w-full cursor-pointer"
                 >
                   <span className="px-6 py-3 flex items-center text-sm font-medium">
                     <span className="flex-shrink-0 w-6 h-6 flex items-center justify-center bg-primary rounded-full group-hover:bg-primary-600">
@@ -122,7 +122,7 @@ const FormCreationStepper = ({ steps, setCurrentPosition }) => {
 }
 FormCreationStepper.propTypes = {
   steps: PropTypes.array,
-  setCurrentPosition: PropTypes.func
+  setCurrentStep: PropTypes.func
 }
 
 export default FormCreationStepper

@@ -10,6 +10,7 @@ import HomeScreen from './Home'
 import FormsListScreen from './Forms'
 import FormEditionScreen from './FormEdition'
 import Loader from '../ui/Globals/Loader'
+import PricingScreen from './Pricing'
 
 const App = () => {
   const { baseUrl } = config || {}
@@ -64,7 +65,7 @@ const App = () => {
         <Route path="/forms" element={<FormsListScreen />} />
         <Route path="/forms/:idForm" element={<FormScreen />} />
         <Route path="/edition" element={<FormEditionScreen />} />
-        <Route path="/pricing" element={<HomeScreen />} />
+        <Route path="/pricing" element={<PricingScreen />} />
       </Routes>
     </div>
   )

@@ -1,9 +1,8 @@
-import React, { useState, Fragment, useEffect } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import FormCreationStepper from './Blocks/Stepper'
 import _ from 'lodash'
-import { Listbox, Transition } from '@headlessui/react'
-import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
 import FormCreationStepForm from './Blocks/Steps/Form'
+import { Form } from 'react-final-form'
 
 export const stepPositions = Object.freeze({
   FORM: 1,
@@ -11,21 +10,52 @@ export const stepPositions = Object.freeze({
   PREVIEW: 3
 })
 
+export const stepStatus = Object.freeze({
+  COMPLETE: 'COMPLETE',
+  CURRENT: 'CURRENT',
+  UPCOMING: 'UPCOMING'
+})
+
 const FormCreationLayout = props => {
-  const [currentPosition, setCurrentPosition] = useState(stepPositions.FORM)
   const [steps, setSteps] = useState([
-    { position: stepPositions.FORM, name: 'Form', status: 'CURRENT' },
-    { position: stepPositions.FIELDS, name: 'Fields', status: 'UPCOMING' },
-    { position: stepPositions.PREVIEW, name: 'Preview', status: 'UPCOMING' }
+    { position: stepPositions.FORM, name: 'Form', status: stepStatus.CURRENT },
+    {
+      position: stepPositions.FIELDS,
+      name: 'Fields',
+      status: stepStatus.UPCOMING
+    },
+    {
+      position: stepPositions.PREVIEW,
+      name: 'Preview',
+      status: stepStatus.UPCOMING
+    }
   ])
 
-  // eslint-disable-next-line no-unused-vars
-  const handleChangeStepStatus = (position, status) => {
-    const clone = _.cloneDeep(steps)
-    const index = _.findIndex(clone, x => _.get(x, 'position') === position)
-    _.set(clone, `[${index}].status`, status)
-    setSteps(clone)
-  }
+  const currentStep = useMemo(() => {
+    return _.find(steps, step => _.get(step, 'status') === stepStatus.CURRENT)
+  }, [steps])
+
+  const setCurrentStep = useCallback(
+    position => {
+      const newPositions = _.map(_.cloneDeep(steps), x => {
+        if (_.get(x, 'position') < position) {
+          return { ...x, status: stepStatus.COMPLETE }
+        } else if (_.get(x, 'position') === position) {
+          return { ...x, status: stepStatus.CURRENT }
+        } else if (_.get(x, 'position') > position) {
+          return { ...x, status: stepStatus.UPCOMING }
+        }
+        return { ...x }
+      })
+      setSteps(newPositions)
+    },
+    [steps]
+  )
+
+  const onSubmit = useCallback((values, initialValues, form) => {
+    console.log('values', values)
+  }, [])
+
   // const people = [
   //   { id: 1, name: 'Durward Reynolds' },
   //   { id: 2, name: 'Kenton Towne' },
@@ -40,16 +70,27 @@ const FormCreationLayout = props => {
   //   setSelectedPeople(person)
   // }
 
-  useEffect(() => {
-    console.log('currentPosition', currentPosition)
-  }, [currentPosition])
   return (
     <div>
-      <FormCreationStepper
-        steps={steps}
-        setCurrentPosition={setCurrentPosition}
+      <FormCreationStepper steps={steps} setCurrentStep={setCurrentStep} />
+      <Form
+        onSubmit={onSubmit}
+        // validate={validate}
+        initialValues={{ test: 'eterter', rtrtg: 'ergregergr', rtg: 555 }}
+        render={({ handleSubmit, values }) => (
+          <form onSubmit={handleSubmit}>
+            <>
+              <pre>
+                <code>{JSON.stringify(values, null, 4)}</code>
+              </pre>
+              {_.get(currentStep, 'position') === stepPositions.FORM && (
+                <FormCreationStepForm setCurrentStep={setCurrentStep} />
+              )}
+            </>
+          </form>
+        )}
       />
-      <FormCreationStepForm />
+
       {/*<div className="fixed top-16 w-72">
         <Listbox
           value={selectedPeople}
