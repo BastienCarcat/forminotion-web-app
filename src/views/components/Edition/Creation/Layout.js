@@ -16,7 +16,7 @@ export const stepStatus = Object.freeze({
   UPCOMING: 'UPCOMING'
 })
 
-const FormCreationLayout = props => {
+const FormCreationLayout = (props) => {
   const [steps, setSteps] = useState([
     { position: stepPositions.FORM, name: 'Form', status: stepStatus.CURRENT },
     {
@@ -32,12 +32,12 @@ const FormCreationLayout = props => {
   ])
 
   const currentStep = useMemo(() => {
-    return _.find(steps, step => _.get(step, 'status') === stepStatus.CURRENT)
+    return _.find(steps, (step) => _.get(step, 'status') === stepStatus.CURRENT)
   }, [steps])
 
   const setCurrentStep = useCallback(
-    position => {
-      const newPositions = _.map(_.cloneDeep(steps), x => {
+    (position) => {
+      const newPositions = _.map(_.cloneDeep(steps), (x) => {
         if (_.get(x, 'position') < position) {
           return { ...x, status: stepStatus.COMPLETE }
         } else if (_.get(x, 'position') === position) {
@@ -76,13 +76,14 @@ const FormCreationLayout = props => {
       <Form
         onSubmit={onSubmit}
         // validate={validate}
-        initialValues={{ test: 'eterter', rtrtg: 'ergregergr', rtg: 555 }}
+        initialValues={{}}
         render={({ handleSubmit, values }) => (
           <form onSubmit={handleSubmit}>
             <>
               <pre>
                 <code>{JSON.stringify(values, null, 4)}</code>
               </pre>
+              {/* décomposer chaque step en un form unique le 1er créer le form le 2e créer les fields */}
               {_.get(currentStep, 'position') === stepPositions.FORM && (
                 <FormCreationStepForm setCurrentStep={setCurrentStep} />
               )}

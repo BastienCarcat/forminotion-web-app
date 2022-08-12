@@ -2,6 +2,7 @@ import React from 'react'
 import { CheckIcon } from '@heroicons/react/solid'
 import { PropTypes } from 'prop-types'
 import _ from 'lodash'
+import { useAuth0 } from '@auth0/auth0-react'
 
 const FormCreationStepper = ({ steps, setCurrentStep }) => {
   /*  const steps = useMemo(() => {
@@ -20,9 +21,14 @@ const FormCreationStepper = ({ steps, setCurrentStep }) => {
     })
   }, [currentStep])*/
 
+  const { user } = useAuth0()
+
   const handleAddToNotion = () => {
     window.open(
-      'https://api.notion.com/v1/oauth/authorize?owner=user&client_id=9e763688-8c89-4028-8abc-4ee8dabf6a47&response_type=code',
+      `https://api.notion.com/v1/oauth/authorize?owner=user&client_id=9e763688-8c89-4028-8abc-4ee8dabf6a47&response_type=code&state=${_.get(
+        user,
+        'email'
+      )}`,
       // 'https://api.notion.com/v1/oauth/authorize?owner=user&client_id=9e763688-8c89-4028-8abc-4ee8dabf6a47&redirect_uri=https://bastiencarcat.github.io/forminotion-web-app/&response_type=code',
       '_blank',
       'location=yes,height=800,width=600,scrollbars=yes,status=yes'

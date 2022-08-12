@@ -1,16 +1,51 @@
-import React from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { ArrowRightIcon, InformationCircleIcon } from '@heroicons/react/outline'
 import { PropTypes } from 'prop-types'
 import { stepPositions } from '../../Layout'
 import { Field } from 'react-final-form'
 import _ from 'lodash'
+import axios from 'axios'
+import { OnChange } from 'react-final-form-listeners'
 
 const FormCreationStepForm = ({ setCurrentStep }) => {
+  const [workspaces, setWorkspaces] = useState([])
+  const [databases, setDatabases] = useState([])
+  // const { change } = useForm()
+  // const { values } = useFormState()
+
+  const getWorkspaces = useCallback(async () => {
+    try {
+      const data = await axios.get('workspace/getAll')
+      setWorkspaces(_.get(data, 'data'))
+    } catch (e) {
+      console.error(e)
+    }
+  }, [])
+
+  const getDatabases = useCallback(async () => {
+    try {
+      const data = await axios.post('notion/search')
+      setDatabases(_.get(data, 'data.results'))
+    } catch (e) {
+      console.error(e)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (_.isEmpty(workspaces)) {
+      getWorkspaces()
+    }
+  }, [workspaces, getWorkspaces])
+
+  useEffect(() => {
+    console.log('databases', databases)
+  }, [databases])
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
       <div className="max-w-xl mx-auto">
         <div className="pt-4">
-          <Field name="workspace">
+          <Field name="workspace" defaultValue={_.get(workspaces, '[0].id')}>
             {({ input }) => (
               <div>
                 <div className="flex justify-between">
@@ -29,15 +64,36 @@ const FormCreationStepForm = ({ setCurrentStep }) => {
                 </div>
                 <select
                   className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md"
+                  // onChange={(e) => {
+                  //   input.onChange(e)
+                  //   console.log('changed')
+                  // }}
                   {...input}
                 >
-                  <option>Bastien</option>
-                  <option>Bastien 2</option>
-                  <option>Bastien 3</option>
+                  {_.map(workspaces || [], (workspace) => (
+                    <option
+                      key={_.get(workspace, 'id')}
+                      value={_.get(workspace, 'id')}
+                      // value={workspace}
+                    >
+                      {`${_.get(workspace, 'icon', '')} ${_.get(
+                        workspace,
+                        'name'
+                      )}`}
+                    </option>
+                  ))}
+                  {/*<option>e</option>*/}
                 </select>
               </div>
             )}
           </Field>
+          <OnChange name="workspace">
+            {(value, previous) => {
+              if (value !== previous) {
+                getDatabases()
+              }
+            }}
+          </OnChange>
         </div>
 
         <div className="pt-4">
@@ -62,9 +118,19 @@ const FormCreationStepForm = ({ setCurrentStep }) => {
                   className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md"
                   {...input}
                 >
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
+                  <option selected disabled hidden />
+                  {_.map(databases || [], (database) => (
+                    <option
+                      key={_.get(database, 'id')}
+                      value={_.get(database, 'id')}
+                      // value={workspace}
+                    >
+                      {`${_.get(database, 'icon', '')} ${_.get(
+                        database,
+                        'title[0].plain_text'
+                      )}`}
+                    </option>
+                  ))}
                 </select>
               </div>
             )}

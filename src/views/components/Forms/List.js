@@ -5,7 +5,7 @@ import _ from 'lodash'
 import { useNavigate } from 'react-router-dom'
 import Loader from '../../ui/Globals/Loader'
 
-const Forms = props => {
+const Forms = (props) => {
   const [loading, setLoading] = useState(false)
   const [forms, setForms] = useState([])
 
@@ -18,7 +18,7 @@ const Forms = props => {
   const getForms = async () => {
     try {
       setLoading(true)
-      const data = await axios.get('form/getByUser')
+      const data = await axios.get('form/getAll')
 
       setForms(_.get(data, 'data'))
     } catch (e) {
