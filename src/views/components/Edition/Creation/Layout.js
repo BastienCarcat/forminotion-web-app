@@ -2,7 +2,6 @@ import React, { useCallback, useMemo, useState } from 'react'
 import FormCreationStepper from './Blocks/Stepper'
 import _ from 'lodash'
 import FormCreationStepForm from './Blocks/Steps/Form'
-import { Form } from 'react-final-form'
 
 export const stepPositions = Object.freeze({
   FORM: 1,
@@ -52,10 +51,6 @@ const FormCreationLayout = (props) => {
     [steps]
   )
 
-  const onSubmit = useCallback((values, initialValues, form) => {
-    console.log('values', values)
-  }, [])
-
   // const people = [
   //   { id: 1, name: 'Durward Reynolds' },
   //   { id: 2, name: 'Kenton Towne' },
@@ -73,24 +68,9 @@ const FormCreationLayout = (props) => {
   return (
     <div>
       <FormCreationStepper steps={steps} setCurrentStep={setCurrentStep} />
-      <Form
-        onSubmit={onSubmit}
-        // validate={validate}
-        initialValues={{}}
-        render={({ handleSubmit, values }) => (
-          <form onSubmit={handleSubmit}>
-            <>
-              <pre>
-                <code>{JSON.stringify(values, null, 4)}</code>
-              </pre>
-              {/* décomposer chaque step en un form unique le 1er créer le form le 2e créer les fields */}
-              {_.get(currentStep, 'position') === stepPositions.FORM && (
-                <FormCreationStepForm setCurrentStep={setCurrentStep} />
-              )}
-            </>
-          </form>
-        )}
-      />
+      {_.get(currentStep, 'position') === stepPositions.FORM && (
+        <FormCreationStepForm setCurrentStep={setCurrentStep} />
+      )}
 
       {/*<div className="fixed top-16 w-72">
         <Listbox

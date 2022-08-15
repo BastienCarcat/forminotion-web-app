@@ -3,12 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="d723c317-6206-4f0e-884f-8d9aebe6c158" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/components/Edition/Creation/Blocks/Stepper.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/components/Edition/Creation/Blocks/Stepper.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/components/Edition/Creation/Blocks/Steps/Form.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/components/Edition/Creation/Blocks/Steps/Form.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/components/Edition/Creation/Layout.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/components/Edition/Creation/Layout.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/components/Forms/List.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/components/Forms/List.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +72,7 @@
       <workItem from="1658951828581" duration="1372000" />
       <workItem from="1659258441950" duration="3857000" />
       <workItem from="1659462906631" duration="8067000" />
-      <workItem from="1660074256357" duration="22209000" />
+      <workItem from="1660074256357" duration="35103000" />
     </task>
     <servers />
   </component>
