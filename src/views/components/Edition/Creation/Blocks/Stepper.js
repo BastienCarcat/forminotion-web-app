@@ -2,7 +2,6 @@ import React from 'react'
 import { CheckIcon } from '@heroicons/react/solid'
 import { PropTypes } from 'prop-types'
 import _ from 'lodash'
-import { useAuth0 } from '@auth0/auth0-react'
 
 const FormCreationStepper = ({ steps, setCurrentStep }) => {
   /*  const steps = useMemo(() => {
@@ -21,31 +20,10 @@ const FormCreationStepper = ({ steps, setCurrentStep }) => {
     })
   }, [currentStep])*/
 
-  const { user } = useAuth0()
-
-  const handleAddToNotion = () => {
-    window.open(
-      `https://api.notion.com/v1/oauth/authorize?owner=user&client_id=9e763688-8c89-4028-8abc-4ee8dabf6a47&response_type=code&state=${_.get(
-        user,
-        'email'
-      )}`,
-      // 'https://api.notion.com/v1/oauth/authorize?owner=user&client_id=9e763688-8c89-4028-8abc-4ee8dabf6a47&redirect_uri=https://bastiencarcat.github.io/forminotion-web-app/&response_type=code',
-      '_blank',
-      'location=yes,height=800,width=600,scrollbars=yes,status=yes'
-    )
-  }
-
   return (
     <div>
       <div className="px-4 py-5 sm:px-6 ">
         <h2 className="text-2xl font-bold">Create a form</h2>
-        <button
-          onClick={handleAddToNotion}
-          type="button"
-          className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-        >
-          Create new form
-        </button>
       </div>
       <nav aria-label="Progress" className="mx-6 my-5 sm:mx-8 mt-3">
         <ol

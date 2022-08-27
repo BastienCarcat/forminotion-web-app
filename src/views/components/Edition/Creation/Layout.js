@@ -1,7 +1,13 @@
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useCallback, useMemo, useState, useEffect } from 'react'
 import FormCreationStepper from './Blocks/Stepper'
 import _ from 'lodash'
 import FormCreationStepForm from './Blocks/Steps/Form'
+import { Form } from 'react-final-form'
+import axios from 'axios'
+import FormCreationStepFields from './Blocks/Steps/Fields'
+import arrayMutators from 'final-form-arrays'
+import FormCreationStepPreview from './Blocks/Steps/Preview'
+import { useAuth0 } from '@auth0/auth0-react'
 
 export const stepPositions = Object.freeze({
   FORM: 1,
@@ -30,6 +36,12 @@ const FormCreationLayout = (props) => {
     }
   ])
 
+  const [initialValues, setInitialValues] = useState({ fields: null })
+  const [authorizations, setAuthorizations] = useState([])
+  const [databases, setDatabases] = useState([])
+
+  const { user } = useAuth0()
+
   const currentStep = useMemo(() => {
     return _.find(steps, (step) => _.get(step, 'status') === stepStatus.CURRENT)
   }, [steps])
@@ -51,6 +63,29 @@ const FormCreationLayout = (props) => {
     [steps]
   )
 
+  const onSubmit = useCallback(
+    async (values, initialValues, form) => {
+      try {
+        const input = {
+          title: _.get(
+            values,
+            'title',
+            _.get(values, 'database.title[0].plain_text')
+          ),
+          description: _.get(values, 'description', ''),
+          idAuthorization: _.get(values, 'authorization.id'),
+          idNotionDatabase: _.get(values, 'database.id'),
+          fields: _.get(values, 'fields')
+        }
+        console.log('submit', values)
+        await axios.post('form/create', { ...input })
+      } catch (e) {
+        console.error(e)
+      }
+    },
+    [setCurrentStep]
+  )
+
   // const people = [
   //   { id: 1, name: 'Durward Reynolds' },
   //   { id: 2, name: 'Kenton Towne' },
@@ -65,14 +100,89 @@ const FormCreationLayout = (props) => {
   //   setSelectedPeople(person)
   // }
 
-  return (
-    <div>
-      <FormCreationStepper steps={steps} setCurrentStep={setCurrentStep} />
-      {_.get(currentStep, 'position') === stepPositions.FORM && (
-        <FormCreationStepForm setCurrentStep={setCurrentStep} />
-      )}
+  const initialize = useCallback(async () => {
+    try {
+      const initVals = {}
+      const wp = await axios.get('authorization/getAll')
 
-      {/*<div className="fixed top-16 w-72">
+      if (!_.isEmpty(_.get(wp, 'data'))) {
+        setAuthorizations(_.get(wp, 'data'))
+
+        const mainAuthorization = _.get(wp, 'data[0]')
+
+        _.set(initVals, 'authorization', mainAuthorization)
+      }
+
+      setInitialValues(initVals)
+    } catch (e) {
+      console.error(e)
+    }
+  }, [setInitialValues])
+
+  useEffect(() => {
+    initialize()
+  }, [initialize])
+
+  const handleAddToNotion = () => {
+    window.open(
+      `https://api.notion.com/v1/oauth/authorize?owner=user&client_id=9e763688-8c89-4028-8abc-4ee8dabf6a47&response_type=code&state=${_.get(
+        user,
+        'email'
+      )}`,
+      // 'https://api.notion.com/v1/oauth/authorize?owner=user&client_id=9e763688-8c89-4028-8abc-4ee8dabf6a47&redirect_uri=https://bastiencarcat.github.io/forminotion-web-app/&response_type=code',
+      '_blank',
+      'location=yes,height=800,width=600,scrollbars=yes,status=yes'
+    )
+  }
+
+  return (
+    <>
+      <FormCreationStepper steps={steps} setCurrentStep={setCurrentStep} />
+
+      <Form
+        onSubmit={onSubmit}
+        // validate={validate}
+        mutators={{ ...arrayMutators }}
+        initialValues={initialValues}
+        render={({ handleSubmit, values, form }) => (
+          <form onSubmit={handleSubmit}>
+            {/*<pre>*/}
+            {/*  <code>{JSON.stringify(values, null, 4)}</code>*/}
+            {/*</pre>*/}
+            {_.isEmpty(authorizations) ? (
+              <div className="mt-10 flex flex-col items-center">
+                <div>
+                  You need to authorize Forminotion to get access to your Notion
+                  workspace.
+                </div>
+                <button
+                  onClick={handleAddToNotion}
+                  type="button"
+                  className="mt-4 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                >
+                  Get authorization
+                </button>
+              </div>
+            ) : (
+              <>
+                {_.get(currentStep, 'position') === stepPositions.FORM && (
+                  <FormCreationStepForm
+                    setCurrentStep={setCurrentStep}
+                    authorizations={authorizations}
+                    setDatabases={setDatabases}
+                    databases={databases}
+                  />
+                )}
+                {_.get(currentStep, 'position') === stepPositions.FIELDS && (
+                  <FormCreationStepFields setCurrentStep={setCurrentStep} />
+                )}
+                {_.get(currentStep, 'position') === stepPositions.PREVIEW && (
+                  <FormCreationStepPreview setCurrentStep={setCurrentStep} />
+                )}
+              </>
+            )}
+
+            {/*<div className="fixed top-16 w-72">
         <Listbox
           value={selectedPeople}
           onChange={value => handleSetSelected(value)}
@@ -132,7 +242,10 @@ const FormCreationLayout = (props) => {
           </div>
         </Listbox>
       </div>*/}
-    </div>
+          </form>
+        )}
+      />
+    </>
   )
 }
 

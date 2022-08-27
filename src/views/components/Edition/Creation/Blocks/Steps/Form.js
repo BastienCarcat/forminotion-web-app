@@ -2,96 +2,58 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { ArrowRightIcon, InformationCircleIcon } from '@heroicons/react/outline'
 import { PropTypes } from 'prop-types'
 import { stepPositions } from '../../Layout'
-import { Field, Form } from 'react-final-form'
+import { Field, FormSpy } from 'react-final-form'
 import _ from 'lodash'
 import axios from 'axios'
 import { OnChange } from 'react-final-form-listeners'
 
-const FormCreationStepForm = ({ setCurrentStep }) => {
-  const [authorizations, setAuthorizations] = useState([])
-  const [databases, setDatabases] = useState([])
-  const [initialValues, setInitialValues] = useState({})
-
-  const getDatabases = useCallback(async (token, form) => {
-    try {
-      const data = await axios.post('notion/search', { token })
-      if (!_.isEmpty(_.get(data, 'data.results'))) {
-        setDatabases(_.get(data, 'data.results'))
-      } else {
+const FormCreationStepForm = ({
+  setCurrentStep,
+  authorizations,
+  databases,
+  setDatabases
+}) => {
+  const getDatabases = useCallback(
+    async (token, form) => {
+      try {
+        const data = await axios.post('notion/search', { token })
+        if (!_.isEmpty(_.get(data, 'data.results'))) {
+          setDatabases(_.get(data, 'data.results'))
+        } else {
+          setDatabases([])
+          if (_.has(form, 'change') && typeof form.change === 'function') {
+            form.change('database', null)
+          }
+        }
+      } catch (e) {
+        console.error(e)
         setDatabases([])
         if (_.has(form, 'change') && typeof form.change === 'function') {
           form.change('database', null)
         }
       }
-    } catch (e) {
-      console.error(e)
-      setDatabases([])
-      if (_.has(form, 'change') && typeof form.change === 'function') {
-        form.change('database', null)
-      }
-    }
-  }, [])
-
-  const initialize = useCallback(async () => {
-    try {
-      const initVals = {}
-      const wp = await axios.get('authorization/getAll')
-
-      if (!_.isEmpty(_.get(wp, 'data'))) {
-        setAuthorizations(_.get(wp, 'data'))
-
-        const mainAuthorization = _.get(wp, 'data[0]')
-
-        _.set(initVals, 'authorization', mainAuthorization)
-
-        // await getDatabases(_.get(mainWorkspace, 'accessToken'))
-      }
-
-      setInitialValues(initVals)
-    } catch (e) {
-      console.error(e)
-    }
-  }, [])
-
-  useEffect(() => {
-    initialize()
-  }, [initialize])
-
-  const onSubmit = useCallback(
-    async (values, initialValues, form) => {
-      try {
-        console.log('values', values)
-        const input = {
-          title: _.get(
-            values,
-            'title',
-            _.get(values, 'database.title[0].plain_text')
-          ),
-          description: _.get(values, 'description', ''),
-          idAuthorization: _.get(values, 'authorization.id'),
-          idNotionDatabase: _.get(values, 'database.id')
-        }
-        await axios.post('form/create', { ...input })
-
-        setCurrentStep(stepPositions.FIELDS)
-      } catch (e) {
-        console.error(e)
-      }
     },
-    [setCurrentStep]
+    [setDatabases]
   )
 
+  const getFields = useCallback(async (database, form) => {
+    const properties = _.map(_.get(database, 'properties', []), (p) => ({
+      idNotion: _.get(p, 'id'),
+      name: _.get(p, 'name'),
+      enabled: true
+    }))
+    form.change('fields', properties)
+  }, [])
+
+  const changeStep = useCallback(() => {
+    setCurrentStep(stepPositions.FIELDS)
+  }, [setCurrentStep])
+
   return (
-    <Form
-      onSubmit={onSubmit}
-      // validate={validate}
-      initialValues={initialValues}
-      render={({ handleSubmit, values, form }) => (
-        <form onSubmit={handleSubmit}>
+    <div>
+      <FormSpy subscription={{ values: true, form: true }}>
+        {({ values, form }) => (
           <>
-            <pre>
-              <code>{JSON.stringify(values, null, 4)}</code>
-            </pre>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
               <div className="max-w-xl mx-auto">
                 <div className="pt-4">
@@ -138,7 +100,6 @@ const FormCreationStepForm = ({ setCurrentStep }) => {
                               )}`}
                             </option>
                           ))}
-                          <option>e</option>
                         </select>
                       </div>
                     )}
@@ -184,7 +145,7 @@ const FormCreationStepForm = ({ setCurrentStep }) => {
                               key={_.get(database, 'id')}
                               value={JSON.stringify(database)}
                             >
-                              {`${_.get(database, 'icon', '')} ${_.get(
+                              {`${_.get(database, 'icon.emoji', '')} ${_.get(
                                 database,
                                 'title[0].plain_text'
                               )}`}
@@ -194,6 +155,13 @@ const FormCreationStepForm = ({ setCurrentStep }) => {
                       </div>
                     )}
                   </Field>
+                  <OnChange name="database">
+                    {(value, previous) => {
+                      if (_.get(value, 'id') !== _.get(previous, 'id')) {
+                        getFields(value, form)
+                      }
+                    }}
+                  </OnChange>
                 </div>
 
                 <div className="pt-4">
@@ -241,8 +209,15 @@ const FormCreationStepForm = ({ setCurrentStep }) => {
                 </div>
                 <div className="pt-4 flex justify-end">
                   <button
-                    type="submit"
-                    className="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                    onClick={changeStep}
+                    type="button"
+                    className="disabled:opacity-50 disabled:bg-primary inline-flex items-center px-4 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                    disabled={
+                      !(
+                        _.get(values, 'authorization.id') &&
+                        _.get(values, 'database.id')
+                      )
+                    }
                   >
                     Select fields
                     <ArrowRightIcon
@@ -254,13 +229,16 @@ const FormCreationStepForm = ({ setCurrentStep }) => {
               </div>
             </div>
           </>
-        </form>
-      )}
-    />
+        )}
+      </FormSpy>
+    </div>
   )
 }
 FormCreationStepForm.propTypes = {
-  setCurrentStep: PropTypes.func
+  setCurrentStep: PropTypes.func,
+  authorizations: PropTypes.array,
+  databases: PropTypes.array,
+  setDatabases: PropTypes.func
 }
 
 export default FormCreationStepForm
