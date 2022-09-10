@@ -66,6 +66,7 @@ const FormCreationLayout = (props) => {
   const onSubmit = useCallback(
     async (values, initialValues, form) => {
       try {
+        console.log(values)
         const input = {
           title: _.get(
             values,
@@ -77,7 +78,7 @@ const FormCreationLayout = (props) => {
           idNotionDatabase: _.get(values, 'database.id'),
           fields: _.get(values, 'fields')
         }
-        console.log('submit', values)
+
         await axios.post('form/create', { ...input })
       } catch (e) {
         console.error(e)

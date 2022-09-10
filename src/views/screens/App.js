@@ -1,7 +1,7 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import axios from 'axios'
 import React, { useEffect } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import NavigationBar from '../components/AppBar/AppBar'
 import { config } from './../../config/index'
 import FormScreen from './Form'
@@ -14,12 +14,10 @@ import PricingScreen from './Pricing'
 
 const App = () => {
   const { baseUrl } = config || {}
-  const {
-    isAuthenticated,
-    getAccessTokenSilently,
-    isLoading,
-    user
-  } = useAuth0()
+  const { isAuthenticated, getAccessTokenSilently, isLoading, user } =
+    useAuth0()
+
+  const location = useLocation()
 
   useEffect(() => {
     async function getToken() {
@@ -54,19 +52,28 @@ const App = () => {
   useEffect(() => {
     axios.defaults.baseURL = baseUrl
   }, [baseUrl])
-
+  useEffect(() => {
+    console.log(location)
+  }, [location])
   if (isLoading) return <Loader />
 
   return (
     <div className="flex flex-col items-center">
-      <NavigationBar />
-      <Routes>
-        <Route index path="/" element={<HomeScreen />} />
-        <Route path="/forms" element={<FormsListScreen />} />
-        <Route path="/forms/:idForm" element={<FormScreen />} />
-        <Route path="/edition" element={<FormEditionScreen />} />
-        <Route path="/pricing" element={<PricingScreen />} />
-      </Routes>
+      {_.startsWith(_.get(location, 'pathname'), '/form/') ? (
+        <Routes>
+          <Route path="/form/:idForm" element={<FormScreen />} />
+        </Routes>
+      ) : (
+        <>
+          <NavigationBar />
+          <Routes>
+            <Route index path="/" element={<HomeScreen />} />
+            <Route path="/forms" element={<FormsListScreen />} />
+            <Route path="/edition" element={<FormEditionScreen />} />
+            <Route path="/pricing" element={<PricingScreen />} />
+          </Routes>
+        </>
+      )}
     </div>
   )
 }

@@ -58,7 +58,7 @@ const FormCreationStepFields = ({ setCurrentStep }) => {
                           )}`}
                           className="font-medium text-gray-700 select-none"
                         >
-                          {_.get(fields, `value[${index}].name`)}
+                          {_.get(fields, `value[${index}].label`)}
                         </label>
                       </div>
                       <div className="ml-3 flex items-center">

@@ -1,14 +1,11 @@
 import React from 'react'
 import { PropTypes } from 'prop-types'
 import _ from 'lodash'
-import { useNavigate } from 'react-router-dom'
 import { DotsVerticalIcon } from '@heroicons/react/solid'
 
 const FormCard = ({ form }) => {
-  const navigate = useNavigate()
-
   const handleClickCard = () => {
-    navigate(`/forms/${_.get(form, 'idForm')}`)
+    window.open(`/form/${_.get(form, 'id')}`, '_blank')
   }
 
   return (

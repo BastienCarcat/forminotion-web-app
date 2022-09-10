@@ -38,8 +38,8 @@ const FormCreationStepForm = ({
 
   const getFields = useCallback(async (database, form) => {
     const properties = _.map(_.get(database, 'properties', []), (p) => ({
-      idNotion: _.get(p, 'id'),
-      name: _.get(p, 'name'),
+      property: p,
+      label: _.get(p, 'name'),
       enabled: true
     }))
     form.change('fields', properties)
