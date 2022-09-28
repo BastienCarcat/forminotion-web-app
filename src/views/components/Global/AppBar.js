@@ -6,7 +6,6 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import { PlusSmIcon } from '@heroicons/react/solid'
 import clsx from 'clsx'
-
 const NavigationBar = () => {
   const { loginWithRedirect, isAuthenticated, user, logout } = useAuth0()
   const navigate = useNavigate()
@@ -89,7 +88,7 @@ const NavigationBar = () => {
                           <span>Create form</span>
                         </button>
                       </div>
-                      <div className="hidden md:ml-4 md:flex-shrink-0 md:flex md:items-center">
+                      <div className="hidden md:ml-4 md:flex-shrink-0 md:flex md:items-center z-10">
                         {/* Profile dropdown */}
                         <Menu as="div" className="ml-3 relative">
                           <div>

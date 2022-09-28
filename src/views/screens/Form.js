@@ -5,7 +5,7 @@ import Loader from '../ui/Globals/Loader'
 
 const FormScreen = () => {
   return (
-    <div className="pt-16">
+    <div className="pt-16 flex-grow">
       <MainForm />
     </div>
   )

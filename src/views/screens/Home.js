@@ -1,13 +1,8 @@
 import React from 'react'
+import HomeLayout from '../components/Home/Layout'
 
 const HomeScreen = () => {
-  return (
-    <div className="pt-16 h-[200vh] w-full flex justify-center items-center">
-      <div className="font-black text-5xl text-neutral-900 font-main">
-        Home page !
-      </div>
-    </div>
-  )
+  return <HomeLayout />
 }
 
 HomeScreen.propTypes = {}

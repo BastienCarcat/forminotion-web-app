@@ -5,7 +5,7 @@ import FormCreationLayout from '../components/Edition/Creation/Layout'
 
 const FormEditionScreen = () => {
   return (
-    <div className="mx-auto sm:px-6 lg:px-8 w-full lg:max-w-6xl sm:max-w-4xl">
+    <div className="mx-auto sm:px-6 lg:px-8 w-full lg:max-w-6xl sm:max-w-4xl flex-grow">
       <FormCreationLayout />
     </div>
   )
