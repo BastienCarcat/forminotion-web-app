@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 
-const Footer = (props) => {
+const Footer = () => {
   const navigation = useMemo(
     () => ({
       solutions: [

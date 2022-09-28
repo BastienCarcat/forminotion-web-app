@@ -2,7 +2,7 @@ import React, { useMemo } from 'react'
 import { CheckIcon } from '@heroicons/react/solid'
 import clsx from 'clsx'
 
-const HomeLayoutSectionPricing = (props) => {
+const HomeLayoutSectionPricing = () => {
   const pricing = useMemo(
     () => ({
       tiers: [

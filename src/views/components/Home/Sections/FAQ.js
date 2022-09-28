@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 
-const HomeLayoutSectionFAQ = (props) => {
+const HomeLayoutSectionFAQ = () => {
   const faqs = useMemo(
     () => [
       {

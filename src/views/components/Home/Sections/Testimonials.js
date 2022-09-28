@@ -1,6 +1,6 @@
 import React from 'react'
 
-const HomeLayoutSectionTestimonials = (props) => {
+const HomeLayoutSectionTestimonials = () => {
   return (
     <div className="max-w-7xl mx-auto md:px-6 lg:px-8 ">
       <div className="py-12 px-4 sm:px-6 md:py-16 flex flex-row items-center justify-between gap-x-12 sm:gap-x-16">

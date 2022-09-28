@@ -5,7 +5,7 @@ import Select from '../../../../Images/guide-select.svg'
 import Share from '../../../../Images/guide-share.svg'
 import SignIn from '../../../../Images/guide-sign-in.svg'
 
-const HomeLayoutSectionGuide = (props) => {
+const HomeLayoutSectionGuide = () => {
   const instructions = useMemo(
     () => [
       {
