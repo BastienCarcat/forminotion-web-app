@@ -3,9 +3,9 @@ import React from 'react'
 import MainForm from '../components/Form/Form'
 import Loader from '../ui/Globals/Loader'
 
-const FormScreen = props => {
+const FormScreen = (props) => {
   return (
-    <div className="pt-16">
+    <div className="pt-16 flex-grow">
       <MainForm />
     </div>
   )

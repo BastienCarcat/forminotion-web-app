@@ -2,7 +2,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 import axios from 'axios'
 import React, { useEffect } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
-import NavigationBar from '../components/AppBar/AppBar'
+import NavigationBar from '../components/Global/AppBar'
 import { config } from './../../config/index'
 import FormScreen from './Form'
 import _ from 'lodash'
@@ -11,6 +11,7 @@ import FormsListScreen from './Forms'
 import FormEditionScreen from './FormEdition'
 import Loader from '../ui/Globals/Loader'
 import PricingScreen from './Pricing'
+import Footer from '../components/Global/Footer'
 
 const App = () => {
   const { baseUrl } = config || {}
@@ -58,7 +59,7 @@ const App = () => {
   if (isLoading) return <Loader />
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center min-h-screen">
       {_.startsWith(_.get(location, 'pathname'), '/form/') ? (
         <Routes>
           <Route path="/form/:idForm" element={<FormScreen />} />
@@ -74,6 +75,7 @@ const App = () => {
           </Routes>
         </>
       )}
+      <Footer />
     </div>
   )
 }

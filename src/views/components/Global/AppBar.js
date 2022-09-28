@@ -7,7 +7,7 @@ import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import { PlusSmIcon } from '@heroicons/react/solid'
 import clsx from 'clsx'
 
-const NavigationBar = props => {
+const NavigationBar = (props) => {
   const { loginWithRedirect, isAuthenticated, user, logout } = useAuth0()
   const navigate = useNavigate()
   const location = useLocation()
@@ -23,7 +23,7 @@ const NavigationBar = props => {
     [loginWithRedirect]
   )
 
-  const handleNavigate = path => {
+  const handleNavigate = (path) => {
     navigate(path)
   }
 
@@ -89,7 +89,7 @@ const NavigationBar = props => {
                           <span>Create form</span>
                         </button>
                       </div>
-                      <div className="hidden md:ml-4 md:flex-shrink-0 md:flex md:items-center">
+                      <div className="hidden md:ml-4 md:flex-shrink-0 md:flex md:items-center z-10">
                         {/* Profile dropdown */}
                         <Menu as="div" className="ml-3 relative">
                           <div>
