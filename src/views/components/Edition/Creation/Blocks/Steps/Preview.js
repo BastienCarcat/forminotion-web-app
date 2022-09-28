@@ -1,7 +1,7 @@
 import React from 'react'
 import { PropTypes } from 'prop-types'
 
-const FormCreationStepPreview = ({ setCurrentStep }) => {
+const FormCreationStepPreview = () => {
   return (
     <div>
       <h3>Preview</h3>

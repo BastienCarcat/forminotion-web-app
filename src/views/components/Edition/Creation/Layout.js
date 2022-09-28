@@ -21,7 +21,7 @@ export const stepStatus = Object.freeze({
   UPCOMING: 'UPCOMING'
 })
 
-const FormCreationLayout = (props) => {
+const FormCreationLayout = () => {
   const [steps, setSteps] = useState([
     { position: stepPositions.FORM, name: 'Form', status: stepStatus.CURRENT },
     {
@@ -63,29 +63,26 @@ const FormCreationLayout = (props) => {
     [steps]
   )
 
-  const onSubmit = useCallback(
-    async (values, initialValues, form) => {
-      try {
-        console.log(values)
-        const input = {
-          title: _.get(
-            values,
-            'title',
-            _.get(values, 'database.title[0].plain_text')
-          ),
-          description: _.get(values, 'description', ''),
-          idAuthorization: _.get(values, 'authorization.id'),
-          idNotionDatabase: _.get(values, 'database.id'),
-          fields: _.get(values, 'fields')
-        }
-
-        await axios.post('form/create', { ...input })
-      } catch (e) {
-        console.error(e)
+  const onSubmit = useCallback(async (values) => {
+    try {
+      console.log(values)
+      const input = {
+        title: _.get(
+          values,
+          'title',
+          _.get(values, 'database.title[0].plain_text')
+        ),
+        description: _.get(values, 'description', ''),
+        idAuthorization: _.get(values, 'authorization.id'),
+        idNotionDatabase: _.get(values, 'database.id'),
+        fields: _.get(values, 'fields')
       }
-    },
-    [setCurrentStep]
-  )
+
+      await axios.post('form/create', { ...input })
+    } catch (e) {
+      console.error(e)
+    }
+  }, [])
 
   // const people = [
   //   { id: 1, name: 'Durward Reynolds' },
@@ -145,7 +142,7 @@ const FormCreationLayout = (props) => {
         // validate={validate}
         mutators={{ ...arrayMutators }}
         initialValues={initialValues}
-        render={({ handleSubmit, values, form }) => (
+        render={({ handleSubmit }) => (
           <form onSubmit={handleSubmit}>
             {/*<pre>*/}
             {/*  <code>{JSON.stringify(values, null, 4)}</code>*/}

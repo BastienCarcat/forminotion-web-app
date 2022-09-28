@@ -3,12 +3,25 @@
   <component name="ChangeListManager">
     <list default="true" id="d723c317-6206-4f0e-884f-8d9aebe6c158" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/providers/Auth0ProviderWithHistory.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/providers/Auth0ProviderWithHistory.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/components/AppBar/AppBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/components/AppBar/AppBar.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/components/Edition/Creation/Blocks/Steps/Fields.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/components/Edition/Creation/Blocks/Steps/Fields.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/components/Edition/Creation/Blocks/Steps/Form.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/components/Edition/Creation/Blocks/Steps/Form.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/components/Edition/Creation/Blocks/Steps/Preview.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/components/Edition/Creation/Blocks/Steps/Preview.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/components/Edition/Creation/Layout.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/components/Edition/Creation/Layout.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/components/Form/Fields/MultiSelect.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/components/Form/Fields/MultiSelect.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/components/Form/Fields/Select.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/components/Form/Fields/Select.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/components/Form/Fields/Switch.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/components/Form/Fields/Switch.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/components/Form/Form.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/components/Form/Form.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/components/Forms/Card.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/components/Forms/Card.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/screens/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/screens/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/components/Forms/List.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/components/Forms/List.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/screens/Form.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/screens/Form.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/screens/FormEdition.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/screens/FormEdition.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/screens/Forms.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/screens/Forms.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/screens/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/screens/Home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/screens/Pricing.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/screens/Pricing.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/ui/Globals/Tooltip.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/ui/Globals/Tooltip.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,19 +61,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/Users/bastien/Desktop/Projets/forminotion-web-app",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "prettierjs.PrettierConfiguration.Package": "/usr/local/lib/node_modules/prettier",
-    "settings.editor.selected.configurable": "actions.on.save"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/bastien/Desktop/Projets/forminotion-web-app&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/usr/local/lib/node_modules/prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.javascript.linters.eslint&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -79,11 +94,24 @@
       <workItem from="1660074256357" duration="35103000" />
       <workItem from="1661541548767" duration="29574000" />
       <workItem from="1661864431636" duration="26371000" />
+      <workItem from="1664372746277" duration="815000" />
+      <workItem from="1664373572668" duration="1163000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

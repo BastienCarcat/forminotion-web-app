@@ -2,6 +2,7 @@ import { Auth0Provider } from '@auth0/auth0-react'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { config } from '../config'
+import PropTypes from 'prop-types'
 
 const Auth0ProviderWithHistory = ({ children }) => {
   const navigate = useNavigate()
@@ -25,6 +26,10 @@ const Auth0ProviderWithHistory = ({ children }) => {
       {children}
     </Auth0Provider>
   )
+}
+
+Auth0ProviderWithHistory.propTypes = {
+  children: PropTypes.node.isRequired
 }
 
 export default Auth0ProviderWithHistory

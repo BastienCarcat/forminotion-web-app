@@ -5,7 +5,7 @@ import _ from 'lodash'
 import { useNavigate } from 'react-router-dom'
 import Loader from '../../ui/Globals/Loader'
 
-const Forms = (props) => {
+const Forms = () => {
   const [loading, setLoading] = useState(false)
   const [forms, setForms] = useState([])
 

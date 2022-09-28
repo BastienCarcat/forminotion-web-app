@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import { ArrowRightIcon, InformationCircleIcon } from '@heroicons/react/outline'
+import React, { useCallback } from 'react'
+import { ArrowRightIcon } from '@heroicons/react/outline'
 import { PropTypes } from 'prop-types'
 import { stepPositions } from '../../Layout'
-import { Field, FormSpy, useFormState, useForm } from 'react-final-form'
+import { Field, useFormState } from 'react-final-form'
 import _ from 'lodash'
 import { FieldArray } from 'react-final-form-arrays'
 

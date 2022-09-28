@@ -2,7 +2,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 import axios from 'axios'
 import cleanDeep from 'clean-deep'
 import _ from 'lodash'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { Form } from 'react-final-form'
 import NumberField from './Fields/Number'
 import SelectField from './Fields/Select'
@@ -33,7 +33,7 @@ const MainForm = () => {
     return init
   }, [databaseInfo])
 
-  const retrieveDatabaseInfo = async () => {
+  const retrieveDatabaseInfo = useCallback(async () => {
     try {
       setLoading(true)
       const data = await axios.get('form/getById', {
@@ -46,7 +46,7 @@ const MainForm = () => {
     } finally {
       setLoading(false)
     }
-  }
+  }, [idForm])
 
   useEffect(() => {
     async function init() {
@@ -54,7 +54,7 @@ const MainForm = () => {
       setDatabaseInfo(response)
     }
     init()
-  }, [])
+  }, [retrieveDatabaseInfo])
 
   const onSubmit = async (values) => {
     try {

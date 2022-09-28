@@ -1,7 +1,7 @@
 import React from 'react'
 import { CheckIcon } from '@heroicons/react/outline'
 
-const PricingScreen = props => {
+const PricingScreen = () => {
   const hobbyFeatures = [
     'Pariatur quod similique',
     'Sapiente libero doloribus',
@@ -68,7 +68,7 @@ const PricingScreen = props => {
                     </div>
                     <div className="flex-1 flex flex-col justify-between border-t-2 border-gray-100 p-6 bg-gray-50 sm:p-10 lg:p-6 xl:p-10">
                       <ul role="list" className="space-y-4">
-                        {hobbyFeatures.map(feature => (
+                        {hobbyFeatures.map((feature) => (
                           <li key={feature} className="flex items-start">
                             <div className="flex-shrink-0">
                               <CheckIcon
@@ -133,7 +133,7 @@ const PricingScreen = props => {
                   </div>
                   <div className="border-t-2 border-gray-100 rounded-b-lg pt-10 pb-8 px-6 bg-gray-50 sm:px-10 sm:py-10">
                     <ul role="list" className="space-y-4">
-                      {growthFeatures.map(feature => (
+                      {growthFeatures.map((feature) => (
                         <li key={feature} className="flex items-start">
                           <div className="flex-shrink-0">
                             <CheckIcon
@@ -187,7 +187,7 @@ const PricingScreen = props => {
                     </div>
                     <div className="flex-1 flex flex-col justify-between border-t-2 border-gray-100 p-6 bg-gray-50 sm:p-10 lg:p-6 xl:p-10">
                       <ul role="list" className="space-y-4">
-                        {scaleFeatures.map(feature => (
+                        {scaleFeatures.map((feature) => (
                           <li key={feature} className="flex items-start">
                             <div className="flex-shrink-0">
                               <CheckIcon

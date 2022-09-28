@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Field } from 'react-final-form'
 import { PropTypes } from 'prop-types'
-import _ from 'lodash'
 import { Listbox } from '@headlessui/react'
 
 const MultiSelectField = ({
@@ -30,10 +29,10 @@ const MultiSelectField = ({
           {...input}
         >
           <Listbox.Button>
-            {selectedPeople.map(person => person.name).join(', ')}
+            {selectedPeople.map((person) => person.name).join(', ')}
           </Listbox.Button>
           <Listbox.Options>
-            {people.map(person => (
+            {people.map((person) => (
               <Listbox.Option key={person.id} value={person}>
                 {person.name}
               </Listbox.Option>

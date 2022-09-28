@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { InformationCircleIcon } from '@heroicons/react/outline'
 
 const Tooltip = ({ text, children }) => {
   return (
@@ -17,7 +16,8 @@ const Tooltip = ({ text, children }) => {
 }
 
 Tooltip.propTypes = {
-  text: PropTypes.any
+  text: PropTypes.any,
+  children: PropTypes.node.isRequired
 }
 
 export default Tooltip
