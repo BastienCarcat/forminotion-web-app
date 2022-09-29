@@ -73,9 +73,9 @@ const App = () => {
             <Route path="/edition" element={<FormEditionScreen />} />
             <Route path="/pricing" element={<PricingScreen />} />
           </Routes>
+          <Footer />
         </>
       )}
-      <Footer />
     </div>
   )
 }
