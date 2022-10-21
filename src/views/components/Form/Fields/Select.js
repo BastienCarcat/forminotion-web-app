@@ -17,9 +17,20 @@ const SelectField = ({ label, name, options, getOptionLabel, ...others }) => {
           <select
             className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md"
             {...input}
+            value={_.get(input, 'value.id')}
+            onChange={(event) => {
+              input.onChange(
+                _.find(
+                  options,
+                  (opt) => _.get(opt, 'id') === _.get(event, 'target.value')
+                )
+              )
+            }}
           >
             {_.map(options, (option) => (
-              <option>{getOptionLabel(option)}</option>
+              <option key={_.get(option, 'id')} value={_.get(option, 'id')}>
+                {getOptionLabel(option)}
+              </option>
             ))}
           </select>
         </div>

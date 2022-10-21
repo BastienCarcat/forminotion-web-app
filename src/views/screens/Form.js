@@ -1,12 +1,12 @@
 import { withAuthenticationRequired } from '@auth0/auth0-react'
 import React from 'react'
-import MainForm from '../components/Form/Form'
 import Loader from '../ui/Globals/Loader'
+import FormLayout from '../components/Form/Layout'
 
 const FormScreen = () => {
   return (
-    <div className="pt-16 flex-grow">
-      <MainForm />
+    <div className="w-full">
+      <FormLayout />
     </div>
   )
 }

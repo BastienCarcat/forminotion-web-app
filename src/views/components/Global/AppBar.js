@@ -78,7 +78,7 @@ const NavigationBar = () => {
                       <div className="flex-shrink-0">
                         <button
                           type="button"
-                          onClick={() => navigate('/form')}
+                          onClick={() => navigate('/edition')}
                           className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-primary hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
                         >
                           <PlusSmIcon

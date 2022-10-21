@@ -1,6 +1,7 @@
 import React from 'react'
 import { Field } from 'react-final-form'
 import { PropTypes } from 'prop-types'
+import _ from 'lodash'
 
 const NumberField = ({ label, name, ...others }) => {
   return (
@@ -18,6 +19,14 @@ const NumberField = ({ label, name, ...others }) => {
               type="number"
               className="focus:ring-primary focus:border-primary block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md"
               {...input}
+              onChange={(event) =>
+                input.onChange(
+                  _.get(event, 'target.value')
+                    ? _.toNumber(_.get(event, 'target.value'))
+                    : ''
+                )
+              }
+              value={_.get(input, 'value')}
             />
           </div>
         </div>

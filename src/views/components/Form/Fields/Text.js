@@ -1,8 +1,10 @@
 import React from 'react'
 import { Field } from 'react-final-form'
 import { PropTypes } from 'prop-types'
+import _ from 'lodash'
 
 const TextField = ({ label, name, ...others }) => {
+
   return (
     <Field name={name} {...others}>
       {({ input }) => (
@@ -18,6 +20,8 @@ const TextField = ({ label, name, ...others }) => {
               type="text"
               className="focus:ring-primary focus:border-primary block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md"
               {...input}
+              onChange={(event) => input.onChange([{ text: { content: _.get(event, 'target.value') } }] )}
+              value={_.get(input, 'value.[0].text.content')}
             />
           </div>
         </div>
