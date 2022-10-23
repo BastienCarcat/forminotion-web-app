@@ -44,7 +44,7 @@ const FormCreationStepFields = ({ setCurrentStep }) => {
           {({ fields }) => (
             <div>
               {fields.map((name, index) => (
-                <Field key={name} name={`${name}.enabled`}>
+                <Field key={name} name={`${name}.enabled`} type="checkbox">
                   {({ input }) => (
                     <div
                       // className="flex border rounded-lg p-3 mt-4"
@@ -54,7 +54,7 @@ const FormCreationStepFields = ({ setCurrentStep }) => {
                         <label
                           htmlFor={`field-${_.get(
                             fields,
-                            `value[${index}].idNotion`
+                            `value[${index}].property.id`
                           )}`}
                           className="font-medium text-gray-700 select-none"
                         >
@@ -66,7 +66,7 @@ const FormCreationStepFields = ({ setCurrentStep }) => {
                           {...input}
                           id={`field-${_.get(
                             fields,
-                            `value[${index}].idNotion`
+                            `value[${index}].property.id`
                           )}`}
                           type="checkbox"
                           className="focus:ring-primary h-5 w-5 text-primary border-gray-300 rounded"

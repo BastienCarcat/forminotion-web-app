@@ -12,25 +12,24 @@ import TextField from './Fields/Text'
 const MainForm = ({ databaseInfo }) => {
   const initialValues = useMemo(() => {
     const defaultValues = {}
-
     _.each(_.get(databaseInfo, 'fields'), (field) => {
-      const { name, type } = _.get(field, 'property')
+      const { id, type } = _.get(field, 'property')
       switch (type) {
         case 'multi_select':
-          _.set(defaultValues, name, [])
+          _.set(defaultValues, id, [])
           break
         case 'rich_text':
         case 'title':
-          _.set(defaultValues, name, [{ text: { content: '' } }])
+          _.set(defaultValues, id, [{ text: { content: '' } }])
           break
         case 'checkbox':
-          _.set(defaultValues, name, false)
+          _.set(defaultValues, id, false)
           break
         case 'select':
-          _.set(defaultValues, name, { name: '', id: '', color: '' })
+          _.set(defaultValues, id, { name: '', id: '', color: '' })
           break
         default:
-          _.set(defaultValues, name, '')
+          _.set(defaultValues, id, '')
           break
       }
     })
@@ -45,9 +44,9 @@ const MainForm = ({ databaseInfo }) => {
         token: _.get(databaseInfo, 'accessToken')
       }
       _.each(_.get(databaseInfo, 'fields'), (field) => {
-        const { name, type } = _.get(field, 'property')
-        if (_.get(values, name)) {
-          _.set(input, `properties.${name}.${type}`, _.get(values, name))
+        const { id, type } = _.get(field, 'property')
+        if (_.get(values, id)) {
+          _.set(input, `properties.${id}.${type}`, _.get(values, id))
         }
       })
       // switch (type) {
@@ -127,7 +126,7 @@ const MainForm = ({ databaseInfo }) => {
                           case 'title':
                             return (
                               <TextField
-                                name={_.get(field, 'property.name')}
+                                name={_.get(field, 'property.id')}
                                 label={_.get(field, 'label')}
                               />
                             )
@@ -135,7 +134,7 @@ const MainForm = ({ databaseInfo }) => {
                           case 'number':
                             return (
                               <NumberField
-                                name={_.get(field, 'property.name')}
+                                name={_.get(field, 'property.id')}
                                 label={_.get(field, 'label')}
                               />
                             )
@@ -144,7 +143,7 @@ const MainForm = ({ databaseInfo }) => {
                             return (
                               <div className="flex h-full">
                                 <SwitchField
-                                  name={_.get(field, 'property.name')}
+                                  name={_.get(field, 'property.id')}
                                   label={_.get(field, 'label')}
                                 />
                               </div>
@@ -153,7 +152,7 @@ const MainForm = ({ databaseInfo }) => {
                           case 'rich_text':
                             return (
                               <TextField
-                                name={_.get(field, 'property.name')}
+                                name={_.get(field, 'property.id')}
                                 label={_.get(field, 'label')}
                               />
                             )
@@ -161,7 +160,7 @@ const MainForm = ({ databaseInfo }) => {
                           case 'select':
                             return (
                               <SelectField
-                                name={_.get(field, 'property.name')}
+                                name={_.get(field, 'property.id')}
                                 label={_.get(field, 'label')}
                                 options={_.get(
                                   field,
@@ -193,7 +192,7 @@ const MainForm = ({ databaseInfo }) => {
                           default:
                             return (
                               <TextField
-                                name={_.get(field, 'property.name')}
+                                name={_.get(field, 'property.id')}
                                 label={_.get(field, 'label')}
                               />
                             )
