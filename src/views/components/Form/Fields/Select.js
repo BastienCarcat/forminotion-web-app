@@ -15,7 +15,7 @@ const SelectField = ({ label, name, options, getOptionLabel, ...others }) => {
             {label}
           </label>
           <select
-            className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md"
+            className="mt-1 w-full pl-3 pr-10 py-2 border-gray-300 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md"
             {...input}
             value={_.get(input, 'value.id')}
             onChange={(event) => {

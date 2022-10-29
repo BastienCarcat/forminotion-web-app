@@ -8,46 +8,55 @@ import SelectField from './Fields/Select'
 import SwitchField from './Fields/Switch'
 import PropTypes from 'prop-types'
 import TextField from './Fields/Text'
+import NotAvailableField from './Fields/NotAvailable'
+import DateField from './Fields/Date'
+import URLField from './Fields/URL'
+import PhoneNumberField from './Fields/PhoneNumber'
+import MailField from './Fields/Mail'
 
 const MainForm = ({ databaseInfo }) => {
   const initialValues = useMemo(() => {
     const defaultValues = {}
     _.each(_.get(databaseInfo, 'fields'), (field) => {
-      const { id, type } = _.get(field, 'property')
-      switch (type) {
+      const { idFieldNotion, property } = field
+      switch (_.get(property, 'type')) {
         case 'multi_select':
-          _.set(defaultValues, id, [])
+          _.set(defaultValues, idFieldNotion, [])
           break
         case 'rich_text':
         case 'title':
-          _.set(defaultValues, id, [{ text: { content: '' } }])
+          _.set(defaultValues, idFieldNotion, [{ text: { content: '' } }])
           break
         case 'checkbox':
-          _.set(defaultValues, id, false)
+          _.set(defaultValues, idFieldNotion, false)
           break
         case 'select':
-          _.set(defaultValues, id, { name: '', id: '', color: '' })
+        case 'status':
+          _.set(defaultValues, idFieldNotion, { name: '', id: '', color: '' })
           break
         default:
-          _.set(defaultValues, id, '')
+          _.set(defaultValues, idFieldNotion, '')
           break
       }
     })
-    console.log('databaseInfo', _.get(databaseInfo, 'fields'))
+    console.log('databaseInfo', databaseInfo)
     return defaultValues
   }, [databaseInfo])
 
   const onSubmit = async (values) => {
     try {
       const input = {
-        idDatabase: _.get(databaseInfo, 'idNotionDatabase'),
-        token: _.get(databaseInfo, 'accessToken')
+        idDatabase: _.get(databaseInfo, 'notion.id'),
+        token: _.get(databaseInfo, 'form.token')
       }
+      console.log('values', values)
       _.each(_.get(databaseInfo, 'fields'), (field) => {
-        const { id, type } = _.get(field, 'property')
-        if (_.get(values, id)) {
-          _.set(input, `properties.${id}.${type}`, _.get(values, id))
-        }
+        const { idFieldNotion, property } = field
+        _.set(
+          input,
+          `properties.${idFieldNotion}.${_.get(property, 'type')}`,
+          _.get(values, idFieldNotion)
+        )
       })
       // switch (type) {
       // case 'title':
@@ -82,7 +91,7 @@ const MainForm = ({ databaseInfo }) => {
       //   }
       //   break
       // }
-      console.log('input', input)
+      console.log('input', cleanDeep(input))
       await axios.post('notion/createDbItem', cleanDeep(input))
     } catch (e) {
       console.error(e)
@@ -105,75 +114,114 @@ const MainForm = ({ databaseInfo }) => {
             {/*<pre>*/}
             {/*  <code>{JSON.stringify(values, null, 4)}</code>*/}
             {/*</pre>*/}
-            {/*<div>*/}
-            <div>
-              <div className="pt-8">
-                <div>
-                  <h3 className="text-lg leading-6 font-medium text-gray-900">
-                    {_.get(databaseInfo, 'title')}
-                  </h3>
-                  {_.get(databaseInfo, 'description') && (
-                    <p className="mt-1 text-sm text-gray-500">
-                      {_.get(databaseInfo, 'description')}
-                    </p>
-                  )}
-                </div>
-                <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-                  {_.map(_.get(databaseInfo, 'fields'), (field, key) => (
-                    <div className="sm:col-span-3 " key={key}>
-                      {(() => {
-                        switch (_.get(field, 'property.type')) {
-                          case 'title':
-                            return (
-                              <TextField
-                                name={_.get(field, 'property.id')}
+            <div className="pt-8">
+              <div>
+                <h3 className="text-lg leading-6 font-medium text-gray-900">
+                  {_.get(databaseInfo, 'form.title')}
+                </h3>
+                {_.get(databaseInfo, 'form.description') && (
+                  <p className="mt-1 text-sm text-gray-500">
+                    {_.get(databaseInfo, 'form.description')}
+                  </p>
+                )}
+              </div>
+              <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                {_.map(_.get(databaseInfo, 'fields'), (field) => (
+                  <div className="sm:col-span-3 " key={_.get(field, 'id')}>
+                    {(() => {
+                      switch (_.get(field, 'property.type')) {
+                        case 'title':
+                        case 'rich_text':
+                          return (
+                            <TextField
+                              name={_.get(field, 'idFieldNotion')}
+                              label={_.get(field, 'label')}
+                            />
+                          )
+
+                        case 'number':
+                          return (
+                            <NumberField
+                              name={_.get(field, 'idFieldNotion')}
+                              label={_.get(field, 'label')}
+                            />
+                          )
+
+                        case 'checkbox':
+                          return (
+                            <div className="flex h-full">
+                              <SwitchField
+                                name={_.get(field, 'idFieldNotion')}
                                 label={_.get(field, 'label')}
                               />
-                            )
+                            </div>
+                          )
 
-                          case 'number':
-                            return (
-                              <NumberField
-                                name={_.get(field, 'property.id')}
-                                label={_.get(field, 'label')}
-                              />
-                            )
+                        case 'select':
+                          return (
+                            <SelectField
+                              name={_.get(field, 'idFieldNotion')}
+                              label={_.get(field, 'label')}
+                              options={_.get(
+                                field,
+                                'property.select.options',
+                                []
+                              )}
+                              getOptionLabel={(option) =>
+                                _.get(option, 'name', '')
+                              }
+                            />
+                          )
 
-                          case 'checkbox':
-                            return (
-                              <div className="flex h-full">
-                                <SwitchField
-                                  name={_.get(field, 'property.id')}
-                                  label={_.get(field, 'label')}
-                                />
-                              </div>
-                            )
+                        case 'status':
+                          return (
+                            <SelectField
+                              name={_.get(field, 'idFieldNotion')}
+                              label={_.get(field, 'label')}
+                              options={_.get(
+                                field,
+                                'property.status.options',
+                                []
+                              )}
+                              getOptionLabel={(option) =>
+                                _.get(option, 'name', '')
+                              }
+                            />
+                          )
 
-                          case 'rich_text':
-                            return (
-                              <TextField
-                                name={_.get(field, 'property.id')}
-                                label={_.get(field, 'label')}
-                              />
-                            )
+                        case 'date':
+                          return (
+                            <DateField
+                              name={_.get(field, 'idFieldNotion')}
+                              label={_.get(field, 'label')}
+                            />
+                          )
 
-                          case 'select':
-                            return (
-                              <SelectField
-                                name={_.get(field, 'property.id')}
-                                label={_.get(field, 'label')}
-                                options={_.get(
-                                  field,
-                                  'property.select.options',
-                                  []
-                                )}
-                                getOptionLabel={(option) =>
-                                  _.get(option, 'name', '')
-                                }
-                              />
-                            )
+                        case 'url':
+                          return (
+                            <URLField
+                              name={_.get(field, 'idFieldNotion')}
+                              label={_.get(field, 'label')}
+                            />
+                          )
 
-                          /*  case 'multi_select':
+                        case 'phone_number':
+                          return (
+                            <PhoneNumberField
+                              name={_.get(field, 'idFieldNotion')}
+                              label={_.get(field, 'label')}
+                            />
+                          )
+
+                        case 'email':
+                          return (
+                            <MailField
+                              name={_.get(field, 'idFieldNotion')}
+                              label={_.get(field, 'label')}
+                            />
+                          )
+
+                        /*  case 'multi_select':
                                 return (
                                   <MultiSelectField
                                     name={_.get(field, 'property.name')}
@@ -189,18 +237,17 @@ const MainForm = ({ databaseInfo }) => {
                                   />
                                 )*/
 
-                          default:
-                            return (
-                              <TextField
-                                name={_.get(field, 'property.id')}
-                                label={_.get(field, 'label')}
-                              />
-                            )
-                        }
-                      })()}
-                    </div>
-                  ))}
-                </div>
+                        default:
+                          return (
+                            <NotAvailableField
+                              label={_.get(field, 'label')}
+                              type={_.get(field, 'property.type')}
+                            />
+                          )
+                      }
+                    })()}
+                  </div>
+                ))}
               </div>
             </div>
             <div className="flex justify-between">
@@ -217,7 +264,6 @@ const MainForm = ({ databaseInfo }) => {
                 Save
               </button>
             </div>
-            {/*</div>*/}
           </form>
         )}
       />

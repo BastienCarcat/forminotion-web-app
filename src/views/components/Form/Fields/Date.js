@@ -1,9 +1,8 @@
 import React from 'react'
 import { Field } from 'react-final-form'
 import { PropTypes } from 'prop-types'
-import _ from 'lodash'
 
-const TextField = ({ label, name, ...others }) => {
+const DateField = ({ label, name, ...others }) => {
   return (
     <Field name={name} {...others}>
       {({ input }) => (
@@ -14,17 +13,20 @@ const TextField = ({ label, name, ...others }) => {
           >
             {label}
           </label>
-          <div className="mt-1 relative shadow-sm">
+          <div className="mt-1 relative rounded-md shadow-sm">
             <input
-              type="text"
+              type="date"
               className="focus:ring-primary focus:border-primary w-full sm:text-sm border-gray-300 rounded-md"
               {...input}
-              onChange={(event) =>
-                input.onChange([
-                  { text: { content: _.get(event, 'target.value') } }
-                ])
-              }
-              value={_.get(input, 'value.[0].text.content')}
+              placeholder=" /    /    "
+              // onChange={(event) =>
+              //   input.onChange(
+              //     _.get(event, 'target.value')
+              //       ? _.toNumber(_.get(event, 'target.value'))
+              //       : ''
+              //   )
+              // }
+              // value={_.get(input, 'value')}
             />
           </div>
         </div>
@@ -33,9 +35,9 @@ const TextField = ({ label, name, ...others }) => {
   )
 }
 
-TextField.propTypes = {
+DateField.propTypes = {
   label: PropTypes.string,
   name: PropTypes.string.isRequired
 }
 
-export default TextField
+export default DateField
