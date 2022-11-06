@@ -7,24 +7,26 @@ const HomeLayoutSectionPricing = () => {
     () => ({
       tiers: [
         {
-          title: 'Freelancer',
+          title: 'Basic',
           price: 'Free',
           frequency: '',
-          description: 'The essentials to provide your best work for clients.',
+          description:
+            'Everything you need to create and embed forms anywhere!',
           features: [
             '5 products',
             'Up to 1,000 subscribers',
             'Basic analytics',
             '48-hour support response time'
           ],
-          cta: 'Monthly billing',
+          cta: 'Start now',
           mostPopular: false
         },
         {
-          title: 'Startup',
-          price: 32,
+          title: 'Pro',
+          price: 19,
           frequency: '/month',
-          description: 'A plan that scales with your rapidly growing business.',
+          description:
+            'Create your own branding with the customization tools and more! ',
           features: [
             '25 products',
             'Up to 10,000 subscribers',
@@ -32,14 +34,14 @@ const HomeLayoutSectionPricing = () => {
             '24-hour support response time',
             'Marketing automations'
           ],
-          cta: 'Monthly billing',
+          cta: 'Start 7 days trial',
           mostPopular: true
         },
         {
           title: 'Enterprise',
-          price: 48,
+          price: 49,
           frequency: '/month',
-          description: 'Dedicated support and infrastructure for your company.',
+          description: 'Start collaborate with your team.',
           features: [
             'Unlimited products',
             'Unlimited subscribers',
@@ -48,7 +50,7 @@ const HomeLayoutSectionPricing = () => {
             'Marketing automations',
             'Custom integrations'
           ],
-          cta: 'Monthly billing',
+          cta: 'Start 7 days trial',
           mostPopular: false
         }
       ]
@@ -60,7 +62,7 @@ const HomeLayoutSectionPricing = () => {
     <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 flex items-center justify-between">
       <div className="max-w-7xl mx-auto py-24 px-4 bg-white sm:px-6 lg:px-8">
         <h2 className="text-3xl font-extrabold text-gray-900 sm:text-5xl sm:leading-none sm:tracking-tight lg:text-6xl">
-          Need to upgrade ?
+          Need more features ?
         </h2>
         <p className="mt-6 max-w-2xl text-xl text-gray-500">
           Start creating forms for free, then upgrade your account to access
@@ -113,7 +115,7 @@ const HomeLayoutSectionPricing = () => {
                   'mt-8 block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium',
                   tier.mostPopular
                     ? 'bg-primary text-white hover:opacity-80'
-                    : 'bg-pale text-primary hover:bg-opacity-80'
+                    : 'bg-primary-100 text-primary hover:bg-opacity-80'
                 )}
               >
                 {tier.cta}

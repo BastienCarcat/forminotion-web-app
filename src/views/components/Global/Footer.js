@@ -3,11 +3,10 @@ import React, { useMemo } from 'react'
 const Footer = () => {
   const navigation = useMemo(
     () => ({
-      solutions: [
-        { name: 'Marketing', href: '#' },
-        { name: 'Analytics', href: '#' },
-        { name: 'Commerce', href: '#' },
-        { name: 'Insights', href: '#' }
+      ressources: [
+        { name: 'Guides', href: '#' },
+        { name: 'Pricing', href: '#' },
+        { name: 'Updates', href: '#' }
       ],
       support: [
         { name: 'Pricing', href: '#' },
@@ -100,15 +99,15 @@ const Footer = () => {
         Footer
       </h2>
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
-        <div className="xl:grid xl:grid-cols-3 xl:gap-8">
-          <div className="grid grid-cols-2 gap-8 xl:col-span-2">
+        <div className="md:grid md:grid-cols-3 md:gap-8">
+          <div className="grid grid-cols-2 gap-8 md:col-span-2">
             <div className="md:grid md:grid-cols-2 md:gap-8">
               <div>
                 <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">
-                  Solutions
+                  Ressources
                 </h3>
                 <ul role="list" className="mt-4 space-y-4">
-                  {navigation.solutions.map((item) => (
+                  {navigation.ressources.map((item) => (
                     <li key={item.name}>
                       <a
                         href={item.href}

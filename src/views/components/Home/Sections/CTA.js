@@ -1,4 +1,5 @@
 import React from 'react'
+import AppScreen from '../../../../Images/app-screenshot.svg'
 
 const HomeLayoutSectionCTA = () => {
   return (
@@ -20,10 +21,7 @@ const HomeLayoutSectionCTA = () => {
           </button>
         </div>
         <div className="w-[600px] md:block hidden">
-          <img
-            src="https://tailwindui.com/img/component-images/full-width-with-sidebar.jpg"
-            alt="App screenshot"
-          />
+          <img src={AppScreen} alt="App screenshot"/>
         </div>
       </div>
     </div>

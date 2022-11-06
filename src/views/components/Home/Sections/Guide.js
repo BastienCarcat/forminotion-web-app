@@ -11,28 +11,26 @@ const HomeLayoutSectionGuide = () => {
       {
         title: 'Register and connect to Notion',
         description:
-          'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
+          'Start by creating an account by clicking on "try for free". Then authorize Forminotion to access your Notion workspace. To do this, click on "get authorization" and select pages that contain your databases.',
         image: SignIn,
         alt: 'Create illustration'
       },
       {
-        title: 'Select a Notion database',
-        description:
-          'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
+        title: 'Select your Notion database',
+        description: "Select the Notion database from which you want to create a form. Then select the fields you want to fill in with the form.",
         image: Select,
         alt: 'Create illustration'
       },
       {
         title: 'Create your form',
         description:
-          'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
+          'You can now create your form!',
         image: Create,
         alt: 'Create illustration'
       },
       {
         title: 'Embed your form everywhere!',
-        description:
-          'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
+        description: "Copy the link and share it everywhere! You can embed it in Notion by typing \"/embed\" in Notion and pasting the link. You can also embed your form in a website with the html tag \"<iframe>\".",
         image: Share,
         alt: 'Create illustration'
       }
@@ -47,10 +45,6 @@ const HomeLayoutSectionGuide = () => {
           <h2 className="text-lg font-semibold text-secondary">Guide</h2>
           <p className="mt-2 text-3xl font-bold leading-8 tracking-tight text-primary sm:text-4xl">
             How to create a form ?
-          </p>
-          <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-            Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam
-            voluptatum cupiditate veritatis in accusamus quisquam.
           </p>
         </div>
 
