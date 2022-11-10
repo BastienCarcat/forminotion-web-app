@@ -34,7 +34,7 @@ const HomeLayoutSectionPricing = () => {
             '24-hour support response time',
             'Marketing automations'
           ],
-          cta: 'Start 7 days trial',
+          cta: 'Contact us',
           mostPopular: true
         },
         {
@@ -50,7 +50,7 @@ const HomeLayoutSectionPricing = () => {
             'Marketing automations',
             'Custom integrations'
           ],
-          cta: 'Start 7 days trial',
+          cta: 'Contact us',
           mostPopular: false
         }
       ]
@@ -114,8 +114,8 @@ const HomeLayoutSectionPricing = () => {
                 className={clsx(
                   'mt-8 block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium',
                   tier.mostPopular
-                    ? 'bg-primary text-white hover:opacity-80'
-                    : 'bg-primary-100 text-primary hover:bg-opacity-80'
+                    ? 'bg-primary text-white hover:bg-primary-600'
+                    : 'bg-primary-100 text-primary-800 hover:bg-primary-200'
                 )}
               >
                 {tier.cta}

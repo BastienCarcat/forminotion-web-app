@@ -79,7 +79,7 @@ const NavigationBar = () => {
                         <button
                           type="button"
                           onClick={() => navigate('/edition')}
-                          className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-primary hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                          className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-primary hover:bg-primary-600"
                         >
                           <PlusSmIcon
                             className="-ml-1 mr-2 h-5 w-5"
@@ -92,7 +92,7 @@ const NavigationBar = () => {
                         {/* Profile dropdown */}
                         <Menu as="div" className="ml-3 relative">
                           <div>
-                            <Menu.Button className="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                            <Menu.Button className="bg-white rounded-full flex text-sm focus:outline-none ">
                               <span className="sr-only">Open user menu</span>
                               <img
                                 className="h-8 w-8 rounded-full"

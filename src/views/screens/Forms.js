@@ -5,7 +5,7 @@ import Loader from '../ui/Globals/Loader'
 
 const FormsListScreen = () => {
   return (
-    <div className="mx-auto sm:px-6 lg:px-8 w-full lg:max-w-6xl sm:max-w-4xl flex-grow">
+    <div className="mx-auto sm:px-6 lg:px-8 w-full lg:max-w-6xl sm:max-w-4xl flex-1">
       <Forms />
     </div>
   )

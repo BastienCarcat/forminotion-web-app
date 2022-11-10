@@ -15,13 +15,13 @@ const HomeLayoutSectionCTA = () => {
           </div>
           <button
             type="button"
-            className="items-center px-6 py-3 rounded-md bg-primary hover:opacity-80 text-white"
+            className="items-center px-6 py-3 rounded-md bg-primary hover:bg-primary-600 text-white"
           >
             Try for free
           </button>
         </div>
         <div className="w-[600px] md:block hidden">
-          <img src={AppScreen} alt="App screenshot"/>
+          <img src={AppScreen} alt="App screenshot" />
         </div>
       </div>
     </div>

@@ -9,7 +9,7 @@ import HomeLayoutSectionContact from './Sections/Contact'
 const HomeLayout = () => {
   return (
     <div className="w-full overflow-hidden">
-      <div className="relative w-full md:py-32 pt-32 pb-16 after:content-[''] after:bg-primary-100 after:-bottom-[10%] after:-inset-x-[10%] after:-top-1/2 after:absolute after:-z-10 after:transform after:-rotate-[8deg] after:-skew-y-0 after:-skew-x-[8deg]">
+      <div className="relative w-full md:py-32 pt-32 pb-16 after:content-[''] after:bg-primary-150 after:-bottom-[10%] after:-inset-x-[10%] after:-top-1/2 after:absolute after:-z-10 after:transform after:-rotate-[8deg] after:-skew-y-0 after:-skew-x-[8deg]">
         <HomeLayoutSectionCTA />
       </div>
 
@@ -25,7 +25,7 @@ const HomeLayout = () => {
         <HomeLayoutSectionPricing />
       </div>
 
-      <div className="relative w-full md:py-32 py-16 after:content-[''] after:bg-primary-100 after:-inset-y-0 after:-inset-x-[10%] after:absolute after:-z-10 after:transform after:-rotate-[8deg] after:-skew-y-0 after:-skew-x-[8deg]">
+      <div className="relative w-full md:py-32 py-16 after:content-[''] after:bg-primary-150 after:-inset-y-0 after:-inset-x-[10%] after:absolute after:-z-10 after:transform after:-rotate-[8deg] after:-skew-y-0 after:-skew-x-[8deg]">
         <HomeLayoutSectionFAQ />
       </div>
       <div className="py-28">

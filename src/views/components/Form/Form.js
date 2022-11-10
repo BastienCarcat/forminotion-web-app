@@ -13,6 +13,7 @@ import DateField from './Fields/Date'
 import URLField from './Fields/URL'
 import PhoneNumberField from './Fields/PhoneNumber'
 import MailField from './Fields/Mail'
+import MultiSelectField from './Fields/MultiSelect'
 
 const MainForm = ({ databaseInfo }) => {
   const initialValues = useMemo(() => {
@@ -39,7 +40,6 @@ const MainForm = ({ databaseInfo }) => {
           break
       }
     })
-    console.log('databaseInfo', databaseInfo)
     return defaultValues
   }, [databaseInfo])
 
@@ -49,7 +49,6 @@ const MainForm = ({ databaseInfo }) => {
         idDatabase: _.get(databaseInfo, 'notion.id'),
         token: _.get(databaseInfo, 'form.token')
       }
-      console.log('values', values)
       _.each(_.get(databaseInfo, 'fields'), (field) => {
         const { idFieldNotion, property } = field
         _.set(
@@ -221,21 +220,21 @@ const MainForm = ({ databaseInfo }) => {
                             />
                           )
 
-                        /*  case 'multi_select':
-                                return (
-                                  <MultiSelectField
-                                    name={_.get(field, 'property.name')}
-                                label={_.get(field, 'label')}
-                                    options={_.get(
-                                      field,
-                                      'multi_select.options',
-                                      []
-                                    )}
-                                    getOptionLabel={option =>
-                                      _.get(option, 'name', '')
-                                    }
-                                  />
-                                )*/
+                        case 'multi_select':
+                          return (
+                            <MultiSelectField
+                              name={_.get(field, 'idFieldNotion')}
+                              label={_.get(field, 'label')}
+                              options={_.get(
+                                field,
+                                'property.multi_select.options',
+                                []
+                              )}
+                              getOptionLabel={(option) =>
+                                _.get(option, 'name', '')
+                              }
+                            />
+                          )
 
                         default:
                           return (

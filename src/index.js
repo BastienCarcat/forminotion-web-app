@@ -11,9 +11,9 @@ root.render(
   <React.StrictMode>
     <Router>
       <Auth0ProviderWithHistory>
-        <div className="forminotion">
-          <App />
-        </div>
+        {/*<div className="forminotion">*/}
+        <App />
+        {/*</div>*/}
       </Auth0ProviderWithHistory>
     </Router>
   </React.StrictMode>

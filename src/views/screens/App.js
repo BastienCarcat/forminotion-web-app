@@ -59,20 +59,24 @@ const App = () => {
   if (isLoading) return <Loader />
 
   return (
-    <div className="flex flex-col items-center min-h-screen">
+    <div>
       {_.startsWith(_.get(location, 'pathname'), '/form/') ? (
         <Routes>
           <Route path="/form/:idForm" element={<FormScreen />} />
         </Routes>
       ) : (
         <>
-          <NavigationBar />
-          <Routes>
-            <Route index path="/" element={<HomeScreen />} />
-            <Route path="/forms" element={<FormsListScreen />} />
-            <Route path="/edition" element={<FormEditionScreen />} />
-            <Route path="/pricing" element={<PricingScreen />} />
-          </Routes>
+          <div className="min-h-screen w-full flex flex-col">
+            <NavigationBar />
+            <div className="flex-1 flex flex-col">
+              <Routes>
+                <Route index path="/" element={<HomeScreen />} />
+                <Route path="/forms" element={<FormsListScreen />} />
+                <Route path="/edition" element={<FormEditionScreen />} />
+                <Route path="/pricing" element={<PricingScreen />} />
+              </Routes>
+            </div>
+          </div>
           <Footer />
         </>
       )}
