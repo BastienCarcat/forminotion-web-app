@@ -50,7 +50,7 @@ const FormCreationStepForm = ({
   }, [setCurrentStep])
 
   return (
-    <div>
+    <>
       <FormSpy subscription={{ values: true, form: true }}>
         {({ values, form }) => (
           <>
@@ -231,7 +231,7 @@ const FormCreationStepForm = ({
           </>
         )}
       </FormSpy>
-    </div>
+    </>
   )
 }
 FormCreationStepForm.propTypes = {

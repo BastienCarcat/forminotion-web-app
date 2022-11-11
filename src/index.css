@@ -112,8 +112,16 @@ body {
   font-family: "DM Sans", 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
+  height: 100%;
   /*-webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;*/
+}
+html {
+  height: 100%;
+}
+
+#root {
+  height: 100%;
 }
 
 /*code {

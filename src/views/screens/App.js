@@ -1,8 +1,7 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import axios from 'axios'
 import React, { useEffect } from 'react'
-import { Route, Routes, useLocation } from 'react-router-dom'
-import NavigationBar from '../components/Global/AppBar'
+import { Route, Routes, useLocation, Navigate } from 'react-router-dom'
 import { config } from './../../config/index'
 import FormScreen from './Form'
 import _ from 'lodash'
@@ -11,7 +10,7 @@ import FormsListScreen from './Forms'
 import FormEditionScreen from './FormEdition'
 import Loader from '../ui/Globals/Loader'
 import PricingScreen from './Pricing'
-import Footer from '../components/Global/Footer'
+import LogoutScreen from './Logout'
 
 const App = () => {
   const { baseUrl } = config || {}
@@ -53,34 +52,30 @@ const App = () => {
   useEffect(() => {
     axios.defaults.baseURL = baseUrl
   }, [baseUrl])
-  useEffect(() => {
-    console.log(location)
-  }, [location])
+
   if (isLoading) return <Loader />
 
   return (
-    <div>
+    <>
       {_.startsWith(_.get(location, 'pathname'), '/form/') ? (
         <Routes>
           <Route path="/form/:idForm" element={<FormScreen />} />
         </Routes>
       ) : (
-        <>
-          <div className="min-h-screen w-full flex flex-col">
-            <NavigationBar />
-            <div className="flex-1 flex flex-col">
-              <Routes>
-                <Route index path="/" element={<HomeScreen />} />
-                <Route path="/forms" element={<FormsListScreen />} />
-                <Route path="/edition" element={<FormEditionScreen />} />
-                <Route path="/pricing" element={<PricingScreen />} />
-              </Routes>
-            </div>
-          </div>
-          <Footer />
-        </>
+        <Routes>
+          {isAuthenticated && (
+            <>
+              <Route path="/forms" element={<FormsListScreen />} />
+              <Route path="/edition" element={<FormEditionScreen />} />
+            </>
+          )}
+          <Route index path="/" element={<HomeScreen />} />
+          <Route path="/pricing" element={<PricingScreen />} />
+          <Route path="/logout" element={<LogoutScreen />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
       )}
-    </div>
+    </>
   )
 }
 

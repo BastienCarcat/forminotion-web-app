@@ -31,13 +31,10 @@ const Forms = () => {
 
   return (
     <>
-      <h2 className="text-2xl text-left font-bold px-4 py-5 sm:px-6">
-        My forms
-      </h2>
       {loading ? (
         <Loader classes={{ root: 'mt-36' }} />
       ) : (
-        <div>
+        <>
           {forms.length !== 0 ? (
             <ul
               role="list"
@@ -48,9 +45,9 @@ const Forms = () => {
               ))}
             </ul>
           ) : (
-            <div className="text-center absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 ">
+            <div className="text-center flex flex-col justify-center h-full">
               <svg
-                className="mx-auto h-12 w-12 text-gray-400"
+                className="mx-auto h-12 w-12 text-grayAppbar-400"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -96,7 +93,7 @@ const Forms = () => {
               </div>
             </div>
           )}
-        </div>
+        </>
       )}
     </>
   )

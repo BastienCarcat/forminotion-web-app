@@ -21,10 +21,7 @@ const FormCreationStepper = ({ steps, setCurrentStep }) => {
   }, [currentStep])*/
 
   return (
-    <div>
-      <div className="px-4 py-5 sm:px-6 ">
-        <h2 className="text-2xl font-bold">Create a form</h2>
-      </div>
+    <>
       <nav aria-label="Progress" className="mx-6 my-5 sm:mx-8 mt-3">
         <ol
           role="list"
@@ -101,7 +98,7 @@ const FormCreationStepper = ({ steps, setCurrentStep }) => {
           ))}
         </ol>
       </nav>
-    </div>
+    </>
   )
 }
 FormCreationStepper.propTypes = {

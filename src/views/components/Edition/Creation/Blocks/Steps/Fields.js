@@ -42,7 +42,7 @@ const FormCreationStepFields = ({ setCurrentStep }) => {
       <div className="max-w-xl mx-auto">
         <FieldArray name="fields">
           {({ fields }) => (
-            <div>
+            <div className="m-h-[70vh] overflow-auto px-2">
               {fields.map((name, index) => (
                 <Field key={name} name={`${name}.enabled`} type="checkbox">
                   {({ input }) => (
