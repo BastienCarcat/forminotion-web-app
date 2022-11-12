@@ -9,7 +9,6 @@ import AppBar from '../components/Global/AppBar'
 
 const FormsListScreen = () => {
   const navigate = useNavigate()
-
   return (
     <AppBar>
       <PageHeader

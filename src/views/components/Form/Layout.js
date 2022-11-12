@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import axios from 'axios'
 import _ from 'lodash'
 import { useParams } from 'react-router-dom'
 import Loader from '../../ui/Globals/Loader'
 import MainForm from './Form'
+import { useAxiosGet } from '../../../hooks/useAxiosGet'
 
 const FormLayout = () => {
   const [databaseInfo, setDatabaseInfo] = useState(null)
@@ -11,25 +11,24 @@ const FormLayout = () => {
 
   const { idForm } = useParams()
 
+  const [get] = useAxiosGet()
+
   const retrieveDatabaseInfo = useCallback(async () => {
     try {
       setLoading(true)
-      const form = await axios.get('form/getById', {
+      const form = await get('form/getById', {
         params: { id: idForm }
       })
-      if (_.get(form, 'status') === 200) {
-        const { idNotionDatabase, authorization, fields, ...restForm } = _.get(
-          form,
-          'data'
-        )
-        const notionData = await axios.get('notion/getDbInformations', {
+      if (form) {
+        const { idNotionDatabase, authorization, fields, ...restForm } = form
+        const notionData = await get('notion/getDbInformations', {
           params: {
             idDatabase: idNotionDatabase,
             token: _.get(authorization, 'accessToken')
           }
         })
-        if (_.get(notionData, 'status') === 200) {
-          const { properties, ...restNotionData } = _.get(notionData, 'data')
+        if (notionData) {
+          const { properties, ...restNotionData } = notionData
           return {
             form: { token: _.get(authorization, 'accessToken'), ...restForm },
             notion: restNotionData,
@@ -61,7 +60,7 @@ const FormLayout = () => {
     } finally {
       setLoading(false)
     }
-  }, [idForm])
+  }, [idForm, get])
 
   useEffect(() => {
     async function init() {

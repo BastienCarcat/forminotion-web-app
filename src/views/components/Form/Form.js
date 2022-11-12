@@ -1,7 +1,6 @@
-import axios from 'axios'
 import cleanDeep from 'clean-deep'
 import _ from 'lodash'
-import React, { useMemo } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import { Form } from 'react-final-form'
 import NumberField from './Fields/Number'
 import SelectField from './Fields/Select'
@@ -14,8 +13,11 @@ import URLField from './Fields/URL'
 import PhoneNumberField from './Fields/PhoneNumber'
 import MailField from './Fields/Mail'
 import MultiSelectField from './Fields/MultiSelect'
+import { useAxiosPost } from '../../../hooks/useAxiosPost'
 
 const MainForm = ({ databaseInfo }) => {
+  const [post] = useAxiosPost()
+
   const initialValues = useMemo(() => {
     const defaultValues = {}
     _.each(_.get(databaseInfo, 'fields'), (field) => {
@@ -43,59 +45,62 @@ const MainForm = ({ databaseInfo }) => {
     return defaultValues
   }, [databaseInfo])
 
-  const onSubmit = async (values) => {
-    try {
-      const input = {
-        idDatabase: _.get(databaseInfo, 'notion.id'),
-        token: _.get(databaseInfo, 'form.token')
-      }
-      _.each(_.get(databaseInfo, 'fields'), (field) => {
-        const { idFieldNotion, property } = field
-        _.set(
-          input,
-          `properties.${idFieldNotion}.${_.get(property, 'type')}`,
-          _.get(values, idFieldNotion)
-        )
-      })
-      // switch (type) {
-      // case 'title':
-      //   if (values[name]) {
-      //     _.set(input, `properties.${name}`, {
-      //       title: [{ text: { content: values[name] } }]
-      //     })
-      //   }
-      //   break
-      // case 'rich_text':
-      //   if (values[_.get(field, 'property.name')]) {
-      //     _.set(input, `properties.${name}`, {
-      //       rich_text: [{ text: { content: values[name] } }]
-      //     })
-      //   }
-      //   break
-      // case 'number':
-      //   if (values[name]) {
-      //     _.set(input, `properties.${name}`, {
-      //       number: _.toNumber(values[name])
-      //     })
-      //   }
-      //   break
+  const onSubmit = useCallback(
+    async (values) => {
+      try {
+        const input = {
+          idDatabase: _.get(databaseInfo, 'notion.id'),
+          token: _.get(databaseInfo, 'form.token')
+        }
+        _.each(_.get(databaseInfo, 'fields'), (field) => {
+          const { idFieldNotion, property } = field
+          _.set(
+            input,
+            `properties.${idFieldNotion}.${_.get(property, 'type')}`,
+            _.get(values, idFieldNotion)
+          )
+        })
+        // switch (type) {
+        // case 'title':
+        //   if (values[name]) {
+        //     _.set(input, `properties.${name}`, {
+        //       title: [{ text: { content: values[name] } }]
+        //     })
+        //   }
+        //   break
+        // case 'rich_text':
+        //   if (values[_.get(field, 'property.name')]) {
+        //     _.set(input, `properties.${name}`, {
+        //       rich_text: [{ text: { content: values[name] } }]
+        //     })
+        //   }
+        //   break
+        // case 'number':
+        //   if (values[name]) {
+        //     _.set(input, `properties.${name}`, {
+        //       number: _.toNumber(values[name])
+        //     })
+        //   }
+        //   break
 
-      // default:
-      //   if (values[name]) {
-      //     _.set(
-      //       input,
-      //       `properties.${name}.${_.get(field, 'type')}`,
-      //       values[name]
-      //     )
-      //   }
-      //   break
-      // }
-      console.log('input', cleanDeep(input))
-      await axios.post('notion/createDbItem', cleanDeep(input))
-    } catch (e) {
-      console.error(e)
-    }
-  }
+        // default:
+        //   if (values[name]) {
+        //     _.set(
+        //       input,
+        //       `properties.${name}.${_.get(field, 'type')}`,
+        //       values[name]
+        //     )
+        //   }
+        //   break
+        // }
+        console.log('input', cleanDeep(input))
+        await post('notion/createDbItem', cleanDeep(input))
+      } catch (e) {
+        console.error(e)
+      }
+    },
+    [post, databaseInfo]
+  )
 
   if (!databaseInfo) return <div>No database loaded</div>
 
@@ -251,7 +256,8 @@ const MainForm = ({ databaseInfo }) => {
             </div>
             <div className="flex justify-between">
               <a
-                href="#"
+                href="/"
+                target="_blank"
                 className="text-xs hover:underline pt-1 text-gray-400"
               >
                 Powered by Forminotion

@@ -3,11 +3,12 @@ import FormCreationStepper from './Blocks/Stepper'
 import _ from 'lodash'
 import FormCreationStepForm from './Blocks/Steps/Form'
 import { Form } from 'react-final-form'
-import axios from 'axios'
 import FormCreationStepFields from './Blocks/Steps/Fields'
 import arrayMutators from 'final-form-arrays'
 import FormCreationStepPreview from './Blocks/Steps/Preview'
 import { useAuth0 } from '@auth0/auth0-react'
+import { useAxiosGet } from '../../../../hooks/useAxiosGet'
+import { useAxiosPost } from '../../../../hooks/useAxiosPost'
 
 export const stepPositions = Object.freeze({
   FORM: 1,
@@ -41,6 +42,8 @@ const FormCreationLayout = () => {
   const [databases, setDatabases] = useState([])
 
   const { user } = useAuth0()
+  const [get] = useAxiosGet()
+  const [post] = useAxiosPost()
 
   const currentStep = useMemo(() => {
     return _.find(steps, (step) => _.get(step, 'status') === stepStatus.CURRENT)
@@ -63,26 +66,29 @@ const FormCreationLayout = () => {
     [steps]
   )
 
-  const onSubmit = useCallback(async (values) => {
-    try {
-      console.log(values)
-      const input = {
-        title: _.get(
-          values,
-          'title',
-          _.get(values, 'database.title[0].plain_text')
-        ),
-        description: _.get(values, 'description', ''),
-        idAuthorization: _.get(values, 'authorization.id'),
-        idNotionDatabase: _.get(values, 'database.id'),
-        fields: _.get(values, 'fields')
-      }
+  const onSubmit = useCallback(
+    async (values) => {
+      try {
+        console.log(values)
+        const input = {
+          title: _.get(
+            values,
+            'title',
+            _.get(values, 'database.title[0].plain_text')
+          ),
+          description: _.get(values, 'description', ''),
+          idAuthorization: _.get(values, 'authorization.id'),
+          idNotionDatabase: _.get(values, 'database.id'),
+          fields: _.get(values, 'fields')
+        }
 
-      await axios.post('form/create', { ...input })
-    } catch (e) {
-      console.error(e)
-    }
-  }, [])
+        await post('form/create', input)
+      } catch (e) {
+        console.error(e)
+      }
+    },
+    [post]
+  )
 
   // const people = [
   //   { id: 1, name: 'Durward Reynolds' },
@@ -101,12 +107,12 @@ const FormCreationLayout = () => {
   const initialize = useCallback(async () => {
     try {
       const initVals = {}
-      const wp = await axios.get('authorization/getAll')
+      const wp = await get('authorization/getAll')
 
-      if (!_.isEmpty(_.get(wp, 'data'))) {
-        setAuthorizations(_.get(wp, 'data'))
+      if (!_.isEmpty(wp)) {
+        setAuthorizations(wp)
 
-        const mainAuthorization = _.get(wp, 'data[0]')
+        const mainAuthorization = _.head(wp)
 
         _.set(initVals, 'authorization', mainAuthorization)
       }

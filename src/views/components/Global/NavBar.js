@@ -78,7 +78,7 @@ const NavigationBar = () => {
                       <div className="flex-shrink-0">
                         <button
                           type="button"
-                          onClick={() => navigate('/forms')}
+                          onClick={() => handleNavigate('/forms')}
                           className="inline-flex items-center px-3 py-2 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-primary hover:bg-primary-600"
                         >
                           <span>My workspace</span>
@@ -110,43 +110,43 @@ const NavigationBar = () => {
                               <div className="py-1">
                                 <Menu.Item>
                                   {({ active }) => (
-                                    <a
-                                      href="#"
+                                    <button
+                                      onClick={() => handleNavigate('#')}
                                       className={clsx(
-                                        'block px-4 py-2 text-sm text-gray-700',
+                                        'w-full text-left px-4 py-2 text-sm text-gray-700',
                                         active ? 'bg-gray-100' : ''
                                       )}
                                     >
                                       View profile
-                                    </a>
+                                    </button>
                                   )}
                                 </Menu.Item>
                               </div>
                               <div className="py-1">
                                 <Menu.Item>
                                   {({ active }) => (
-                                    <a
-                                      href="#"
+                                    <button
+                                      onClick={() => handleNavigate('#')}
                                       className={clsx(
-                                        'block px-4 py-2 text-sm text-gray-700',
+                                        'w-full text-left px-4 py-2 text-sm text-gray-700',
                                         active ? 'bg-gray-100' : ''
                                       )}
                                     >
                                       Settings
-                                    </a>
+                                    </button>
                                   )}
                                 </Menu.Item>
                                 <Menu.Item>
                                   {({ active }) => (
-                                    <a
-                                      href="/logout"
+                                    <button
+                                      onClick={() => handleNavigate('/logout')}
                                       className={clsx(
-                                        'block px-4 py-2 text-sm text-gray-700',
+                                        'w-full text-left px-4 py-2 text-sm text-gray-700',
                                         active ? 'bg-gray-100' : ''
                                       )}
                                     >
                                       Logout
-                                    </a>
+                                    </button>
                                   )}
                                 </Menu.Item>
                               </div>

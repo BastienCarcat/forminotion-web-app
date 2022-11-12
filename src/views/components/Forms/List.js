@@ -1,14 +1,15 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import FormCard from './Card'
-import axios from 'axios'
 import _ from 'lodash'
 import Loader from '../../ui/Globals/Loader'
 import { useNavigate } from 'react-router-dom'
+import { useAxiosGet } from '../../../hooks/useAxiosGet'
 
 const Forms = () => {
-  const [loading, setLoading] = useState(false)
   const [forms, setForms] = useState([])
   const navigate = useNavigate()
+
+  const [call, loading] = useAxiosGet()
 
   useEffect(() => {
     getForms()
@@ -16,18 +17,15 @@ const Forms = () => {
 
   const getForms = useCallback(async () => {
     try {
-      setLoading(true)
-      const data = await axios.get('form/getAll')
-      console.log('data', data)
+      const data = await call('form/getAll')
+
       if (data) {
-        setForms(_.get(data, 'data'))
+        setForms(data)
       }
     } catch (e) {
       console.error(e)
-    } finally {
-      setLoading(false)
     }
-  }, [setLoading, setForms])
+  }, [call])
 
   return (
     <>

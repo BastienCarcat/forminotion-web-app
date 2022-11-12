@@ -14,46 +14,20 @@ import LogoutScreen from './Logout'
 
 const App = () => {
   const { baseUrl } = config || {}
-  const { isAuthenticated, getAccessTokenSilently, isLoading, user } =
-    useAuth0()
+  const { isAuthenticated, isLoading } = useAuth0()
 
   const location = useLocation()
-
-  useEffect(() => {
-    async function getToken() {
-      try {
-        const accessToken = await getAccessTokenSilently()
-
-        if (accessToken) {
-          axios.defaults.headers.common[
-            'Authorization'
-          ] = `Bearer ${accessToken}`
-          axios.defaults.headers.common['sub'] = user.sub || null
-        }
-      } catch (e) {
-        console.error('getAccessTokenSilently', e)
-      }
-    }
-    const body = localStorage.getItem('body')
-
-    if (isAuthenticated && !_.get(body, 'access_token')) {
-      getToken()
-    }
-    // console.log('token')
-
-    // }
-    // else {
-    //   console.log('here')
-    //   axios.defaults.headers.common['Authorization'] = null
-    //   axios.defaults.headers.common['sub'] = null
-    // }
-  }, [getAccessTokenSilently, user?.sub, isAuthenticated])
 
   useEffect(() => {
     axios.defaults.baseURL = baseUrl
   }, [baseUrl])
 
-  if (isLoading) return <Loader />
+  if (isLoading)
+    return (
+      <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
+        <Loader />
+      </div>
+    )
 
   return (
     <>
@@ -69,10 +43,10 @@ const App = () => {
               <Route path="/edition" element={<FormEditionScreen />} />
             </>
           )}
-          <Route index path="/" element={<HomeScreen />} />
+          <Route path="/test" element={<HomeScreen />} />
           <Route path="/pricing" element={<PricingScreen />} />
           <Route path="/logout" element={<LogoutScreen />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="*" element={<Navigate to="/test" replace />} />
         </Routes>
       )}
     </>

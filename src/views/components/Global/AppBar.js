@@ -11,8 +11,10 @@ import PropTypes from 'prop-types'
 import { useAuth0 } from '@auth0/auth0-react'
 import _ from 'lodash'
 import clsx from 'clsx'
+import { useNavigate } from 'react-router-dom'
 
 const UserMenu = () => {
+  const navigate = useNavigate()
   return (
     <Transition
       as={Fragment}
@@ -31,43 +33,43 @@ const UserMenu = () => {
         <div className="py-1">
           <Menu.Item>
             {({ active }) => (
-              <a
-                href="#"
+              <button
+                onClick={() => navigate('#')}
                 className={clsx(
-                  'block px-4 py-2 text-sm',
+                  'w-full text-left px-4 py-2 text-sm',
                   active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
                 )}
               >
                 View profile
-              </a>
+              </button>
             )}
           </Menu.Item>
           <Menu.Item>
             {({ active }) => (
-              <a
-                href="/"
+              <button
+                onClick={() => navigate('/')}
                 className={clsx(
-                  'block px-4 py-2 text-sm',
+                  'w-full text-left px-4 py-2 text-sm',
                   active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
                 )}
               >
                 Go to website
-              </a>
+              </button>
             )}
           </Menu.Item>
         </div>
         <div className="py-1">
           <Menu.Item>
             {({ active }) => (
-              <a
-                href="/logout"
+              <button
+                onClick={() => navigate('/logout')}
                 className={clsx(
-                  'block px-4 py-2 text-sm',
+                  'w-full text-left px-4 py-2 text-sm',
                   active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
                 )}
               >
                 Logout
-              </a>
+              </button>
             )}
           </Menu.Item>
         </div>
@@ -80,20 +82,21 @@ const AppBar = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   const { user } = useAuth0()
+  const navigate = useNavigate()
 
   const navigationItems = useMemo(
     () => [
-      { name: 'Forms', href: '/forms', icon: FolderIcon, current: true },
-      { name: 'Settings', href: '#', icon: CogIcon, current: false }
+      { name: 'Forms', path: '/forms', icon: FolderIcon, current: true },
+      { name: 'Settings', path: '#', icon: CogIcon, current: false }
     ],
     []
   )
 
   const tags = useMemo(
     () => [
-      { name: 'Engineering', href: '#', bgColorClass: 'bg-indigo-500' },
-      { name: 'Human Resources', href: '#', bgColorClass: 'bg-green-500' },
-      { name: 'Customer Success', href: '#', bgColorClass: 'bg-yellow-500' }
+      { name: 'Engineering', path: '#', bgColorClass: 'bg-indigo-500' },
+      { name: 'Human Resources', path: '#', bgColorClass: 'bg-green-500' },
+      { name: 'Customer Success', path: '#', bgColorClass: 'bg-yellow-500' }
     ],
     []
   )
@@ -163,11 +166,11 @@ const AppBar = ({ children }) => {
                   <nav className="px-2">
                     <div className="space-y-1">
                       {navigationItems.map((item) => (
-                        <a
+                        <button
                           key={item.name}
-                          href={item.href}
+                          onClick={() => navigate(_.get(item, 'path'))}
                           className={clsx(
-                            'group flex items-center px-2 py-2 text-base leading-5 font-medium rounded-md',
+                            'w-full group flex items-center px-2 py-2 text-base leading-5 font-medium rounded-md',
                             item.current
                               ? 'bg-gray-100 text-gray-900'
                               : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
@@ -184,7 +187,7 @@ const AppBar = ({ children }) => {
                             aria-hidden="true"
                           />
                           {item.name}
-                        </a>
+                        </button>
                       ))}
                     </div>
                     <div className="mt-8">
@@ -297,11 +300,11 @@ const AppBar = ({ children }) => {
             <nav className="px-3 mt-6">
               <div className="space-y-1">
                 {navigationItems.map((item) => (
-                  <a
+                  <button
                     key={item.name}
-                    href={item.href}
+                    onClick={() => navigate(_.get(item, 'path'))}
                     className={clsx(
-                      'group flex items-center px-2 py-2 text-sm font-medium rounded-md',
+                      'w-full group flex items-center px-2 py-2 text-sm font-medium rounded-md',
                       item.current
                         ? 'bg-gray-200 text-gray-900'
                         : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
@@ -318,7 +321,7 @@ const AppBar = ({ children }) => {
                       aria-hidden="true"
                     />
                     {item.name}
-                  </a>
+                  </button>
                 ))}
               </div>
               <div className="mt-8">

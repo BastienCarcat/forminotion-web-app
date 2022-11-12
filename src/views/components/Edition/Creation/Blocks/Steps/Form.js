@@ -4,8 +4,8 @@ import { PropTypes } from 'prop-types'
 import { stepPositions } from '../../Layout'
 import { Field, FormSpy } from 'react-final-form'
 import _ from 'lodash'
-import axios from 'axios'
 import { OnChange } from 'react-final-form-listeners'
+import { useAxiosPost } from '../../../../../../hooks/useAxiosPost'
 
 const FormCreationStepForm = ({
   setCurrentStep,
@@ -13,12 +13,14 @@ const FormCreationStepForm = ({
   databases,
   setDatabases
 }) => {
+  const [post] = useAxiosPost()
+
   const getDatabases = useCallback(
     async (token, form) => {
       try {
-        const data = await axios.post('notion/search', { token })
-        if (!_.isEmpty(_.get(data, 'data.results'))) {
-          setDatabases(_.get(data, 'data.results'))
+        const data = await post('notion/search', { token })
+        if (!_.isEmpty(_.get(data, 'results'))) {
+          setDatabases(_.get(data, 'results'))
         } else {
           setDatabases([])
           if (_.has(form, 'change') && typeof form.change === 'function') {
@@ -33,7 +35,7 @@ const FormCreationStepForm = ({
         }
       }
     },
-    [setDatabases]
+    [setDatabases, post]
   )
 
   const getFields = useCallback(async (database, form) => {
