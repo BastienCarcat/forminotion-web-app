@@ -110,7 +110,7 @@ const MainForm = ({ databaseInfo }) => {
       <Form
         onSubmit={onSubmit}
         initialValues={initialValues}
-        render={({ handleSubmit, values }) => (
+        render={({ handleSubmit }) => (
           <form
             className="space-y-8 divide-y divide-gray-200"
             onSubmit={handleSubmit}

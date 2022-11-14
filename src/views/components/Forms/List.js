@@ -13,7 +13,7 @@ const Forms = () => {
 
   useEffect(() => {
     getForms()
-  }, [])
+  }, [getForms])
 
   const getForms = useCallback(async () => {
     try {

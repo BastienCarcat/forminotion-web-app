@@ -121,7 +121,7 @@ const FormCreationLayout = () => {
     } catch (e) {
       console.error(e)
     }
-  }, [setInitialValues])
+  }, [setInitialValues, get])
 
   useEffect(() => {
     initialize()
