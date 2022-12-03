@@ -25,8 +25,10 @@ const FormsListScreen = () => {
           </button>
         ]}
       />
-      <div className="mx-auto sm:px-6 lg:px-8 w-full lg:max-w-6xl sm:max-w-4xl flex-1">
-        <Forms />
+      <div className="bg-gray-100 flex-1">
+        <div className="mx-auto sm:px-6 lg:px-8 w-full lg:max-w-6xl sm:max-w-4xl h-full">
+          <Forms />
+        </div>
       </div>
     </AppBar>
   )

@@ -11,6 +11,7 @@ import FormEditionScreen from './FormEdition'
 import Loader from '../ui/Globals/Loader'
 import PricingScreen from './Pricing'
 import LogoutScreen from './Logout'
+import FormDetailsScreen from './Details'
 
 const App = () => {
   const { baseUrl } = config || {}
@@ -41,6 +42,7 @@ const App = () => {
             <>
               <Route path="/forms" element={<FormsListScreen />} />
               <Route path="/edition" element={<FormEditionScreen />} />
+              <Route path="/details/:idForm" element={<FormDetailsScreen />} />
             </>
           )}
           <Route path="/test" element={<HomeScreen />} />

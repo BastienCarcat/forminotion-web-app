@@ -11,10 +11,6 @@ const Forms = () => {
 
   const [call, loading] = useAxiosGet()
 
-  useEffect(() => {
-    getForms()
-  }, [getForms])
-
   const getForms = useCallback(async () => {
     try {
       const data = await call('form/getAll')
@@ -26,6 +22,10 @@ const Forms = () => {
       console.error(e)
     }
   }, [call])
+
+  useEffect(() => {
+    getForms()
+  }, [getForms])
 
   return (
     <>

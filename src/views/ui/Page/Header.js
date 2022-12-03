@@ -4,10 +4,10 @@ import _ from 'lodash'
 
 const PageHeader = ({ title, actions }) => {
   return (
-    <div className="border-b border-gray-200 px-4 py-4 flex items-center justify-between sm:px-6 lg:px-8">
+    <div className="border-b border-gray-200 px-4 py-4 flex items-center justify-between sm:px-6 lg:px-8 drop-shadow">
       <div className="flex-1">
         {title && (
-          <h1 className="text-xl font-medium leading-6 text-gray-900 sm:truncate">
+          <h1 className="text-xl font-medium leading-6 text-gray-900 sm:truncate py-[5px]">
             {title}
           </h1>
         )}
