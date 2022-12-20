@@ -55,7 +55,7 @@ const FormDetailsScreen = () => {
         ]}
       />
       <div className="bg-gray-100 flex-1 overflow-auto">
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 w-full lg:max-w-6xl sm:max-w-4xl lg:py-8 py-4">
+        <div className="mx-auto px-4 sm:px-6 lg:px-8 w-full lg:py-8 py-4">
           {loading ? (
             <div className="h-full justify-center flex">
               <Loader />

@@ -92,14 +92,14 @@ const AppBar = ({ children }) => {
     []
   )
 
-  const tags = useMemo(
-    () => [
-      { name: 'Engineering', path: '#', bgColorClass: 'bg-indigo-500' },
-      { name: 'Human Resources', path: '#', bgColorClass: 'bg-green-500' },
-      { name: 'Customer Success', path: '#', bgColorClass: 'bg-yellow-500' }
-    ],
-    []
-  )
+  // const tags = useMemo(
+  //   () => [
+  //     { name: 'Engineering', path: '#', bgColorClass: 'bg-indigo-500' },
+  //     { name: 'Human Resources', path: '#', bgColorClass: 'bg-green-500' },
+  //     { name: 'Customer Success', path: '#', bgColorClass: 'bg-yellow-500' }
+  //   ],
+  //   []
+  // )
 
   return (
     <>
@@ -190,36 +190,36 @@ const AppBar = ({ children }) => {
                         </button>
                       ))}
                     </div>
-                    <div className="mt-8">
-                      <h3
-                        className="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider"
-                        id="mobile-teams-headline"
-                      >
-                        Teams
-                      </h3>
-                      <div
-                        className="mt-1 space-y-1"
-                        role="group"
-                        aria-labelledby="mobile-teams-headline"
-                      >
-                        {tags.map((team) => (
-                          <a
-                            key={team.name}
-                            href={team.href}
-                            className="group flex items-center px-3 py-2 text-base leading-5 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50"
-                          >
-                            <span
-                              className={clsx(
-                                team.bgColorClass,
-                                'w-2.5 h-2.5 mr-4 rounded-full'
-                              )}
-                              aria-hidden="true"
-                            />
-                            <span className="truncate">{team.name}</span>
-                          </a>
-                        ))}
-                      </div>
-                    </div>
+                    {/*<div className="mt-8">*/}
+                    {/*  <h3*/}
+                    {/*    className="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider"*/}
+                    {/*    id="mobile-teams-headline"*/}
+                    {/*  >*/}
+                    {/*    Teams*/}
+                    {/*  </h3>*/}
+                    {/*  <div*/}
+                    {/*    className="mt-1 space-y-1"*/}
+                    {/*    role="group"*/}
+                    {/*    aria-labelledby="mobile-teams-headline"*/}
+                    {/*  >*/}
+                    {/*    {tags.map((team) => (*/}
+                    {/*      <a*/}
+                    {/*        key={team.name}*/}
+                    {/*        href={team.href}*/}
+                    {/*        className="group flex items-center px-3 py-2 text-base leading-5 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50"*/}
+                    {/*      >*/}
+                    {/*        <span*/}
+                    {/*          className={clsx(*/}
+                    {/*            team.bgColorClass,*/}
+                    {/*            'w-2.5 h-2.5 mr-4 rounded-full'*/}
+                    {/*          )}*/}
+                    {/*          aria-hidden="true"*/}
+                    {/*        />*/}
+                    {/*        <span className="truncate">{team.name}</span>*/}
+                    {/*      </a>*/}
+                    {/*    ))}*/}
+                    {/*  </div>*/}
+                    {/*</div>*/}
                   </nav>
                 </div>
               </div>
@@ -245,7 +245,7 @@ const AppBar = ({ children }) => {
             {/* User account dropdown */}
             <Menu as="div" className="px-3 relative inline-block text-left">
               <div>
-                <Menu.Button className="group w-full bg-gray-100 rounded-md px-3.5 py-2 text-sm text-left font-medium text-gray-700 hover:bg-gray-200">
+                <Menu.Button className="group w-full rounded-md px-3.5 py-2 text-sm text-left font-medium text-gray-700 hover:bg-gray-100">
                   <span className="flex w-full justify-between items-center">
                     <span className="flex min-w-0 items-center justify-between space-x-3">
                       <img
@@ -295,9 +295,9 @@ const AppBar = ({ children }) => {
             {/*    />*/}
             {/*  </div>*/}
             {/*</div>*/}
-
+            <span className="bg-gray-200 h-px mx-3 my-2" />
             {/* Navigation */}
-            <nav className="px-3 mt-6">
+            <nav className="px-3">
               <div className="space-y-1">
                 {navigationItems.map((item) => (
                   <button
@@ -307,7 +307,7 @@ const AppBar = ({ children }) => {
                       'w-full group flex items-center px-2 py-2 text-sm font-medium rounded-md',
                       item.current
                         ? 'bg-gray-200 text-gray-900'
-                        : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
+                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
                     )}
                     aria-current={item.current ? 'page' : undefined}
                   >
@@ -324,37 +324,37 @@ const AppBar = ({ children }) => {
                   </button>
                 ))}
               </div>
-              <div className="mt-8">
-                {/* Secondary navigation */}
-                <h3
-                  className="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider"
-                  id="desktop-teams-headline"
-                >
-                  Teams
-                </h3>
-                <div
-                  className="mt-1 space-y-1"
-                  role="group"
-                  aria-labelledby="desktop-teams-headline"
-                >
-                  {tags.map((team) => (
-                    <a
-                      key={team.name}
-                      href={team.href}
-                      className="group flex items-center px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:text-gray-900 hover:bg-gray-50"
-                    >
-                      <span
-                        className={clsx(
-                          team.bgColorClass,
-                          'w-2.5 h-2.5 mr-4 rounded-full'
-                        )}
-                        aria-hidden="true"
-                      />
-                      <span className="truncate">{team.name}</span>
-                    </a>
-                  ))}
-                </div>
-              </div>
+              {/*<div className="mt-8">*/}
+              {/*  /!* Secondary navigation *!/*/}
+              {/*  <h3*/}
+              {/*    className="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider"*/}
+              {/*    id="desktop-teams-headline"*/}
+              {/*  >*/}
+              {/*    Teams*/}
+              {/*  </h3>*/}
+              {/*  <div*/}
+              {/*    className="mt-1 space-y-1"*/}
+              {/*    role="group"*/}
+              {/*    aria-labelledby="desktop-teams-headline"*/}
+              {/*  >*/}
+              {/*    {tags.map((team) => (*/}
+              {/*      <a*/}
+              {/*        key={team.name}*/}
+              {/*        href={team.href}*/}
+              {/*        className="group flex items-center px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:text-gray-900 hover:bg-gray-50"*/}
+              {/*      >*/}
+              {/*        <span*/}
+              {/*          className={clsx(*/}
+              {/*            team.bgColorClass,*/}
+              {/*            'w-2.5 h-2.5 mr-4 rounded-full'*/}
+              {/*          )}*/}
+              {/*          aria-hidden="true"*/}
+              {/*        />*/}
+              {/*        <span className="truncate">{team.name}</span>*/}
+              {/*      </a>*/}
+              {/*    ))}*/}
+              {/*  </div>*/}
+              {/*</div>*/}
             </nav>
           </div>
         </div>

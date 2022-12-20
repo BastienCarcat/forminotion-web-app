@@ -1,8 +1,8 @@
 import React from 'react'
 import { PropTypes } from 'prop-types'
 import _ from 'lodash'
-import { DotsVerticalIcon } from '@heroicons/react/solid'
 import { useNavigate } from 'react-router-dom'
+import { BookmarkIcon } from '@heroicons/react/outline'
 
 const FormCard = ({ form }) => {
   const navigate = useNavigate()
@@ -13,29 +13,23 @@ const FormCard = ({ form }) => {
   }
 
   return (
-    <li className="col-span-1 flex shadow-sm rounded-md mx-6 my-8 w-64">
-      <div className="flex-1 flex items-center justify-between border border-gray-200 bg-white rounded-md truncate">
-        <div className="flex-1 px-4 py-2 text-sm truncate">
-          <button
-            onClick={handleClickCard}
-            className="text-gray-900 font-medium hover:text-gray-600"
-          >
-            {_.get(form, 'title')}
-          </button>
-          <p className="text-gray-500">{_.get(form, 'description')}</p>
+    // className="flex-1 col-span-1 gap-x-2 shadow-sm flex justify-between items-center text-left px-4 py-2 text-sm border border-gray-200 rounded-md text-gray-900 font-medium hover:bg-gray-50 hover:text-gray-600"
+    <div className="relative shadow-sm text-sm border border-gray-200 rounded-md text-gray-900 font-medium hover:bg-gray-50 hover:text-gray-600 h-10">
+      <button
+        onClick={handleClickCard}
+        className="inset-0 absolute w-full text-left"
+      >
+        <span className="truncate ml-4">{_.get(form, 'title')}</span>
+      </button>
+      <button
+        onClick={() => console.log('e')}
+        className="absolute inset-y-0 right-0 mr-4"
+      >
+        <div className="h-5 w-5">
+          <BookmarkIcon className="h-full" strokeWidth="1.5" />
         </div>
-        <div className="flex-shrink-0 pr-2">
-          <button
-            type="button"
-            onClick={handleClickCard}
-            className="w-8 h-8 bg-white inline-flex items-center justify-center text-gray-400 rounded-full bg-transparent hover:text-gray-500 "
-          >
-            <span className="sr-only">Open options</span>
-            <DotsVerticalIcon className="w-5 h-5" aria-hidden="true" />
-          </button>
-        </div>
-      </div>
-    </li>
+      </button>
+    </div>
   )
 }
 
