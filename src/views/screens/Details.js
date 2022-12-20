@@ -22,7 +22,7 @@ const FormDetailsScreen = () => {
       const form = await get('form/getById', {
         params: { id: idForm }
       })
-      console.log('form', form)
+
       setForm(form)
     } catch (e) {
       console.error(e)

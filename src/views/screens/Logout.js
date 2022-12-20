@@ -19,7 +19,7 @@ const LogoutScreen = () => {
       }
     }
     func()
-  }, [])
+  }, [navigate, logout])
 
   return (
     <div className="bg-white h-screen w-screen absolute">

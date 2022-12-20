@@ -38,45 +38,48 @@ const FormCreationStepFields = ({ setCurrentStep }) => {
   }, [setCurrentStep])
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
-      <div className="max-w-xl mx-auto">
+    <div className="px-4 sm:px-6 lg:px-12">
+      <p>Select the fields you want to include in your form.</p>
+      <div className="py-6">
         <FieldArray name="fields">
           {({ fields }) => (
-            <div className="m-h-[70vh] overflow-auto px-2">
-              {fields.map((name, index) => (
-                <Field key={name} name={`${name}.enabled`} type="checkbox">
-                  {({ input }) => (
-                    <div
-                      // className="flex border rounded-lg p-3 mt-4"
-                      className="px-3 py-2 text-base sm:text-sm rounded-md flex border mt-4"
-                    >
-                      <div className="flex-1">
-                        <label
-                          htmlFor={`field-${_.get(
-                            fields,
-                            `value[${index}].property.id`
-                          )}`}
-                          className="font-medium text-gray-700 select-none"
-                        >
-                          {_.get(fields, `value[${index}].label`)}
-                        </label>
+            <div>
+              <div className="overflow-auto px-2 sm:columns-2 columns-1 lg:columns-3">
+                {fields.map((name, index) => (
+                  <Field key={name} name={`${name}.enabled`} type="checkbox">
+                    {({ input }) => (
+                      <div
+                        // className="flex border rounded-lg p-3 mt-4"
+                        className="px-3 py-2 text-base sm:text-sm rounded-md flex border mt-4 first:mt-0"
+                      >
+                        <div className="flex-1">
+                          <label
+                            htmlFor={`field-${_.get(
+                              fields,
+                              `value[${index}].property.id`
+                            )}`}
+                            className="font-medium text-gray-700 select-none cursor-pointer"
+                          >
+                            {_.get(fields, `value[${index}].label`)}
+                          </label>
+                        </div>
+                        <div className="ml-3 flex items-center">
+                          <input
+                            {...input}
+                            id={`field-${_.get(
+                              fields,
+                              `value[${index}].property.id`
+                            )}`}
+                            type="checkbox"
+                            className="focus:ring-primary h-5 w-5 text-primary border-gray-300 rounded cursor-pointer"
+                            checked={_.get(values, `fields[${index}].enabled`)}
+                          />
+                        </div>
                       </div>
-                      <div className="ml-3 flex items-center">
-                        <input
-                          {...input}
-                          id={`field-${_.get(
-                            fields,
-                            `value[${index}].property.id`
-                          )}`}
-                          type="checkbox"
-                          className="focus:ring-primary h-5 w-5 text-primary border-gray-300 rounded"
-                          checked={_.get(values, `fields[${index}].enabled`)}
-                        />
-                      </div>
-                    </div>
-                  )}
-                </Field>
-              ))}
+                    )}
+                  </Field>
+                ))}
+              </div>
             </div>
           )}
         </FieldArray>

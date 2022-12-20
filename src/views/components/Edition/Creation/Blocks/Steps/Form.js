@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 import { ArrowRightIcon, InformationCircleIcon } from '@heroicons/react/outline'
 import { PropTypes } from 'prop-types'
 import { stepPositions } from '../../Layout'
@@ -7,13 +7,9 @@ import _ from 'lodash'
 import { OnChange } from 'react-final-form-listeners'
 import { useAxiosPost } from '../../../../../../hooks/useAxiosPost'
 
-const FormCreationStepForm = ({
-  setCurrentStep,
-  authorizations,
-  databases,
-  setDatabases
-}) => {
+const FormCreationStepForm = ({ setCurrentStep, authorizations }) => {
   const [post] = useAxiosPost()
+  const [databases, setDatabases] = useState([])
 
   const getDatabases = useCallback(
     async (token, form) => {
@@ -38,13 +34,40 @@ const FormCreationStepForm = ({
     [setDatabases, post]
   )
 
-  const getFields = useCallback(async (database, form) => {
+  const getFields = useCallback((database, form) => {
     const properties = _.map(_.get(database, 'properties', []), (p) => ({
       property: p,
       label: _.get(p, 'name'),
       enabled: true
     }))
-    form.change('fields', properties)
+
+    const defaultValues = {}
+    _.each(properties, (field) => {
+      const { id, type } = _.get(field, 'property', {})
+      switch (type) {
+        case 'multi_select':
+          _.set(defaultValues, id, [])
+          break
+        case 'rich_text':
+        case 'title':
+          _.set(defaultValues, id, [{ text: { content: '' } }])
+          break
+        case 'checkbox':
+          _.set(defaultValues, id, false)
+          break
+        case 'select':
+        case 'status':
+          _.set(defaultValues, id, { name: '', id: '', color: '' })
+          break
+        default:
+          _.set(defaultValues, id, '')
+          break
+      }
+    })
+    form.batch(() => {
+      form.change('fields', properties)
+      form.change('fakeData', defaultValues)
+    })
   }, [])
 
   const changeStep = useCallback(() => {
@@ -56,9 +79,9 @@ const FormCreationStepForm = ({
       <FormSpy subscription={{ values: true, form: true }}>
         {({ values, form }) => (
           <>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
-              <div className="max-w-xl mx-auto">
-                <div className="pt-4">
+            <div className="px-4 sm:px-6 lg:px-12 py-6">
+              <div className="grid grid-cols-2 gap-x-4">
+                <div className="pt-4 col-span-2 lg:col-span-1">
                   <Field
                     name="authorization"
                     defaultValue={_.get(authorizations, '[0].id')}
@@ -115,7 +138,7 @@ const FormCreationStepForm = ({
                   </OnChange>
                 </div>
 
-                <div className="pt-4">
+                <div className="pt-4 col-span-2 lg:col-span-1">
                   <Field name="database">
                     {({ input }) => (
                       <div>
@@ -166,7 +189,7 @@ const FormCreationStepForm = ({
                   </OnChange>
                 </div>
 
-                <div className="pt-4">
+                <div className="pt-4 col-span-2">
                   <Field name="title">
                     {({ input }) => (
                       <div>
@@ -188,7 +211,7 @@ const FormCreationStepForm = ({
                   </Field>
                 </div>
 
-                <div className="pt-4">
+                <div className="pt-4 col-span-2">
                   <Field name="description">
                     {({ input }) => (
                       <div>
@@ -209,25 +232,25 @@ const FormCreationStepForm = ({
                     )}
                   </Field>
                 </div>
-                <div className="pt-4 flex justify-end">
-                  <button
-                    onClick={changeStep}
-                    type="button"
-                    className="disabled:opacity-50 disabled:bg-primary inline-flex items-center px-4 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-                    disabled={
-                      !(
-                        _.get(values, 'authorization.id') &&
-                        _.get(values, 'database.id')
-                      )
-                    }
-                  >
-                    Select fields
-                    <ArrowRightIcon
-                      className="ml-2 -mr-1 h-5 w-5"
-                      aria-hidden="true"
-                    />
-                  </button>
-                </div>
+              </div>
+              <div className="pt-4 flex justify-end">
+                <button
+                  onClick={changeStep}
+                  type="button"
+                  className="disabled:opacity-50 disabled:bg-primary inline-flex items-center px-4 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                  disabled={
+                    !(
+                      _.get(values, 'authorization.id') &&
+                      _.get(values, 'database.id')
+                    )
+                  }
+                >
+                  Select fields
+                  <ArrowRightIcon
+                    className="ml-2 -mr-1 h-5 w-5"
+                    aria-hidden="true"
+                  />
+                </button>
               </div>
             </div>
           </>
@@ -238,9 +261,7 @@ const FormCreationStepForm = ({
 }
 FormCreationStepForm.propTypes = {
   setCurrentStep: PropTypes.func,
-  authorizations: PropTypes.array,
-  databases: PropTypes.array,
-  setDatabases: PropTypes.func
+  authorizations: PropTypes.array
 }
 
 export default FormCreationStepForm

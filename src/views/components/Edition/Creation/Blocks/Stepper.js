@@ -22,7 +22,7 @@ const FormCreationStepper = ({ steps, setCurrentStep }) => {
 
   return (
     <>
-      <nav aria-label="Progress" className="mx-6 my-5 sm:mx-8 mt-3">
+      <nav aria-label="Progress" className="mx-6 my-6 sm:mx-8">
         <ol
           role="list"
           className="border border-gray-300 rounded-md divide-y divide-gray-300 md:flex md:divide-y-0"
@@ -54,7 +54,7 @@ const FormCreationStepper = ({ steps, setCurrentStep }) => {
                   <span className="flex-shrink-0 w-6 h-6 flex items-center justify-center border-2 border-primary rounded-full">
                     <span className="text-primary">{step.position}</span>
                   </span>
-                  <span className="ml-3 text-xs font-medium text-primary">
+                  <span className="ml-3 text-sm font-medium text-primary">
                     {step.name}
                   </span>
                 </div>
@@ -64,7 +64,7 @@ const FormCreationStepper = ({ steps, setCurrentStep }) => {
                     <span className="flex-shrink-0 w-6 h-6 flex items-center justify-center border-2 border-gray-300 rounded-full">
                       <span className="text-gray-500">{step.position}</span>
                     </span>
-                    <span className="ml-3 text-xs font-medium text-gray-500">
+                    <span className="ml-3 text-sm font-medium text-gray-500">
                       {step.name}
                     </span>
                   </span>

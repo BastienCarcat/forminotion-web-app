@@ -93,7 +93,7 @@ const MainForm = ({ databaseInfo }) => {
         //   }
         //   break
         // }
-        console.log('input', cleanDeep(input))
+
         await post('notion/createDbItem', cleanDeep(input))
       } catch (e) {
         console.error(e)

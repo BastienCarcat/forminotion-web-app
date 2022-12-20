@@ -4,9 +4,9 @@ import { Field } from 'react-final-form'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import MaskedInput from 'react-text-mask'
-import { format, isDate } from 'date-fns'
 import _ from 'lodash'
 import createAutoCorrectedDatePipe from 'text-mask-addons/dist/createAutoCorrectedDatePipe'
+import moment from 'moment'
 
 const DateField = ({ label, name, ...others }) => {
   return (
@@ -41,6 +41,12 @@ const DateField = ({ label, name, ...others }) => {
           <DatePicker
             {...input}
             customInput={<Input input={input} />}
+            // onChangeRaw={(date) => {
+            //   const newRaw = new Date(date.currentTarget.value)
+            //   if (isDate(newRaw)) {
+            //     input.onChange(newRaw)
+            //   }
+            // }}
             selected={_.get(input, 'value')}
             renderCustomHeader={({
               date,
@@ -51,7 +57,7 @@ const DateField = ({ label, name, ...others }) => {
             }) => (
               <div className="flex items-center justify-between px-2 py-2">
                 <span className="text-lg text-gray-700">
-                  {format(date, 'MMMM yyyy')}
+                  {moment(date).format('MMMM YYYY')}
                 </span>
                 <div className="space-x-2">
                   <button
@@ -133,9 +139,17 @@ const Input = forwardRef(({ onClick, input }, ref) => {
           mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]}
           className="text-black focus:ring-primary focus:border-primary w-full rounded-none rounded-l-md sm:text-sm border-gray-300"
           {...input}
+          onChange={(e) => {
+            const value = _.get(e, 'target.value')
+            if (moment(value).isValid()) {
+              input.onChange(new Date(value))
+            } else if (!value) {
+              input.onChange(null)
+            }
+          }}
           value={
-            isDate(_.get(input, 'value'))
-              ? format(_.get(input, 'value'), 'MM/dd/yyyy')
+            moment(_.get(input, 'value')).isValid()
+              ? moment(_.get(input, 'value')).format('MM/DD/YYYY')
               : _.get(input, 'value')
           }
         />

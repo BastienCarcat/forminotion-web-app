@@ -25,9 +25,7 @@ const DetailsBlocksActionsDuplicateDialog = ({ onClose, open, form }) => {
   const handleDuplicate = useCallback(
     async (values) => {
       try {
-        console.log('values', values)
-        const data = await post('form/duplicate', { idForm, ...values })
-        console.log('data', data)
+        await post('form/duplicate', { idForm, ...values })
         onClose()
       } catch (e) {
         console.error(e)

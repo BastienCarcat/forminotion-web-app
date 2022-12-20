@@ -40,7 +40,6 @@ const DetailsBlocksNotionInfo = ({ form }) => {
     }
   }, [notionDatabase])
 
-  console.log('notionDatabase', notionDatabase)
   return (
     <section className="flex-auto">
       <div className="p-4 rounded-lg bg-white h-full overflow-hidden shadow flex flex-col">

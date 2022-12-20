@@ -36,7 +36,6 @@ const NumberField = ({ label, name, ...others }) => {
                 type="button"
                 className="space-x-2 px-4 -mb-px border border-gray-300 text-sm focus-within:z-10 font-medium rounded-tr-md text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
                 onClick={() => {
-                  console.log('input.value', _.get(input, 'value') || 0)
                   input.onChange(
                     numeral(_.get(input, 'value') || 0)
                       .add(1)

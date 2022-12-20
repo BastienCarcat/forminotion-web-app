@@ -10,6 +10,7 @@ const NotAvailableField = ({ label, type, ...others }) => {
       </label>
       <div className="mt-1 relative rounded-md shadow-sm">
         <input
+          {...others}
           disabled
           type="text"
           className="disabled:blur-[1px] disabled:opacity-50 disabled:bg-gray-100 block w-full sm:text-sm border-gray-300 rounded-md"
