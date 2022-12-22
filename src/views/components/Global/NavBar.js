@@ -107,35 +107,35 @@ const NavigationBar = () => {
                             leaveTo="transform opacity-0 scale-95"
                           >
                             <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-200 focus:outline-none">
+                              {/*<div className="py-1">*/}
+                              {/*  <Menu.Item>*/}
+                              {/*    {({ active }) => (*/}
+                              {/*      <button*/}
+                              {/*        onClick={() => handleNavigate('#')}*/}
+                              {/*        className={clsx(*/}
+                              {/*          'w-full text-left px-4 py-2 text-sm text-gray-700',*/}
+                              {/*          active ? 'bg-gray-100' : ''*/}
+                              {/*        )}*/}
+                              {/*      >*/}
+                              {/*        View profile*/}
+                              {/*      </button>*/}
+                              {/*    )}*/}
+                              {/*  </Menu.Item>*/}
+                              {/*</div>*/}
                               <div className="py-1">
-                                <Menu.Item>
-                                  {({ active }) => (
-                                    <button
-                                      onClick={() => handleNavigate('#')}
-                                      className={clsx(
-                                        'w-full text-left px-4 py-2 text-sm text-gray-700',
-                                        active ? 'bg-gray-100' : ''
-                                      )}
-                                    >
-                                      View profile
-                                    </button>
-                                  )}
-                                </Menu.Item>
-                              </div>
-                              <div className="py-1">
-                                <Menu.Item>
-                                  {({ active }) => (
-                                    <button
-                                      onClick={() => handleNavigate('#')}
-                                      className={clsx(
-                                        'w-full text-left px-4 py-2 text-sm text-gray-700',
-                                        active ? 'bg-gray-100' : ''
-                                      )}
-                                    >
-                                      Settings
-                                    </button>
-                                  )}
-                                </Menu.Item>
+                                {/*<Menu.Item>*/}
+                                {/*  {({ active }) => (*/}
+                                {/*    <button*/}
+                                {/*      onClick={() => handleNavigate('#')}*/}
+                                {/*      className={clsx(*/}
+                                {/*        'w-full text-left px-4 py-2 text-sm text-gray-700',*/}
+                                {/*        active ? 'bg-gray-100' : ''*/}
+                                {/*      )}*/}
+                                {/*    >*/}
+                                {/*      Settings*/}
+                                {/*    </button>*/}
+                                {/*  )}*/}
+                                {/*</Menu.Item>*/}
                                 <Menu.Item>
                                   {({ active }) => (
                                     <button

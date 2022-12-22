@@ -1,11 +1,6 @@
 import React, { Fragment, useMemo, useState } from 'react'
 import { Dialog, Menu, Transition } from '@headlessui/react'
-import {
-  MenuAlt1Icon,
-  XIcon,
-  FolderIcon,
-  CogIcon
-} from '@heroicons/react/outline'
+import { MenuAlt1Icon, XIcon, FolderIcon } from '@heroicons/react/outline'
 import { SelectorIcon } from '@heroicons/react/solid'
 import PropTypes from 'prop-types'
 import { useAuth0 } from '@auth0/auth0-react'
@@ -31,19 +26,19 @@ const UserMenu = () => {
         )}
       >
         <div className="py-1">
-          <Menu.Item>
-            {({ active }) => (
-              <button
-                onClick={() => navigate('#')}
-                className={clsx(
-                  'w-full text-left px-4 py-2 text-sm',
-                  active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
-                )}
-              >
-                View profile
-              </button>
-            )}
-          </Menu.Item>
+          {/*<Menu.Item>*/}
+          {/*  {({ active }) => (*/}
+          {/*    <button*/}
+          {/*      onClick={() => navigate('#')}*/}
+          {/*      className={clsx(*/}
+          {/*        'w-full text-left px-4 py-2 text-sm',*/}
+          {/*        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'*/}
+          {/*      )}*/}
+          {/*    >*/}
+          {/*      View profile*/}
+          {/*    </button>*/}
+          {/*  )}*/}
+          {/*</Menu.Item>*/}
           <Menu.Item>
             {({ active }) => (
               <button
@@ -86,8 +81,8 @@ const AppBar = ({ children }) => {
 
   const navigationItems = useMemo(
     () => [
-      { name: 'Forms', path: '/forms', icon: FolderIcon, current: true },
-      { name: 'Settings', path: '#', icon: CogIcon, current: false }
+      { name: 'Forms', path: '/forms', icon: FolderIcon, current: true }
+      // { name: 'Settings', path: '#', icon: CogIcon, current: false }
     ],
     []
   )

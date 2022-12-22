@@ -71,7 +71,7 @@ const FormCreationStepFields = ({ setCurrentStep }) => {
                               `value[${index}].property.id`
                             )}`}
                             type="checkbox"
-                            className="focus:ring-primary h-5 w-5 text-primary border-gray-300 rounded cursor-pointer"
+                            className="focus:ring-transparent h-5 w-5 text-primary border-gray-300 rounded cursor-pointer"
                             checked={_.get(values, `fields[${index}].enabled`)}
                           />
                         </div>
@@ -87,7 +87,7 @@ const FormCreationStepFields = ({ setCurrentStep }) => {
           <button
             onClick={changeStep}
             type="button"
-            className="disabled:opacity-50 disabled:bg-primary inline-flex items-center px-4 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+            className="disabled:opacity-50 disabled:bg-primary inline-flex items-center px-4 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary-600"
             disabled={
               !_.find(
                 _.get(values, 'fields', []),

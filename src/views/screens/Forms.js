@@ -27,7 +27,7 @@ const FormsListScreen = () => {
       />
 
       <div className="bg-gray-100 flex-1 overflow-auto">
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 w-full lg:py-8 py-4">
+        <div className="mx-auto px-4 sm:px-6 lg:px-8 w-full lg:py-8 py-4 h-full">
           <Forms />
         </div>
       </div>

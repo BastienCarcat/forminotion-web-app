@@ -159,7 +159,7 @@ const FormCreationStepPreview = () => {
               <div className="pt-4 flex justify-end">
                 <button
                   type="submit"
-                  className="disabled:opacity-50 disabled:bg-primary inline-flex items-center px-4 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                  className="disabled:opacity-50 disabled:bg-primary inline-flex items-center px-4 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary-600"
                   disabled={
                     !(
                       _.get(values, 'authorization.id') &&

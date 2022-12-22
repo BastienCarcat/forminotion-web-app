@@ -45,7 +45,7 @@ const App = () => {
               <Route path="/details/:idForm" element={<FormDetailsScreen />} />
             </>
           )}
-          <Route path="/test" element={<HomeScreen />} />
+          <Route path="/" element={<HomeScreen />} />
           <Route path="/pricing" element={<PricingScreen />} />
           <Route path="/logout" element={<LogoutScreen />} />
           <Route path="*" element={<Navigate to="/test" replace />} />
