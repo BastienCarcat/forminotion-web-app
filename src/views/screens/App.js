@@ -48,7 +48,7 @@ const App = () => {
           <Route path="/" element={<HomeScreen />} />
           <Route path="/pricing" element={<PricingScreen />} />
           <Route path="/logout" element={<LogoutScreen />} />
-          <Route path="*" element={<Navigate to="/test" replace />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       )}
     </>

@@ -4,7 +4,7 @@ import { PropTypes } from 'prop-types'
 import { stepPositions } from '../../Layout'
 import { Field, FormSpy } from 'react-final-form'
 import _ from 'lodash'
-import { OnChange } from 'react-final-form-listeners'
+// import { OnChange } from 'react-final-form-listeners'
 import { useAxiosPost } from '../../../../../../hooks/useAxiosPost'
 
 const FormCreationStepForm = ({ setCurrentStep, authorizations }) => {
@@ -73,7 +73,7 @@ const FormCreationStepForm = ({ setCurrentStep, authorizations }) => {
   const changeStep = useCallback(() => {
     setCurrentStep(stepPositions.FIELDS)
   }, [setCurrentStep])
-
+  console.log(getDatabases, getFields)
   return (
     <>
       <FormSpy subscription={{ values: true, form: true }}>
@@ -129,13 +129,13 @@ const FormCreationStepForm = ({ setCurrentStep, authorizations }) => {
                       </div>
                     )}
                   </Field>
-                  <OnChange name="authorization">
-                    {(value, previous) => {
-                      if (_.get(value, 'id') !== _.get(previous, 'id')) {
-                        getDatabases(_.get(value, 'accessToken'), form)
-                      }
-                    }}
-                  </OnChange>
+                  {/*<OnChange name="authorization">*/}
+                  {/*  {(value, previous) => {*/}
+                  {/*    if (_.get(value, 'id') !== _.get(previous, 'id')) {*/}
+                  {/*      getDatabases(_.get(value, 'accessToken'), form)*/}
+                  {/*    }*/}
+                  {/*  }}*/}
+                  {/*</OnChange>*/}
                 </div>
 
                 <div className="pt-4 col-span-2 lg:col-span-1">
@@ -180,13 +180,13 @@ const FormCreationStepForm = ({ setCurrentStep, authorizations }) => {
                       </div>
                     )}
                   </Field>
-                  <OnChange name="database">
-                    {(value, previous) => {
-                      if (_.get(value, 'id') !== _.get(previous, 'id')) {
-                        getFields(value, form)
-                      }
-                    }}
-                  </OnChange>
+                  {/*<OnChange name="database">*/}
+                  {/*  {(value, previous) => {*/}
+                  {/*    if (_.get(value, 'id') !== _.get(previous, 'id')) {*/}
+                  {/*      getFields(value, form)*/}
+                  {/*    }*/}
+                  {/*  }}*/}
+                  {/*</OnChange>*/}
                 </div>
 
                 <div className="pt-4 col-span-2">
