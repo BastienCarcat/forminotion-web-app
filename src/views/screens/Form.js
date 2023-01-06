@@ -5,7 +5,7 @@ import FormLayout from '../components/Form/Layout'
 
 const FormScreen = () => {
   return (
-    <div className="w-full">
+    <div className="w-full h-full bg-white">
       <FormLayout />
     </div>
   )

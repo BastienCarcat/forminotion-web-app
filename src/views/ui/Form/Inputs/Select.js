@@ -34,7 +34,7 @@ const SelectField = ({
               {label}
             </Listbox.Label>
             <div className="mt-1 relative shadow-sm">
-              <Listbox.Button className="border-[1px] disabled:opacity-50 cursor-pointer border-gray-300 relative w-full cursor-default py-2 pl-3 pr-10 text-left rounded-md sm:text-sm">
+              <Listbox.Button className="bg-white border-[1px] disabled:opacity-50 cursor-pointer border-gray-300 relative w-full cursor-default py-2 pl-3 pr-10 text-left rounded-md sm:text-sm">
                 {({ value }) => (
                   <>
                     <div className="truncate no-text">

@@ -7,7 +7,7 @@ const DetailsBlocksLink = () => {
   const { idForm } = useParams()
 
   const link = useMemo(() => {
-    return `http://localhost:3000/form/${idForm}`
+    return `https://www.forminotion.com/form/${idForm}`
   }, [idForm])
 
   const handleCopy = useCallback(async () => {
