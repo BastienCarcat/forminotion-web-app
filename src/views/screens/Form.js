@@ -1,6 +1,4 @@
-import { withAuthenticationRequired } from '@auth0/auth0-react'
 import React from 'react'
-import Loader from '../ui/Globals/Loader'
 import FormLayout from '../components/Form/Layout'
 
 const FormScreen = () => {
@@ -13,6 +11,7 @@ const FormScreen = () => {
 
 FormScreen.propTypes = {}
 
-export default withAuthenticationRequired(FormScreen, {
-  onRedirecting: () => <Loader />
-})
+export default FormScreen
+// export default withAuthenticationRequired(FormScreen, {
+//   onRedirecting: () => <Loader />
+// })
