@@ -12,13 +12,16 @@ const FormLayout = () => {
   const { idForm } = useParams()
 
   const [get] = useAxiosGet()
+  const [debug, setDebug] = useState(0)
 
   const retrieveDatabaseInfo = useCallback(async () => {
     try {
+      setDebug(1)
       setLoading(true)
       const form = await get('form/getById', {
         params: { id: idForm }
       })
+      setDebug(2)
       if (form) {
         const { idNotionDatabase, authorization, fields, ...restForm } = form
         const notionData = await get('notion/getDbInformations', {
@@ -27,8 +30,11 @@ const FormLayout = () => {
             token: _.get(authorization, 'accessToken')
           }
         })
+        setDebug(3)
+
         if (notionData) {
           const { properties, ...restNotionData } = notionData
+          setDebug(4)
           return {
             form: { token: _.get(authorization, 'accessToken'), ...restForm },
             notion: restNotionData,
@@ -51,12 +57,15 @@ const FormLayout = () => {
               .value()
           }
         }
+        setDebug(5)
         return restForm
       }
 
       return null
     } catch (e) {
       console.error(e)
+      setDebug(6)
+      throw new Error(e)
     } finally {
       setLoading(false)
     }
@@ -74,6 +83,8 @@ const FormLayout = () => {
 
   return (
     <>
+      <pre>{JSON.stringify(databaseInfo)}</pre>
+      <span className="bg-amber-100 p-6">{debug}</span>
       <MainForm databaseInfo={databaseInfo} />
       {/*<form className="space-y-8 divide-y divide-gray-200">*/}
       {/*  <div className="space-y-8 divide-y divide-gray-200">*/}
