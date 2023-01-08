@@ -9,16 +9,18 @@ export const useAxiosGet = () => {
   const { getAccessTokenSilently } = useAuth0()
 
   const get = useCallback(
-    async (url, config = {}) => {
+    async (url, config = {}, opt = { noAuth: false }) => {
       try {
         setLoading(true)
 
         const token = await getAccessTokenSilently()
-
+        console.log('token', token)
         const response = await axios.get(url, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          },
+          ...(_.get(opt, 'noAuth') || {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }),
           ...config
         })
 
