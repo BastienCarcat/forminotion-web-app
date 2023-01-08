@@ -40,7 +40,7 @@ const FormCreationLayout = () => {
 
   // todo: make a context ?
   const [authorizations, setAuthorizations] = useState([])
-  //State here to prevent re-init when goback
+  //State here to prevent re-init when goback -> make context ?
   const [databases, setDatabases] = useState([])
   const [loading, setLoading] = useState(false)
 
@@ -98,7 +98,6 @@ const FormCreationLayout = () => {
 
   const onSubmit = useCallback(
     async (values) => {
-      // try {
       const input = {
         title: _.get(
           values,
@@ -112,9 +111,6 @@ const FormCreationLayout = () => {
       }
 
       await post('form/create', input)
-      // } catch (e) {
-      //   console.error(e)
-      // }
     },
     [post]
   )

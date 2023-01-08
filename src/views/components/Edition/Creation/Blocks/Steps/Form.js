@@ -45,7 +45,8 @@ const FormCreationStepForm = ({
             break
         }
       })
-
+      console.log('properties', properties)
+      console.log('defaultValues', defaultValues)
       batch(() => {
         change('fields', properties)
         change('fakeData', defaultValues)

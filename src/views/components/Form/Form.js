@@ -22,24 +22,24 @@ const MainForm = ({ databaseInfo }) => {
   const initialValues = useMemo(() => {
     const defaultValues = {}
     _.each(_.get(databaseInfo, 'fields'), (field) => {
-      const { idFieldNotion, property } = field
-      switch (_.get(property, 'type')) {
+      const { idNotionField, type } = field
+      switch (type) {
         case 'multi_select':
-          _.set(defaultValues, idFieldNotion, [])
+          _.set(defaultValues, idNotionField, [])
           break
         case 'rich_text':
         case 'title':
-          _.set(defaultValues, idFieldNotion, [{ text: { content: '' } }])
+          _.set(defaultValues, idNotionField, [{ text: { content: '' } }])
           break
         case 'checkbox':
-          _.set(defaultValues, idFieldNotion, false)
+          _.set(defaultValues, idNotionField, false)
           break
         case 'select':
         case 'status':
-          _.set(defaultValues, idFieldNotion, { name: '', id: '', color: '' })
+          _.set(defaultValues, idNotionField, { name: '', id: '', color: '' })
           break
         default:
-          _.set(defaultValues, idFieldNotion, '')
+          _.set(defaultValues, idNotionField, '')
           break
       }
     })
@@ -50,15 +50,15 @@ const MainForm = ({ databaseInfo }) => {
     async (values) => {
       try {
         const input = {
-          idDatabase: _.get(databaseInfo, 'notion.id'),
+          idDatabase: _.get(databaseInfo, 'form.idNotionDatabase'),
           token: _.get(databaseInfo, 'form.token')
         }
         _.each(_.get(databaseInfo, 'fields'), (field) => {
-          const { idFieldNotion, property } = field
+          const { idNotionField, type } = field
           _.set(
             input,
-            `properties.${idFieldNotion}.${_.get(property, 'type')}`,
-            _.get(values, idFieldNotion)
+            `properties.${idNotionField}.${type}`,
+            _.get(values, idNotionField)
           )
         })
         // switch (type) {
@@ -134,12 +134,12 @@ const MainForm = ({ databaseInfo }) => {
                 {_.map(_.get(databaseInfo, 'fields'), (field) => (
                   <div className="sm:col-span-3 " key={_.get(field, 'id')}>
                     {(() => {
-                      switch (_.get(field, 'property.type')) {
+                      switch (_.get(field, 'type')) {
                         case 'title':
                         case 'rich_text':
                           return (
                             <TextField
-                              name={_.get(field, 'idFieldNotion')}
+                              name={_.get(field, 'idNotionField')}
                               label={_.get(field, 'label')}
                             />
                           )
@@ -147,7 +147,7 @@ const MainForm = ({ databaseInfo }) => {
                         case 'number':
                           return (
                             <NumberField
-                              name={_.get(field, 'idFieldNotion')}
+                              name={_.get(field, 'idNotionField')}
                               label={_.get(field, 'label')}
                             />
                           )
@@ -156,7 +156,7 @@ const MainForm = ({ databaseInfo }) => {
                           return (
                             <div className="flex h-full">
                               <SwitchField
-                                name={_.get(field, 'idFieldNotion')}
+                                name={_.get(field, 'idNotionField')}
                                 label={_.get(field, 'label')}
                               />
                             </div>
@@ -165,15 +165,11 @@ const MainForm = ({ databaseInfo }) => {
                         case 'select':
                           return (
                             <SelectField
-                              name={_.get(field, 'idFieldNotion')}
+                              name={_.get(field, 'idNotionField')}
                               label={_.get(field, 'label')}
-                              options={_.get(
-                                field,
-                                'property.select.options',
-                                []
-                              )}
+                              options={_.get(field, 'options', [])}
                               getOptionLabel={(option) =>
-                                _.get(option, 'name', '')
+                                _.get(option, 'label', '')
                               }
                             />
                           )
@@ -181,15 +177,11 @@ const MainForm = ({ databaseInfo }) => {
                         case 'status':
                           return (
                             <SelectField
-                              name={_.get(field, 'idFieldNotion')}
+                              name={_.get(field, 'idNotionField')}
                               label={_.get(field, 'label')}
-                              options={_.get(
-                                field,
-                                'property.status.options',
-                                []
-                              )}
+                              options={_.get(field, 'options', [])}
                               getOptionLabel={(option) =>
-                                _.get(option, 'name', '')
+                                _.get(option, 'label', '')
                               }
                             />
                           )
@@ -197,7 +189,7 @@ const MainForm = ({ databaseInfo }) => {
                         case 'date':
                           return (
                             <DateField
-                              name={_.get(field, 'idFieldNotion')}
+                              name={_.get(field, 'idNotionField')}
                               label={_.get(field, 'label')}
                             />
                           )
@@ -205,7 +197,7 @@ const MainForm = ({ databaseInfo }) => {
                         case 'url':
                           return (
                             <URLField
-                              name={_.get(field, 'idFieldNotion')}
+                              name={_.get(field, 'idNotionField')}
                               label={_.get(field, 'label')}
                             />
                           )
@@ -213,7 +205,7 @@ const MainForm = ({ databaseInfo }) => {
                         case 'phone_number':
                           return (
                             <PhoneNumberField
-                              name={_.get(field, 'idFieldNotion')}
+                              name={_.get(field, 'idNotionField')}
                               label={_.get(field, 'label')}
                             />
                           )
@@ -221,7 +213,7 @@ const MainForm = ({ databaseInfo }) => {
                         case 'email':
                           return (
                             <MailField
-                              name={_.get(field, 'idFieldNotion')}
+                              name={_.get(field, 'idNotionField')}
                               label={_.get(field, 'label')}
                             />
                           )
@@ -229,15 +221,11 @@ const MainForm = ({ databaseInfo }) => {
                         case 'multi_select':
                           return (
                             <MultiSelectField
-                              name={_.get(field, 'idFieldNotion')}
+                              name={_.get(field, 'idNotionField')}
                               label={_.get(field, 'label')}
-                              options={_.get(
-                                field,
-                                'property.multi_select.options',
-                                []
-                              )}
+                              options={_.get(field, 'options', [])}
                               getOptionLabel={(option) =>
-                                _.get(option, 'name', '')
+                                _.get(option, 'label', '')
                               }
                             />
                           )
@@ -246,7 +234,7 @@ const MainForm = ({ databaseInfo }) => {
                           return (
                             <NotAvailableField
                               label={_.get(field, 'label')}
-                              type={_.get(field, 'property.type')}
+                              type={_.get(field, 'type')}
                             />
                           )
                       }
