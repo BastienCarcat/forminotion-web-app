@@ -14,7 +14,7 @@ export const useAxiosGet = () => {
         setLoading(true)
 
         const token = await getAccessTokenSilently()
-        console.log('token', token)
+
         const response = await axios.get(url, {
           ...(_.get(opt, 'noAuth') || {
             headers: {

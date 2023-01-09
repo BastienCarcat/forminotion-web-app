@@ -11,27 +11,19 @@ import _ from 'lodash'
 const FormDetailsScreen = () => {
   const { idForm } = useParams()
   const [form, setForm] = useState(null)
-  const [loading, setLoading] = useState(false)
+  // const [loading, setLoading] = useState(false)
 
-  const [get] = useAxiosGet()
+  const [get, loading] = useAxiosGet()
 
   const getDatabaseInfo = useCallback(async () => {
-    try {
-      setLoading(true)
-      const form = await get('form/getById', {
-        params: { id: idForm }
-      })
-
-      setForm(form)
-    } catch (e) {
-      console.error(e)
-    } finally {
-      setLoading(false)
-    }
+    const form = await get('form/getById', {
+      params: { id: idForm }
+    })
+    setForm(form)
   }, [get, idForm])
 
   useEffect(() => {
-    async function init() {
+    const init = async () => {
       await getDatabaseInfo()
     }
     init()
@@ -40,7 +32,7 @@ const FormDetailsScreen = () => {
   return (
     <AppBar>
       <PageHeader
-        title={_.get(form, 'title')}
+        title={_.get(form, 'form.title')}
         // actions={[
         //   <button
         //     key={0}

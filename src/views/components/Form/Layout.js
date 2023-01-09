@@ -1,5 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import _ from 'lodash'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Loader from '../../ui/Globals/Loader'
 import MainForm from './Form'
@@ -7,73 +6,80 @@ import { useAxiosGet } from '../../../hooks/useAxiosGet'
 
 const FormLayout = () => {
   const [databaseInfo, setDatabaseInfo] = useState(null)
-  const [loading, setLoading] = useState(false)
+  // const [loading, setLoading] = useState(false)
 
   const { idForm } = useParams()
 
-  const [get] = useAxiosGet()
+  const [get, loading] = useAxiosGet()
 
-  const retrieveDatabaseInfo = useCallback(async () => {
-    try {
-      setLoading(true)
-      const form = await get(
+  // const retrieveDatabaseInfo = useCallback(async () => {
+  // try {
+  // setLoading(true)
+  // const form = await get(
+  //   'form/getById',
+  //   {
+  //     params: { id: idForm }
+  //   },
+  //   { noAuth: true }
+  // )
+  // if (form) {
+  //   const { idNotionDatabase, authorization, fields, ...restForm } = form
+  //   const notionData = await get('notion/getDbInformations', {
+  //     params: {
+  //       idDatabase: idNotionDatabase,
+  //       token: _.get(authorization, 'accessToken')
+  //     }
+  //   })
+  //   if (notionData) {
+  //     const { properties, ...restNotionData } = notionData
+  //     return {
+  //       form: { token: _.get(authorization, 'accessToken'), ...restForm },
+  //       notion: restNotionData,
+  //       fields: _.chain(fields)
+  //         .map((field) => ({
+  //           ...field,
+  //           property: _.chain(properties)
+  //             .values()
+  //             .find((property) =>
+  //               _.isEqual(
+  //                 _.get(property, 'id'),
+  //                 _.get(field, 'idFieldNotion')
+  //               )
+  //             )
+  //             .omit(['id'])
+  //             .value()
+  //         }))
+  //         .filter((field) => _.get(field, 'enabled'))
+  //         .orderBy(['label'])
+  //         .value()
+  //     }
+  //   }
+  //   return restForm
+  // }
+
+  // return form
+  // } catch (e) {
+  //   console.error(e)
+  //   throw new Error(e)
+  // } finally {
+  //   setLoading(false)
+  // }
+  // }, [idForm, get])
+
+  useEffect(() => {
+    async function init() {
+      const response = await get(
         'form/getById',
         {
           params: { id: idForm }
         },
         { noAuth: true }
       )
-      if (form) {
-        const { idNotionDatabase, authorization, fields, ...restForm } = form
-        const notionData = await get('notion/getDbInformations', {
-          params: {
-            idDatabase: idNotionDatabase,
-            token: _.get(authorization, 'accessToken')
-          }
-        })
-        if (notionData) {
-          const { properties, ...restNotionData } = notionData
-          return {
-            form: { token: _.get(authorization, 'accessToken'), ...restForm },
-            notion: restNotionData,
-            fields: _.chain(fields)
-              .map((field) => ({
-                ...field,
-                property: _.chain(properties)
-                  .values()
-                  .find((property) =>
-                    _.isEqual(
-                      _.get(property, 'id'),
-                      _.get(field, 'idFieldNotion')
-                    )
-                  )
-                  .omit(['id'])
-                  .value()
-              }))
-              .filter((field) => _.get(field, 'enabled'))
-              .orderBy(['label'])
-              .value()
-          }
-        }
-        return restForm
-      }
-
-      return null
-    } catch (e) {
-      console.error(e)
-      throw new Error(e)
-    } finally {
-      setLoading(false)
-    }
-  }, [idForm, get])
-
-  useEffect(() => {
-    async function init() {
-      const response = await retrieveDatabaseInfo()
+      console.log('response', response)
       setDatabaseInfo(response)
     }
     init()
-  }, [retrieveDatabaseInfo])
+  }, [idForm, get])
 
   if (loading) return <Loader />
 

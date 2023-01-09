@@ -16,8 +16,8 @@ const DetailsBlocksActionsDuplicateDialog = ({ onClose, open, form }) => {
 
   const initialValues = useMemo(
     () => ({
-      title: `${_.get(form, 'title')} (copy)`,
-      description: _.get(form, 'description')
+      title: `${_.get(form, 'form.title')} (copy)`,
+      description: _.get(form, 'form.description')
     }),
     [form]
   )
