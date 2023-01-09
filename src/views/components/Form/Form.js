@@ -13,11 +13,11 @@ import URLField from '../../ui/Form/Inputs/URL'
 import PhoneNumberField from '../../ui/Form/Inputs/PhoneNumber'
 import MailField from '../../ui/Form/Inputs/Mail'
 // import MultiSelectField from './Fields/MultiSelect'
-import { useAxiosPost } from '../../../hooks/useAxiosPost'
 import MultiSelectField from '../../ui/Form/Inputs/MultiSelect'
+import { useAxiosPostNoAuth } from '../../../hooks/useAxiosPostNoAuth'
 
 const MainForm = ({ databaseInfo }) => {
-  const [post] = useAxiosPost()
+  const [post] = useAxiosPostNoAuth()
 
   const initialValues = useMemo(() => {
     const defaultValues = {}
