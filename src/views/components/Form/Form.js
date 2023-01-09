@@ -48,57 +48,53 @@ const MainForm = ({ databaseInfo }) => {
 
   const onSubmit = useCallback(
     async (values) => {
-      try {
-        const input = {
-          idDatabase: _.get(databaseInfo, 'notion.id'),
-          token: _.get(databaseInfo, 'form.token')
-        }
-        _.each(_.get(databaseInfo, 'fields'), (field) => {
-          const { idFieldNotion, property } = field
-          _.set(
-            input,
-            `properties.${idFieldNotion}.${_.get(property, 'type')}`,
-            _.get(values, idFieldNotion)
-          )
-        })
-        // switch (type) {
-        // case 'title':
-        //   if (values[name]) {
-        //     _.set(input, `properties.${name}`, {
-        //       title: [{ text: { content: values[name] } }]
-        //     })
-        //   }
-        //   break
-        // case 'rich_text':
-        //   if (values[_.get(field, 'property.name')]) {
-        //     _.set(input, `properties.${name}`, {
-        //       rich_text: [{ text: { content: values[name] } }]
-        //     })
-        //   }
-        //   break
-        // case 'number':
-        //   if (values[name]) {
-        //     _.set(input, `properties.${name}`, {
-        //       number: _.toNumber(values[name])
-        //     })
-        //   }
-        //   break
-
-        // default:
-        //   if (values[name]) {
-        //     _.set(
-        //       input,
-        //       `properties.${name}.${_.get(field, 'type')}`,
-        //       values[name]
-        //     )
-        //   }
-        //   break
-        // }
-
-        await post('notion/createDbItem', cleanDeep(input))
-      } catch (e) {
-        console.error(e)
+      const input = {
+        idDatabase: _.get(databaseInfo, 'notion.id'),
+        idAuthorization: _.get(databaseInfo, 'form.idAuthorization')
       }
+      _.each(_.get(databaseInfo, 'fields'), (field) => {
+        const { idFieldNotion, property } = field
+        _.set(
+          input,
+          `properties.${idFieldNotion}.${_.get(property, 'type')}`,
+          _.get(values, idFieldNotion)
+        )
+      })
+      // switch (type) {
+      // case 'title':
+      //   if (values[name]) {
+      //     _.set(input, `properties.${name}`, {
+      //       title: [{ text: { content: values[name] } }]
+      //     })
+      //   }
+      //   break
+      // case 'rich_text':
+      //   if (values[_.get(field, 'property.name')]) {
+      //     _.set(input, `properties.${name}`, {
+      //       rich_text: [{ text: { content: values[name] } }]
+      //     })
+      //   }
+      //   break
+      // case 'number':
+      //   if (values[name]) {
+      //     _.set(input, `properties.${name}`, {
+      //       number: _.toNumber(values[name])
+      //     })
+      //   }
+      //   break
+
+      // default:
+      //   if (values[name]) {
+      //     _.set(
+      //       input,
+      //       `properties.${name}.${_.get(field, 'type')}`,
+      //       values[name]
+      //     )
+      //   }
+      //   break
+      // }
+
+      await post('notion/createDbItem', cleanDeep(input))
     },
     [post, databaseInfo]
   )
@@ -116,9 +112,6 @@ const MainForm = ({ databaseInfo }) => {
             className="space-y-8 divide-y divide-gray-200"
             onSubmit={handleSubmit}
           >
-            {/*<pre>*/}
-            {/*  <code>{JSON.stringify(values, null, 4)}</code>*/}
-            {/*</pre>*/}
             <div className="pt-8">
               <div>
                 <h3 className="text-lg leading-6 font-medium text-gray-900">

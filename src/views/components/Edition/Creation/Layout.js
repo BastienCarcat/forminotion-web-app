@@ -63,8 +63,8 @@ const FormCreationLayout = () => {
   const searhDatabases = useCallback(
     async (authorization) => {
       try {
-        const data = await post('notion/search', {
-          token: _.get(authorization, 'accessToken')
+        const data = await post('notion/searchDatabases', {
+          idAuthorization: _.get(authorization, 'id')
         })
         if (!_.isEmpty(_.get(data, 'results'))) {
           setDatabases(_.get(data, 'results'))
