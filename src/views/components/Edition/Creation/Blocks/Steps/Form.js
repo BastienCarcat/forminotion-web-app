@@ -72,7 +72,10 @@ const FormCreationStepForm = ({
                     options={authorizations}
                     getOptionLabel={(opt) => {
                       if (opt) {
-                        return `${_.get(opt, 'icon', '')} ${_.get(opt, 'name')}`
+                        return `${_.get(opt, 'icon') || ''} ${_.get(
+                          opt,
+                          'name'
+                        )}`
                       }
                       return ''
                     }}

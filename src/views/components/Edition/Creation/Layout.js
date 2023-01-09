@@ -10,6 +10,8 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { useAxiosGet } from '../../../../hooks/useAxiosGet'
 import { useAxiosPost } from '../../../../hooks/useAxiosPost'
 import Loader from '../../../ui/Globals/Loader'
+import delay from 'delay'
+import { useNavigate } from 'react-router-dom'
 
 export const stepPositions = Object.freeze({
   FORM: 1,
@@ -24,6 +26,8 @@ export const stepStatus = Object.freeze({
 })
 
 const FormCreationLayout = () => {
+  const navigate = useNavigate()
+
   const [steps, setSteps] = useState([
     { position: stepPositions.FORM, name: 'Form', status: stepStatus.CURRENT },
     {
@@ -98,7 +102,6 @@ const FormCreationLayout = () => {
 
   const onSubmit = useCallback(
     async (values) => {
-      // try {
       const input = {
         title: _.get(
           values,
@@ -111,12 +114,12 @@ const FormCreationLayout = () => {
         fields: _.get(values, 'fields')
       }
 
-      await post('form/create', input)
-      // } catch (e) {
-      //   console.error(e)
-      // }
+      const newForm = await post('form/create', input)
+      if (newForm) {
+        navigate(`/details/${_.get(newForm, 'id')}`)
+      }
     },
-    [post]
+    [post, navigate]
   )
 
   const initialize = useCallback(async () => {
@@ -139,15 +142,29 @@ const FormCreationLayout = () => {
     initialize()
   }, [initialize])
 
-  const handleAddToNotion = () => {
-    window.open(
+  const handleAddToNotion = useCallback(() => {
+    const win = window.open(
       `https://api.notion.com/v1/oauth/authorize?owner=user&client_id=${
         process.env.REACT_APP_NOTION_CLIENT_ID
       }&response_type=code&state=${_.get(user, 'email')}`,
       '_blank',
       'location=yes,height=800,width=600,scrollbars=yes,status=yes'
     )
-  }
+    let i = 0
+    const closeDetectInterval = setInterval(async () => {
+      i++
+      if (win.closed) {
+        setLoading(true)
+        clearInterval(closeDetectInterval)
+        await delay(1500)
+        await initialize()
+      }
+      if (i === 120) {
+        clearInterval(closeDetectInterval)
+        win.close()
+      }
+    }, 1000)
+  }, [user, initialize])
 
   return (
     <>
