@@ -12,7 +12,6 @@ import DateField from '../../ui/Form/Inputs/Date'
 import URLField from '../../ui/Form/Inputs/URL'
 import PhoneNumberField from '../../ui/Form/Inputs/PhoneNumber'
 import MailField from '../../ui/Form/Inputs/Mail'
-// import MultiSelectField from './Fields/MultiSelect'
 import MultiSelectField from '../../ui/Form/Inputs/MultiSelect'
 import { useAxiosPostNoAuth } from '../../../hooks/useAxiosPostNoAuth'
 

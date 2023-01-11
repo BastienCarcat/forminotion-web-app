@@ -1,8 +1,26 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useCallback } from 'react'
 import { CheckIcon } from '@heroicons/react/solid'
 import clsx from 'clsx'
+import { useAuth0 } from '@auth0/auth0-react'
 
 const HomeLayoutSectionPricing = () => {
+  const { loginWithRedirect } = useAuth0()
+
+  const start = useCallback(
+    async (opt = {}) => {
+      try {
+        await loginWithRedirect(opt)
+      } catch (e) {
+        console.error(e)
+      }
+    },
+    [loginWithRedirect]
+  )
+
+  const contact = useCallback(() => {
+    window.location.href = 'mailto:contact@forminotion.com'
+  }, [])
+
   const pricing = useMemo(
     () => ({
       tiers: [
@@ -13,49 +31,49 @@ const HomeLayoutSectionPricing = () => {
           description:
             'Everything you need to create and embed forms anywhere!',
           features: [
-            '5 products',
-            'Up to 1,000 subscribers',
-            'Basic analytics',
-            '48-hour support response time'
+            'Unlimited number of forms',
+            '1 notion workspace',
+            'Integrate anywhere',
+            '48h support response time'
           ],
           cta: 'Start now',
-          mostPopular: false
+          mostPopular: false,
+          onClick: start
         },
         {
-          title: 'Pro',
-          price: 19,
+          title: 'Premium',
+          price: 14,
           frequency: '/month',
           description:
             'Create your own branding with the customization tools and more! ',
           features: [
-            '25 products',
-            'Up to 10,000 subscribers',
-            'Advanced analytics',
-            '24-hour support response time',
-            'Marketing automations'
+            'Everything in Basic plan',
+            'Form customization',
+            'Advanced features',
+            'Priority Support'
           ],
           cta: 'Contact us',
-          mostPopular: true
+          mostPopular: true,
+          onClick: contact
         },
         {
-          title: 'Enterprise',
-          price: 49,
+          title: 'Professional',
+          price: 39,
           frequency: '/month',
           description: 'Start collaborate with your team.',
           features: [
-            'Unlimited products',
-            'Unlimited subscribers',
-            'Advanced analytics',
-            '1-hour, dedicated support response time',
-            'Marketing automations',
-            'Custom integrations'
+            'Everything in Premium plan',
+            'Multiple Notion workspaces',
+            'Multiple users',
+            'Form analytics'
           ],
           cta: 'Contact us',
-          mostPopular: false
+          mostPopular: false,
+          onClick: contact
         }
       ]
     }),
-    []
+    [contact, start]
   )
 
   return (
@@ -109,8 +127,9 @@ const HomeLayoutSectionPricing = () => {
                 </ul>
               </div>
 
-              <a
-                href="#"
+              <button
+                onClick={tier.onClick}
+                type="button"
                 className={clsx(
                   'mt-8 block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium',
                   tier.mostPopular
@@ -119,7 +138,7 @@ const HomeLayoutSectionPricing = () => {
                 )}
               >
                 {tier.cta}
-              </a>
+              </button>
             </div>
           ))}
         </div>

@@ -1,7 +1,7 @@
 import React from 'react'
 import HomeLayout from '../components/Home/Layout'
 import NavigationBar from '../components/Global/NavBar'
-import Footer from '../components/Global/Footer'
+import Footer from '../components/Global/Footer/Footer'
 
 const HomeScreen = () => {
   return (
@@ -12,7 +12,9 @@ const HomeScreen = () => {
           <HomeLayout />
         </div>
       </div>
-      <Footer />
+      <div className="pt-24">
+        <Footer />
+      </div>
     </>
   )
 }
