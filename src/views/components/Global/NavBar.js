@@ -5,7 +5,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import clsx from 'clsx'
-
+const url = 'http://localhost:3000/'
 const NavigationBar = () => {
   const { loginWithRedirect, isAuthenticated, user, logout } = useAuth0()
   const navigate = useNavigate()
@@ -42,7 +42,7 @@ const NavigationBar = () => {
                 <div className="flex">
                   <div className="-ml-2 mr-2 flex items-center md:hidden">
                     {/* Mobile menu button */}
-                    <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary">
+                    <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100">
                       <span className="sr-only">Open main menu</span>
                       {open ? (
                         <XIcon className="block h-6 w-6" aria-hidden="true" />
@@ -59,17 +59,18 @@ const NavigationBar = () => {
                   </div>
                   <div className="hidden md:ml-6 md:flex md:space-x-8">
                     {/* Current: "border-primary text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" */}
-                    <button
-                      onClick={() => handleNavigate('pricing')}
-                      className={clsx(
-                        'inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium',
-                        _.get(location, 'pathname') === '/pricing'
-                          ? 'border-primary text-gray-900'
-                          : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
-                      )}
+                    <a
+                      href={`${url}#pricing`}
+                      className="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700"
                     >
                       Pricing
-                    </button>
+                    </a>
+                    <a
+                      href={`${url}#guide`}
+                      className="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                    >
+                      Guide
+                    </a>
                   </div>
                 </div>
                 <div className="flex items-center">
@@ -88,7 +89,7 @@ const NavigationBar = () => {
                         {/* Profile dropdown */}
                         <Menu as="div" className="ml-3 relative">
                           <div>
-                            <Menu.Button className="bg-white rounded-full flex text-sm focus:outline-none ">
+                            <Menu.Button className="bg-white rounded-full flex text-sm ">
                               <span className="sr-only">Open user menu</span>
                               <img
                                 className="h-8 w-8 rounded-full"
@@ -106,36 +107,8 @@ const NavigationBar = () => {
                             leaveFrom="transform opacity-100 scale-100"
                             leaveTo="transform opacity-0 scale-95"
                           >
-                            <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-200 focus:outline-none">
-                              {/*<div className="py-1">*/}
-                              {/*  <Menu.Item>*/}
-                              {/*    {({ active }) => (*/}
-                              {/*      <button*/}
-                              {/*        onClick={() => handleNavigate('#')}*/}
-                              {/*        className={clsx(*/}
-                              {/*          'w-full text-left px-4 py-2 text-sm text-gray-700',*/}
-                              {/*          active ? 'bg-gray-100' : ''*/}
-                              {/*        )}*/}
-                              {/*      >*/}
-                              {/*        View profile*/}
-                              {/*      </button>*/}
-                              {/*    )}*/}
-                              {/*  </Menu.Item>*/}
-                              {/*</div>*/}
+                            <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-200">
                               <div className="py-1">
-                                {/*<Menu.Item>*/}
-                                {/*  {({ active }) => (*/}
-                                {/*    <button*/}
-                                {/*      onClick={() => handleNavigate('#')}*/}
-                                {/*      className={clsx(*/}
-                                {/*        'w-full text-left px-4 py-2 text-sm text-gray-700',*/}
-                                {/*        active ? 'bg-gray-100' : ''*/}
-                                {/*      )}*/}
-                                {/*    >*/}
-                                {/*      Settings*/}
-                                {/*    </button>*/}
-                                {/*  )}*/}
-                                {/*</Menu.Item>*/}
                                 <Menu.Item>
                                   {({ active }) => (
                                     <button
@@ -160,7 +133,7 @@ const NavigationBar = () => {
                       <button
                         onClick={login}
                         type="button"
-                        className="inline-flex items-center mx-2 px-2.5 py-1.5 border border-transparent text-xs font-medium rounded text-primary hover:text-primary-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+                        className="inline-flex items-center mx-2 px-2.5 py-1.5 border border-transparent text-xs font-medium rounded text-primary hover:text-primary-200"
                       >
                         Sign in
                       </button>
@@ -171,7 +144,7 @@ const NavigationBar = () => {
                           })
                         }
                         type="button"
-                        className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-primary hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                        className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-primary hover:bg-primary-600"
                       >
                         Try for free
                       </button>

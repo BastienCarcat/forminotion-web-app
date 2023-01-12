@@ -6,16 +6,15 @@ import { useAuth0 } from '@auth0/auth0-react'
 const HomeLayoutSectionPricing = () => {
   const { loginWithRedirect } = useAuth0()
 
-  const start = useCallback(
-    async (opt = {}) => {
-      try {
-        await loginWithRedirect(opt)
-      } catch (e) {
-        console.error(e)
-      }
-    },
-    [loginWithRedirect]
-  )
+  const start = useCallback(async () => {
+    try {
+      await loginWithRedirect({
+        screen_hint: 'signup'
+      })
+    } catch (e) {
+      console.error(e)
+    }
+  }, [loginWithRedirect])
 
   const contact = useCallback(() => {
     window.location.href = 'mailto:contact@forminotion.com'

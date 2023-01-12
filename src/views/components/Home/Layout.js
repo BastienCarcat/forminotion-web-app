@@ -21,7 +21,7 @@ const HomeLayout = () => {
 
       <div
         id="testimonials"
-        className="relative w-full md:py-32 py-16 after:content-[''] after:bg-secondary-100 after:-inset-y-0 after:-inset-x-[10%] after:absolute after:-z-10 after:transform after:rotate-[8deg] after:skew-y-0 after:skew-x-[8deg]"
+        className="relative w-full md:py-32 py-16 after:content-[''] after:bg-secondary after:-inset-y-0 after:-inset-x-[10%] after:absolute after:-z-10 after:transform after:rotate-[8deg] after:skew-y-0 after:skew-x-[8deg]"
       >
         <HomeLayoutSectionTestimonials />
       </div>

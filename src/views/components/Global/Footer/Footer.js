@@ -62,45 +62,45 @@ const Footer = () => {
       </h2>
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
         <div className="md:grid md:grid-cols-3 md:gap-8">
-          <div className="grid grid-cols-2 gap-8 md:col-span-2">
-            <div className="md:grid md:grid-cols-2 md:gap-8">
-              <div>
-                <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">
-                  Ressources
-                </h3>
-                <ul role="list" className="mt-4 space-y-4">
-                  {navigation.ressources.map((item) => (
-                    <li key={item.name}>
-                      <a
-                        href={item.href}
-                        className="text-base text-gray-500 hover:text-gray-900"
-                      >
-                        {item.name}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="mt-12 md:mt-0">
-                <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">
-                  Legal
-                </h3>
-                <ul role="list" className="mt-4 space-y-4">
-                  {navigation.legal.map((item) => (
-                    <li key={item.name}>
-                      <a
-                        href={item.href}
-                        className="text-base text-gray-500 hover:text-gray-900"
-                      >
-                        {item.name}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+          <div className="grid grid-cols-2 gap-8">
+            {/*<div className="md:grid md:grid-cols-2 md:gap-8">*/}
+            <div>
+              <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">
+                Ressources
+              </h3>
+              <ul role="list" className="mt-4 space-y-4">
+                {navigation.ressources.map((item) => (
+                  <li key={item.name}>
+                    <a
+                      href={item.href}
+                      className="text-base text-gray-500 hover:text-gray-900"
+                    >
+                      {item.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
+            <div>
+              <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">
+                Legal
+              </h3>
+              <ul role="list" className="mt-4 space-y-4">
+                {navigation.legal.map((item) => (
+                  <li key={item.name}>
+                    <a
+                      href={item.href}
+                      className="text-base text-gray-500 hover:text-gray-900"
+                    >
+                      {item.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            {/*</div>*/}
           </div>
-          <div className="mt-8 xl:mt-0">
+          <div className="mt-8 xl:mt-0 md:col-span-2 flex flex-col md:items-end">
             <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">
               Subscribe to our newsletter
             </h3>
@@ -118,13 +118,13 @@ const Footer = () => {
                 id="email-address"
                 autoComplete="email"
                 required
-                className="appearance-none min-w-0 w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-4 text-base text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-primary focus:border-primary focus:placeholder-gray-400"
+                className="appearance-none min-w-[300px] w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-4 text-base text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-primary focus:border-primary focus:placeholder-gray-400"
                 placeholder="Enter your email"
               />
               <div className="mt-3 rounded-md sm:mt-0 sm:ml-3 sm:flex-shrink-0">
                 <button
                   type="submit"
-                  className="w-full bg-primary flex items-center justify-center border border-transparent rounded-md py-2 px-4 text-base font-medium text-white hover:opacity-80"
+                  className="w-full bg-primary flex items-center justify-center border border-transparent rounded-md py-2 px-4 text-base font-medium text-white hover:bg-primary-600"
                 >
                   Subscribe
                 </button>

@@ -1,7 +1,20 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import AppScreen from '../../../../Images/app-screenshot.svg'
+import { useAuth0 } from '@auth0/auth0-react'
 
 const HomeLayoutSectionCTA = () => {
+  const { loginWithRedirect } = useAuth0()
+
+  const start = useCallback(async () => {
+    try {
+      await loginWithRedirect({
+        screen_hint: 'signup'
+      })
+    } catch (e) {
+      console.error(e)
+    }
+  }, [loginWithRedirect])
+
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 flex items-center justify-between gap-x-10">
@@ -14,6 +27,7 @@ const HomeLayoutSectionCTA = () => {
             beautifull forms
           </div>
           <button
+            onClick={start}
             type="button"
             className="items-center px-6 py-3 rounded-md bg-primary hover:bg-primary-600 text-white"
           >

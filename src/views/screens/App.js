@@ -12,6 +12,7 @@ import Loader from '../ui/Globals/Loader'
 import PricingScreen from './Pricing'
 import LogoutScreen from './Logout'
 import FormDetailsScreen from './Details'
+import PrivacyLegacy from '../components/Global/Footer/PrivacyLegacy'
 
 const App = () => {
   const { baseUrl } = config || {}
@@ -48,6 +49,7 @@ const App = () => {
           <Route path="/" element={<HomeScreen />} />
           <Route path="/pricing" element={<PricingScreen />} />
           <Route path="/logout" element={<LogoutScreen />} />
+          <Route path="/terms-and-conditions" element={<PrivacyLegacy />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       )}

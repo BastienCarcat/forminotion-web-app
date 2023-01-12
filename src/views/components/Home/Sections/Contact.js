@@ -1,21 +1,40 @@
-import React from 'react'
+import React, { useCallback } from 'react'
+import { useAuth0 } from '@auth0/auth0-react'
 
 const HomeLayoutSectionContact = () => {
+  const { loginWithRedirect } = useAuth0()
+
+  const start = useCallback(async () => {
+    try {
+      await loginWithRedirect({
+        screen_hint: 'signup'
+      })
+    } catch (e) {
+      console.error(e)
+    }
+  }, [loginWithRedirect])
+
   return (
-    <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 md:py-16 lg:px-8 lg:py-20">
+    <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 md:py-12 lg:px-8 lg:py-16">
       <div className="flex items-center flex-col">
-        <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl text-center">
-          <span className="block">Still have questions?</span>
-          <span className="block text-primary mt-4">Contact us!</span>
-        </h2>
+        <span className="block text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl text-center">
+          Still have questions?
+        </span>
+        <a
+          href="mailto:contact@forminotion.com"
+          className="group text-primary transition duration-300 text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl text-center"
+        >
+          Contact us!
+          <span className="block max-w-0 bg-primary group-hover:max-w-full transition-all duration-500 h-0.5 "></span>
+        </a>
         <div className="mt-8 flex">
           <div className="inline-flex rounded-md shadow">
-            <a
-              href="#"
-              className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:opacity-80"
+            <button
+              onClick={start}
+              className="items-center px-6 py-3 rounded-md bg-primary hover:bg-primary-600 text-white"
             >
               Get started
-            </a>
+            </button>
           </div>
         </div>
       </div>

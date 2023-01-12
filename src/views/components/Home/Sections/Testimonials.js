@@ -64,7 +64,7 @@ const HomeLayoutSectionTestimonials = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-10 h-10 text-secondary"
+            className="w-10 h-10 text-secondary-200"
           >
             <path
               strokeLinecap="round"
@@ -78,7 +78,7 @@ const HomeLayoutSectionTestimonials = () => {
             <blockquote className="mt-6 md:flex-grow md:flex md:flex-col">
               <div className="relative text-lg font-medium text-white md:flex-grow min-h-[150px]">
                 <svg
-                  className="absolute top-0 left-0 transform -translate-x-6 -translate-y-4 h-10 w-10 text-secondary"
+                  className="absolute top-0 left-0 transform -translate-x-6 -translate-y-4 h-10 w-10 text-primary"
                   fill="currentColor"
                   viewBox="0 0 32 32"
                   aria-hidden="true"
@@ -103,7 +103,7 @@ const HomeLayoutSectionTestimonials = () => {
                       {' '}
                       {_.get(currentTestimonial, 'name')}
                     </div>
-                    <div className="font-medium text-secondary">
+                    <div className="font-medium text-secondary-200">
                       {_.get(currentTestimonial, 'job')}
                     </div>
                   </div>
@@ -119,7 +119,7 @@ const HomeLayoutSectionTestimonials = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-10 h-10 text-secondary"
+            className="w-10 h-10 text-secondary-200"
           >
             <path
               strokeLinecap="round"
