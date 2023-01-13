@@ -1,8 +1,8 @@
 import React from 'react'
 
-const PrivacyLegacy = () => {
+const TermsAndConditions = () => {
   return (
-    <div style={{ textAlign: 'left', lineHeight: 1 }}>
+    <div className="p-24" style={{ textAlign: 'left', lineHeight: 1 }}>
       <div
         className="MsoNormal"
         style={{ textAlign: 'left', lineHeight: '150%' }}
@@ -99,17 +99,15 @@ const PrivacyLegacy = () => {
           <div style={{ lineHeight: '1.5', textAlign: 'left' }}>
             <br />
           </div>
-          <div style={{ lineHeight: '1.5', textAlign: 'left' }}>
-            <span style={{ fontSize: '15px' }}>
+          <div style={{ textAlign: 'left' }}>
+            <span className="text-base text-gray-600 hover:text-gray-700 hover:underline">
               <a data-custom-class="link" href="#agreement">
-                <span style={{ color: 'rgb(89, 89, 89)' }}>
-                  1. AGREEMENT TO TERMS
-                </span>
+                <span>1. AGREEMENT TO TERMS</span>
               </a>
             </span>
           </div>
-          <div style={{ lineHeight: '1.5', textAlign: 'left' }}>
-            <span style={{ fontSize: '15px' }}>
+          <div style={{ textAlign: 'left' }}>
+            <span className="text-base text-gray-600 hover:text-gray-700 hover:underline">
               <a data-custom-class="link" href="#ip">
                 <span style={{ color: 'rgb(89, 89, 89)' }}>
                   2. INTELLECTUAL PROPERTY RIGHTS
@@ -117,117 +115,51 @@ const PrivacyLegacy = () => {
               </a>
             </span>
           </div>
-          <div style={{ lineHeight: '1.5', textAlign: 'left' }}>
-            <span style={{ fontSize: '15px' }}>
-              <span style={{ color: 'rgb(89, 89, 89)' }}>
+          <div style={{ textAlign: 'left' }}>
+            <span className="text-base text-gray-600 hover:text-gray-700 hover:underline">
+              <span>
                 <a data-custom-class="link" href="#userreps">
                   3. USER REPRESENTATIONS
                 </a>
               </span>
             </span>
           </div>
-          <div style={{ lineHeight: '1.5', textAlign: 'left' }}>
-            <span style={{ fontSize: '15px' }}>
+          <div style={{ textAlign: 'left' }}>
+            <span className="text-base text-gray-600 hover:text-gray-700 hover:underline">
               <a data-custom-class="link" href="#userreg">
-                <span style={{ color: 'rgb(89, 89, 89)' }}>
-                  <bdt data-type="conditional-block">
-                    <bdt
-                      className="block-component"
-                      data-record-question-key="user_account_option"
-                      data-type="statement"
-                    >
-                      <span style={{ fontSize: '15px' }} />
-                    </bdt>
-                  </bdt>
-                  4. USER REGISTRATION
-                </span>
+                <span>4. USER REGISTRATION</span>
               </a>
             </span>
             <bdt className="statement-end-if-in-editor" data-type="close">
               <span style={{ fontSize: '15px' }} />
             </bdt>
           </div>
-          <div style={{ lineHeight: '1.5', textAlign: 'left' }}>
-            <span style={{ fontSize: '15px' }}>
+          <div style={{ textAlign: 'left' }}>
+            <span className="text-base text-gray-600 hover:text-gray-700 hover:underline">
               <a data-custom-class="link" href="#prohibited">
-                <span style={{ color: 'rgb(89, 89, 89)' }}>
-                  5. PROHIBITED ACTIVITIES
-                </span>
+                <span>5. PROHIBITED ACTIVITIES</span>
               </a>
             </span>
           </div>
-          <div style={{ lineHeight: '1.5', textAlign: 'left' }}>
-            <span style={{ fontSize: '15px' }}>
+          <div style={{ textAlign: 'left' }}>
+            <span className="text-base text-gray-600 hover:text-gray-700 hover:underline">
               <a data-custom-class="link" href="#ugc">
-                <span style={{ color: 'rgb(89, 89, 89)' }}>
-                  6. USER GENERATED CONTRIBUTIONS
-                </span>
+                <span>6. USER GENERATED CONTRIBUTIONS</span>
               </a>
             </span>
           </div>
-          <div style={{ lineHeight: '1.5', textAlign: 'left' }}>
-            <span style={{ fontSize: '15px' }}>
-              <span style={{ color: 'rgb(89, 89, 89)' }}>
+          <div style={{ textAlign: 'left' }}>
+            <span className="text-base text-gray-600 hover:text-gray-700 hover:underline">
+              <span>
                 <a data-custom-class="link" href="#license">
                   7. CONTRIBUTION LICENSE
                 </a>
               </span>
             </span>
           </div>
-          <div style={{ lineHeight: '1.5', textAlign: 'left' }}>
-            <span style={{ fontSize: '15px' }}>
-              <a data-custom-class="link" href="#reviews">
-                <span style={{ color: 'rgb(89, 89, 89)' }}>
-                  <bdt
-                    className="block-container if"
-                    data-type="if"
-                    id="a378120a-96b1-6fa3-279f-63d5b96341d3"
-                  >
-                    <bdt data-type="conditional-block">
-                      <bdt
-                        className="block-component"
-                        data-record-question-key="review_option"
-                        data-type="statement"
-                      >
-                        <span style={{ fontSize: '15px' }} />
-                      </bdt>
-                    </bdt>
-                  </bdt>
-                </span>
-              </a>
-            </span>
-          </div>
-          <div style={{ lineHeight: '1.5', textAlign: 'left' }}>
-            <span style={{ fontSize: '15px' }}>
-              <a data-custom-class="link" href="#mobile">
-                <span style={{ color: 'rgb(89, 89, 89)' }}>
-                  <bdt
-                    className="block-container if"
-                    data-type="if"
-                    id="c954892f-02b9-c743-d1e8-faf0d59a4b70"
-                  >
-                    <bdt data-type="conditional-block">
-                      <bdt
-                        className="block-component"
-                        data-record-question-key="mobile_app_option"
-                        data-type="statement"
-                      >
-                        <span style={{ fontSize: '15px' }} />
-                      </bdt>
-                    </bdt>
-                  </bdt>
-                </span>
-              </a>
-            </span>
-          </div>
           <div style={{ textAlign: 'left' }}>
-            <span style={{ fontSize: '15px' }}>
-              <bdt className="block-component" />
-            </span>
-          </div>
-          <div style={{ lineHeight: '1.5', textAlign: 'left' }}>
-            <span style={{ fontSize: '15px' }}>
-              <span style={{ color: 'rgb(89, 89, 89)' }}>
+            <span className="text-base text-gray-600 hover:text-gray-700 hover:underline">
+              <span>
                 <a data-custom-class="link" href="#submissions">
                   8. SUBMISSIONS
                 </a>
@@ -235,331 +167,132 @@ const PrivacyLegacy = () => {
             </span>
           </div>
           <div style={{ textAlign: 'left' }}>
-            <span style={{ fontSize: '15px' }}>
-              <bdt className="block-component" />
+            <span className="text-base text-gray-600 hover:text-gray-700 hover:underline">
               <a data-custom-class="link" href="#thirdparty">
-                <span style={{ color: 'rgb(89, 89, 89)' }}>
-                  9. THIRD-PARTY WEBSITE AND CONTENT
-                </span>
-              </a>
-              <a data-custom-class="link" href="#agreement">
-                <span style={{ color: 'rgb(89, 89, 89)' }}>
-                  <bdt className="statement-end-if-in-editor" data-type="close">
-                    <span style={{ fontSize: '15px' }} />
-                  </bdt>
-                </span>
+                <span>9. THIRD-PARTY WEBSITE AND CONTENT</span>
               </a>
             </span>
           </div>
-          <div style={{ lineHeight: '1.5', textAlign: 'left' }}>
-            <span style={{ fontSize: '15px' }}>
-              <a data-custom-class="link" href="#advertisers">
-                <span style={{ color: 'rgb(89, 89, 89)' }}>
-                  <bdt
-                    className="block-container if"
-                    data-type="if"
-                    id="14038561-dad7-be9d-370f-f8aa487b2570"
-                  >
-                    <bdt data-type="conditional-block">
-                      <bdt
-                        className="block-component"
-                        data-record-question-key="advertiser_option"
-                        data-type="statement"
-                      >
-                        <span style={{ fontSize: '15px' }} />
-                      </bdt>
-                    </bdt>
-                  </bdt>
-                </span>
-              </a>
-            </span>
-          </div>
-          <div style={{ lineHeight: '1.5', textAlign: 'left' }}>
-            <span style={{ fontSize: '15px' }}>
-              <span style={{ color: 'rgb(89, 89, 89)' }}>
+          <div style={{ textAlign: 'left' }}>
+            <span className="text-base text-gray-600 hover:text-gray-700 hover:underline">
+              <span>
                 <a data-custom-class="link" href="#sitemanage">
                   10. SITE MANAGEMENT
                 </a>
               </span>
             </span>
           </div>
-          <div style={{ lineHeight: '1.5', textAlign: 'left' }}>
-            <span style={{ fontSize: '15px' }}>
-              <a data-custom-class="link" href="#privacypolicy1">
-                <span style={{ color: 'rgb(89, 89, 89)' }}>
-                  <bdt
-                    className="block-container if"
-                    data-type="if"
-                    id="bdd90fa9-e664-7d0b-c352-2b8e77dd3bb4"
-                  >
-                    <bdt data-type="conditional-block">
-                      <bdt
-                        className="block-component"
-                        data-record-question-key="privacy_policy_option"
-                        data-type="statement"
-                      >
-                        <span style={{ fontSize: '15px' }}>
-                          <bdt
-                            className="block-container if"
-                            data-type="if"
-                            id="87a7471d-cf82-1032-fdf8-601d37d7b017"
-                          >
-                            <bdt data-type="conditional-block">
-                              <bdt
-                                className="block-component"
-                                data-record-question-key="privacy_policy_followup"
-                                data-type="statement"
-                                style={{ fontSize: '14.6667px' }}
-                              >
-                                <span style={{ fontSize: '15px' }} />
-                              </bdt>
-                            </bdt>
-                          </bdt>
-                        </span>
-                      </bdt>
-                    </bdt>
-                  </bdt>
-                </span>
-              </a>
+          <div style={{ textAlign: 'left' }}>
+            <span className="text-base text-gray-600 hover:text-gray-700 hover:underline">
               <a data-custom-class="link" href="#privacypolicy2">
-                <span style={{ color: 'rgb(89, 89, 89)' }}>
-                  11. PRIVACY POLICY
-                </span>
-              </a>
-              <a data-custom-class="link" href="#advertisers" />
-              <a data-custom-class="link" href="#agreement">
-                <span style={{ color: 'rgb(89, 89, 89)' }}>
-                  <bdt className="statement-end-if-in-editor" data-type="close">
-                    <span style={{ fontSize: '15px' }} />
-                  </bdt>
-                </span>
+                <span>11. PRIVACY POLICY</span>
               </a>
             </span>
           </div>
-          <div style={{ lineHeight: '1.5', textAlign: 'left' }}>
-            <span style={{ fontSize: '15px' }}>
-              <a data-custom-class="link" href="#dmca">
-                <span style={{ color: 'rgb(89, 89, 89)' }}>
-                  <bdt className="block-component">
-                    <bdt className="block-component" />
-                  </bdt>
-                </span>
-              </a>
-            </span>
-            <span style={{ fontSize: '15px' }}>
-              <a data-custom-class="link" href="#dmca">
-                <span style={{ color: 'rgb(89, 89, 89)' }}>
-                  <bdt className="block-component">
-                    <bdt className="block-container if" data-type="if">
-                      <bdt
-                        className="statement-end-if-in-editor"
-                        data-type="close"
-                      >
-                        <span style={{ fontSize: '15px' }} />
-                      </bdt>
-                    </bdt>
-                  </bdt>
-                </span>
-              </a>
-            </span>
-          </div>
-          <div style={{ lineHeight: '1.5', textAlign: 'left' }}>
-            <span style={{ fontSize: '15px' }}>
-              <a data-custom-class="link" href="#copyright1">
-                <span style={{ color: 'rgb(89, 89, 89)' }}>
-                  <bdt className="block-component">
-                    <bdt className="block-component" />
-                  </bdt>
-                </span>
-              </a>
-            </span>
-            <bdt className="block-container if" data-type="if">
-              <bdt className="statement-end-if-in-editor" data-type="close">
-                <span style={{ fontSize: '15px' }}>
-                  <bdt className="block-component" />
-                </span>
-              </bdt>
-            </bdt>
-            <bdt className="block-component" />
-          </div>
-          <div style={{ lineHeight: '1.5', textAlign: 'left' }}>
-            <span style={{ fontSize: '15px' }}>
-              <a data-custom-class="link" href="#terms" />
+          <div style={{ textAlign: 'left' }}>
+            <span className="text-base text-gray-600 hover:text-gray-700 hover:underline">
               <a data-custom-class="link" href="#terms">
-                <span style={{ color: 'rgb(89, 89, 89)' }}>
-                  12. TERM AND TERMINATION
-                </span>
+                <span>12. TERM AND TERMINATION</span>
               </a>
             </span>
           </div>
-          <div style={{ lineHeight: '1.5', textAlign: 'left' }}>
-            <span style={{ fontSize: '15px' }}>
+          <div style={{ textAlign: 'left' }}>
+            <span className="text-base text-gray-600 hover:text-gray-700 hover:underline">
               <a data-custom-class="link" href="#modifications">
-                <span style={{ color: 'rgb(89, 89, 89)' }}>
-                  13. MODIFICATIONS AND INTERRUPTIONS
-                </span>
+                <span>13. MODIFICATIONS AND INTERRUPTIONS</span>
               </a>
             </span>
           </div>
-          <div style={{ lineHeight: '1.5', textAlign: 'left' }}>
-            <span style={{ fontSize: '15px' }}>
+          <div style={{ textAlign: 'left' }}>
+            <span className="text-base text-gray-600 hover:text-gray-700 hover:underline">
               <a data-custom-class="link" href="#law">
-                <span style={{ color: 'rgb(89, 89, 89)' }}>
-                  14. GOVERNING LAW
-                </span>
+                <span>14. GOVERNING LAW</span>
               </a>
             </span>
           </div>
-          <div style={{ lineHeight: '1.5', textAlign: 'left' }}>
-            <span style={{ fontSize: '15px' }}>
+          <div style={{ textAlign: 'left' }}>
+            <span className="text-base text-gray-600 hover:text-gray-700 hover:underline">
               <a data-custom-class="link" href="#disputes">
-                <span style={{ color: 'rgb(89, 89, 89)' }}>
-                  15. DISPUTE RESOLUTION
-                </span>
+                <span>15. DISPUTE RESOLUTION</span>
               </a>
             </span>
           </div>
-          <div style={{ lineHeight: '1.5', textAlign: 'left' }}>
-            <span style={{ fontSize: '15px' }}>
-              <span style={{ color: 'rgb(89, 89, 89)' }}>
+          <div style={{ textAlign: 'left' }}>
+            <span className="text-base text-gray-600 hover:text-gray-700 hover:underline">
+              <span>
                 <a data-custom-class="link" href="#corrections">
                   16. CORRECTIONS
                 </a>
               </span>
             </span>
           </div>
-          <div style={{ lineHeight: '1.5', textAlign: 'left' }}>
-            <span style={{ fontSize: '15px' }}>
+          <div style={{ textAlign: 'left' }}>
+            <span className="text-base text-gray-600 hover:text-gray-700 hover:underline">
               <a data-custom-class="link" href="#disclaimer">
-                <span style={{ color: 'rgb(89, 89, 89)' }}>17. DISCLAIMER</span>
+                <span>17. DISCLAIMER</span>
               </a>
             </span>
           </div>
-          <div style={{ lineHeight: '1.5', textAlign: 'left' }}>
-            <span style={{ fontSize: '15px' }}>
+          <div style={{ textAlign: 'left' }}>
+            <span className="text-base text-gray-600 hover:text-gray-700 hover:underline">
               <a data-custom-class="link" href="#liability">
-                <span style={{ color: 'rgb(89, 89, 89)' }}>
-                  18. LIMITATIONS OF LIABILITY
-                </span>
+                <span>18. LIMITATIONS OF LIABILITY</span>
               </a>
             </span>
           </div>
-          <div style={{ lineHeight: '1.5', textAlign: 'left' }}>
-            <span style={{ fontSize: '15px' }}>
-              <span style={{ color: 'rgb(89, 89, 89)' }}>
+          <div style={{ textAlign: 'left' }}>
+            <span className="text-base text-gray-600 hover:text-gray-700 hover:underline">
+              <span>
                 <a data-custom-class="link" href="#indemnification">
                   19. INDEMNIFICATION
                 </a>
               </span>
             </span>
           </div>
-          <div style={{ lineHeight: '1.5', textAlign: 'left' }}>
-            <span style={{ fontSize: '15px' }}>
+          <div style={{ textAlign: 'left' }}>
+            <span className="text-base text-gray-600 hover:text-gray-700 hover:underline">
               <a data-custom-class="link" href="#userdata">
-                <span style={{ color: 'rgb(89, 89, 89)' }}>20. USER DATA</span>
+                <span>20. USER DATA</span>
               </a>
             </span>
           </div>
-          <div style={{ lineHeight: '1.5', textAlign: 'left' }}>
-            <span style={{ fontSize: '15px' }}>
+          <div style={{ textAlign: 'left' }}>
+            <span className="text-base text-gray-600 hover:text-gray-700 hover:underline">
               <a data-custom-class="link" href="#electronic">
-                <span style={{ color: 'rgb(89, 89, 89)' }}>
+                <span>
                   21. ELECTRONIC COMMUNICATIONS, TRANSACTIONS, AND SIGNATURES
                 </span>
               </a>
             </span>
           </div>
-          <div
-            className="MsoNormal"
-            style={{ lineHeight: '1.5', textAlign: 'left' }}
-          >
-            <span
-              style={{
-                fontSize: '11.0pt',
-                lineHeight: '115%',
-                fontFamily: 'Arial',
-                color: '#595959',
-                msoThemecolor: 'text1',
-                msoThemetint: 166
-              }}
-            >
-              <bdt className="block-component" />
-            </span>
-            <span style={{ fontSize: '15px' }}>
-              <span style={{ color: 'rgb(89, 89, 89)' }}>
+          <div className="MsoNormal" style={{ textAlign: 'left' }}>
+            <span className="text-base text-gray-600 hover:text-gray-700 hover:underline">
+              <span>
                 <a data-custom-class="link" href="#california">
                   22. CALIFORNIA USERS AND RESIDENTS
-                </a>
-                <a data-custom-class="link" href="#agreement">
-                  <span style={{ color: 'rgb(89, 89, 89)' }}>
-                    <bdt
-                      className="statement-end-if-in-editor"
-                      data-type="close"
-                    >
-                      <span style={{ fontSize: '15px' }} />
-                    </bdt>
-                  </span>
                 </a>
               </span>
             </span>
           </div>
-          <div style={{ lineHeight: '1.5', textAlign: 'left' }}>
-            <span style={{ fontSize: '15px' }}>
+          <div style={{ textAlign: 'left' }}>
+            <span className="text-base text-gray-600 hover:text-gray-700 hover:underline">
               <a data-custom-class="link" href="#misc">
-                <span style={{ color: 'rgb(89, 89, 89)' }}>
-                  23. MISCELLANEOUS
-                </span>
+                <span>23. MISCELLANEOUS</span>
               </a>
             </span>
           </div>
-          <div style={{ lineHeight: '1.5', textAlign: 'left' }}>
-            <bdt className="block-component" />
-          </div>
-          <div style={{ lineHeight: '1.5', textAlign: 'left' }}>
-            <bdt className="block-component" />
-          </div>
-          <div style={{ lineHeight: '1.5', textAlign: 'left' }}>
-            <bdt className="block-component" />
-          </div>
-          <div style={{ lineHeight: '1.5', textAlign: 'left' }}>
-            <bdt className="block-component" />
-          </div>
-          <div style={{ lineHeight: '1.5', textAlign: 'left' }}>
-            <bdt className="block-component" />
-          </div>
-          <div style={{ lineHeight: '1.5', textAlign: 'left' }}>
-            <bdt className="block-component" />
-          </div>
-          <div style={{ lineHeight: '1.5', textAlign: 'left' }}>
-            <bdt className="block-component" />
-          </div>
-          <div style={{ lineHeight: '1.5', textAlign: 'left' }}>
-            <bdt className="block-component" />
-          </div>
-          <div style={{ lineHeight: '1.5', textAlign: 'left' }}>
-            <bdt className="block-component" />
-          </div>
-          <div style={{ lineHeight: '1.5', textAlign: 'left' }}>
-            <bdt className="block-component" />
-          </div>
-          <div style={{ lineHeight: '1.5', textAlign: 'left' }}>
-            <span style={{ fontSize: '15px' }}>
-              <span style={{ color: 'rgb(89, 89, 89)' }}>
+          <div style={{ textAlign: 'left' }}>
+            <span className="text-base text-gray-600 hover:text-gray-700 hover:underline">
+              <span>
                 <a data-custom-class="link" href="#contact">
                   24. CONTACT US
                 </a>
               </span>
             </span>
           </div>
-          <div style={{ lineHeight: '1.5', textAlign: 'left' }}>
-            <br />
-          </div>
-          <div style={{ lineHeight: '1.5', textAlign: 'left' }}>
-            <br />
-          </div>
         </div>
         <div
-          className="MsoNormal"
+          className="MsoNormal pt-24"
           data-custom-class="heading_1"
           id="agreement"
           style={{ lineHeight: '115%' }}
@@ -720,25 +453,7 @@ const PrivacyLegacy = () => {
                   </span>
                 </span>{' '}
                 and have our registered office at{' '}
-                <bdt className="question">Rue Chanoine le Corvec</bdt>
-                <bdt className="block-component" />
-              </span>
-            </span>
-            , <bdt className="question">Carquefou</bdt>
-          </span>
-          <span style={{ fontSize: '15px' }}>
-            <span data-custom-class="body_text">
-              <span style={{ fontSize: '15px' }}>
-                <span data-custom-class="body_text">
-                  <span style={{ color: 'rgb(89, 89, 89)' }}>
-                    <bdt className="block-component" />,{' '}
-                    <bdt className="question">Loire Atlantique</bdt>
-                    <bdt className="statement-end-if-in-editor" />
-                    <bdt className="block-component" />{' '}
-                    <bdt className="question">44470</bdt>
-                    <bdt className="statement-end-if-in-editor" />
-                  </span>
-                </span>
+                <bdt className="question">Nantes</bdt>
               </span>
             </span>
           </span>
@@ -5998,145 +5713,14 @@ const PrivacyLegacy = () => {
             data-custom-class="body_text"
             style={{ lineHeight: '1.5' }}
           >
-            <span style={{ color: 'rgb(89, 89, 89)' }}>
-              <strong>
-                <span style={{ fontSize: '15px' }}>
-                  <bdt className="question">
-                    <span style={{ color: 'rgb(89, 89, 89)' }}>
-                      <strong>
-                        <span style={{ fontSize: '15px' }}>
-                          <bdt className="block-component" />
-                        </span>
-                      </strong>
-                    </span>
-                    Rue Chanoine le Corvec
-                  </bdt>
-                  <bdt className="statement-end-if-in-editor" />
-                </span>
-              </strong>
-            </span>
-          </div>
-          <div
-            className="MsoNormal"
-            data-custom-class="body_text"
-            style={{ lineHeight: '1.5' }}
-          >
-            <span style={{ color: 'rgb(89, 89, 89)' }}>
-              <strong>
-                <span style={{ fontSize: '15px' }}>
-                  <bdt className="question">
-                    <span style={{ color: 'rgb(89, 89, 89)' }}>
-                      <strong>
-                        <span style={{ fontSize: '15px' }}>
-                          <bdt className="block-component" />
-                        </span>
-                      </strong>
-                    </span>
-                  </bdt>
-                </span>
-              </strong>
-            </span>
-          </div>
-          <div
-            className="MsoNormal"
-            data-custom-class="body_text"
-            style={{ lineHeight: '1.5' }}
-          >
-            <strong>
-              <span style={{ color: 'rgb(89, 89, 89)' }}>
-                <strong>
-                  <span style={{ fontSize: '15px' }}>
-                    <bdt className="question">Carquefou</bdt>
-                    <bdt className="block-component" />,{' '}
-                    <bdt className="question">Loire Atlantique</bdt>
-                  </span>
-                </strong>
-                <strong>
-                  <span style={{ fontSize: '15px' }}>
-                    <bdt className="statement-end-if-in-editor" />
-                  </span>
-                </strong>
-                <strong>
-                  <span style={{ fontSize: '15px' }}>
-                    <bdt className="block-component" />
-                  </span>
-                </strong>
-              </span>{' '}
-              <span style={{ color: 'rgb(89, 89, 89)' }}>
-                <strong>
-                  <span style={{ fontSize: '15px' }}>
-                    <bdt className="question">44470</bdt>
-                    <bdt className="statement-end-if-in-editor" />
-                  </span>
-                </strong>
-              </span>
-            </strong>
-          </div>
-          <div className="MsoNormal" style={{ lineHeight: '1.5' }}>
-            <strong>
-              <span style={{ color: 'rgb(89, 89, 89)' }}>
-                <strong>
-                  <span style={{ fontSize: '15px' }}>
-                    <bdt className="question">
-                      <span style={{ color: 'rgb(89, 89, 89)' }}>
-                        <strong>
-                          <span style={{ fontSize: '15px' }}>
-                            <bdt className="block-component" />
-                          </span>
-                        </strong>
-                      </span>
-                    </bdt>
-                  </span>
-                </strong>
-                <strong>
-                  <span style={{ fontSize: '15px' }}>
-                    <bdt className="question">
-                      <span style={{ color: 'rgb(89, 89, 89)' }}>
-                        <strong>
-                          <span style={{ fontSize: '15px' }}>
-                            <bdt className="block-component" />
-                          </span>
-                        </strong>
-                      </span>
-                    </bdt>
-                  </span>
-                </strong>
-              </span>
-            </strong>
-          </div>
-          <div
-            className="MsoNormal"
-            data-custom-class="body_text"
-            style={{ lineHeight: '1.5' }}
-          >
             <strong>
               <strong>
                 <span style={{ color: 'rgb(89, 89, 89)' }}>
                   <strong>
                     <span style={{ fontSize: '15px' }}>
                       <bdt className="block-component" />
-                      <bdt className="question">France</bdt>
+                      <bdt className="question">Nantes, France</bdt>
                       <bdt className="statement-end-if-in-editor" />
-                    </span>
-                  </strong>
-                </span>
-              </strong>
-            </strong>
-          </div>
-          <div className="MsoNormal" style={{ lineHeight: '1.5' }}>
-            <strong>
-              <strong>
-                <span style={{ color: 'rgb(89, 89, 89)' }}>
-                  <strong>
-                    <span style={{ fontSize: '15px' }}>
-                      <span style={{ color: 'rgb(89, 89, 89)' }}>
-                        <strong>
-                          <span style={{ fontSize: '15px' }}>
-                            <bdt className="statement-end-if-in-editor" />
-                            <bdt className="statement-end-if-in-editor" />
-                          </span>
-                        </strong>
-                      </span>
                     </span>
                   </strong>
                 </span>
@@ -6199,7 +5783,7 @@ const PrivacyLegacy = () => {
                     data-id="fdc2b5b8-c95f-244b-23a7-287f82541348"
                     data-type="question"
                   >
-                    <strong>contact@forminoyion.com</strong>
+                    <strong>contact@forminotion.com</strong>
                   </bdt>
                 </span>
               </strong>
@@ -6211,6 +5795,6 @@ const PrivacyLegacy = () => {
   )
 }
 
-PrivacyLegacy.propTypes = {}
+TermsAndConditions.propTypes = {}
 
-export default PrivacyLegacy
+export default TermsAndConditions

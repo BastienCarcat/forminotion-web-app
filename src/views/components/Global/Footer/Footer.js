@@ -10,9 +10,8 @@ const Footer = () => {
         { name: 'Pricing', href: `${url}#pricing` }
       ],
       legal: [
-        { name: 'Claim', href: '#' },
-        { name: 'Privacy', href: '#' },
-        { name: 'Terms', href: '#' }
+        { name: 'Privacy policy', href: `${url}privacy-policy` },
+        { name: 'Terms and conditions', href: `${url}terms-and-conditions` }
       ],
       social: [
         {
@@ -61,8 +60,8 @@ const Footer = () => {
         Footer
       </h2>
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
-        <div className="md:grid md:grid-cols-3 md:gap-8">
-          <div className="grid grid-cols-2 gap-8">
+        <div className="md:grid md:grid-cols-4 md:gap-8">
+          <div className="grid grid-cols-2 gap-8 md:col-span-2">
             {/*<div className="md:grid md:grid-cols-2 md:gap-8">*/}
             <div>
               <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">
