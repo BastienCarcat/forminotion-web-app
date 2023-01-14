@@ -104,8 +104,7 @@ const Footer = () => {
               Subscribe to our newsletter
             </h3>
             <p className="mt-4 text-base text-gray-500">
-              The latest news, articles, and resources, sent to your inbox
-              weekly.
+              Stay up to date with all the latest news from forminotion.
             </p>
             <form className="mt-4 sm:flex sm:max-w-md">
               <label htmlFor="email-address" className="sr-only">

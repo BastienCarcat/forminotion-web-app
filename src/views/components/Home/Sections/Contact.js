@@ -22,10 +22,10 @@ const HomeLayoutSectionContact = () => {
         </span>
         <a
           href="mailto:contact@forminotion.com"
-          className="group text-primary transition duration-300 text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl text-center"
+          className="group text-primary transition duration-100 text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl text-center"
         >
           Contact us!
-          <span className="block max-w-0 bg-primary group-hover:max-w-full transition-all duration-500 h-0.5 "></span>
+          <span className="block max-w-0 bg-primary group-hover:max-w-full transition-all duration-300 h-0.5 "></span>
         </a>
         <div className="mt-8 flex">
           <div className="inline-flex rounded-md shadow">
