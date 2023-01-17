@@ -10,17 +10,37 @@ const FormCreationStepForm = ({
   setCurrentStep,
   authorizations,
   databases,
-  searhDatabases
+  searhDatabases,
+  disabledFieldTypes
 }) => {
   const { change, batch } = useForm()
 
   const getFields = useCallback(
     (database) => {
-      const properties = _.map(_.get(database, 'properties', []), (p) => ({
-        property: p,
-        label: _.get(p, 'name'),
-        enabled: true
-      }))
+      console.log('database', database)
+      const properties = _.chain(database)
+        .get('properties', [])
+        .filter(
+          (x) =>
+            !_.includes(
+              [
+                'created_by',
+                'created_time',
+                'last_edited_by',
+                'last_edited_time',
+                'relation',
+                'rollup',
+                'people'
+              ],
+              _.get(x, 'type')
+            )
+        )
+        .map((p) => ({
+          property: p,
+          label: _.get(p, 'name'),
+          enabled: !_.includes(disabledFieldTypes, _.get(p, 'type'))
+        }))
+        .value()
 
       const defaultValues = {}
       _.each(properties, (field) => {
@@ -51,7 +71,7 @@ const FormCreationStepForm = ({
         change('fakeData', defaultValues)
       })
     },
-    [batch, change]
+    [batch, change, disabledFieldTypes]
   )
 
   const changeStep = useCallback(() => {
@@ -153,7 +173,7 @@ const FormCreationStepForm = ({
                 <button
                   onClick={changeStep}
                   type="button"
-                  className="disabled:opacity-50 disabled:bg-primary inline-flex items-center px-4 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                  className="disabled:opacity-50 disabled:bg-primary inline-flex items-center px-4 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary-600"
                   disabled={
                     !(
                       _.get(values, 'authorization.id') &&
@@ -179,7 +199,8 @@ FormCreationStepForm.propTypes = {
   setCurrentStep: PropTypes.func,
   authorizations: PropTypes.array,
   searhDatabases: PropTypes.func,
-  databases: PropTypes.array
+  databases: PropTypes.array,
+  disabledFieldTypes: PropTypes.array
 }
 
 export default FormCreationStepForm

@@ -1,45 +1,39 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import { ArrowRightIcon } from '@heroicons/react/outline'
 import { PropTypes } from 'prop-types'
 import { stepPositions } from '../../Layout'
 import { Field, useFormState } from 'react-final-form'
 import _ from 'lodash'
 import { FieldArray } from 'react-final-form-arrays'
+import clsx from 'clsx'
 
-const FormCreationStepFields = ({ setCurrentStep }) => {
-  // const [fields, setFields] = useState([])
-
+const FormCreationStepFields = ({ setCurrentStep, disabledFieldTypes }) => {
   const { values } = useFormState()
-  // const { change } = useForm()
-
-  // const initialize = useCallback(async () => {
-  //   try {
-  //     const properties = _.map(
-  //       _.get(values, 'database.properties', []),
-  //       (p) => ({
-  //         id: _.get(p, 'id'),
-  //         name: _.get(p, 'name'),
-  //         enable: true
-  //       })
-  //     )
-  //     console.log(properties)
-  //     change('fields', properties)
-  //   } catch (e) {
-  //     console.error(e)
-  //   }
-  // }, [change])
-
-  // useEffect(() => {
-  //   initialize()
-  // }, [initialize])
 
   const changeStep = useCallback(() => {
     setCurrentStep(stepPositions.PREVIEW)
   }, [setCurrentStep])
 
+  const notSupportedFields = useMemo(() => {
+    return _.chain(values)
+      .get('fields')
+      .map(
+        (field) =>
+          _.includes(disabledFieldTypes, _.get(field, 'property.type')) &&
+          _.startCase(_.get(field, 'property.type'))
+      )
+      .filter((x) => !!x)
+      .value()
+  }, [disabledFieldTypes, values])
+
   return (
     <div className="px-4 sm:px-6 lg:px-12">
       <p>Select the fields you want to include in your form.</p>
+      <div className="text-sm text-gray-500">
+        {`${_.join(notSupportedFields, ', ')} ${
+          _.size(notSupportedFields) === 1 ? 'field is' : 'fields are'
+        } not yet supported`}
+      </div>
       <div className="py-6">
         <FieldArray name="fields">
           {({ fields }) => (
@@ -49,8 +43,13 @@ const FormCreationStepFields = ({ setCurrentStep }) => {
                   <Field key={name} name={`${name}.enabled`} type="checkbox">
                     {({ input }) => (
                       <div
-                        // className="flex border rounded-lg p-3 mt-4"
-                        className="px-3 py-2 text-base sm:text-sm rounded-md flex border mt-4 first:mt-0"
+                        className={clsx(
+                          'px-3 py-2 text-base sm:text-sm rounded-md flex border mt-4 first:mt-0',
+                          _.includes(
+                            disabledFieldTypes,
+                            _.get(fields, `value[${index}].property.type`)
+                          ) && 'opacity-50'
+                        )}
                       >
                         <div className="flex-1">
                           <label
@@ -65,6 +64,10 @@ const FormCreationStepFields = ({ setCurrentStep }) => {
                         </div>
                         <div className="ml-3 flex items-center">
                           <input
+                            disabled={_.includes(
+                              disabledFieldTypes,
+                              _.get(fields, `value[${index}].property.type`)
+                            )}
                             {...input}
                             id={`field-${_.get(
                               fields,
@@ -104,7 +107,8 @@ const FormCreationStepFields = ({ setCurrentStep }) => {
   )
 }
 FormCreationStepFields.propTypes = {
-  setCurrentStep: PropTypes.func
+  setCurrentStep: PropTypes.func,
+  disabledFieldTypes: PropTypes.array
 }
 
 export default FormCreationStepFields

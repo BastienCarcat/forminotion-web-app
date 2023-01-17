@@ -64,6 +64,8 @@ const FormCreationLayout = () => {
     return _.find(steps, (step) => _.get(step, 'status') === stepStatus.CURRENT)
   }, [steps])
 
+  const disabledFieldTypes = useMemo(() => ['formula', 'files'], [])
+
   const searhDatabases = useCallback(
     async (authorization) => {
       try {
@@ -216,12 +218,14 @@ const FormCreationLayout = () => {
                             authorizations={authorizations}
                             searhDatabases={searhDatabases}
                             databases={databases}
+                            disabledFieldTypes={disabledFieldTypes}
                           />
                         )}
                         {_.get(currentStep, 'position') ===
                           stepPositions.FIELDS && (
                           <FormCreationStepFields
                             setCurrentStep={setCurrentStep}
+                            disabledFieldTypes={disabledFieldTypes}
                           />
                         )}
                         {_.get(currentStep, 'position') ===
