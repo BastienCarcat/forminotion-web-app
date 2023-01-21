@@ -8,6 +8,7 @@ import SwitchField from '../../ui/Form/Inputs/Switch'
 import PropTypes from 'prop-types'
 import TextField from '../../ui/Form/Inputs/Text'
 import NotAvailableField from '../../ui/Form/Inputs/NotAvailable'
+import moment from 'moment'
 import DateField from '../../ui/Form/Inputs/Date'
 import URLField from '../../ui/Form/Inputs/URL'
 import PhoneNumberField from '../../ui/Form/Inputs/PhoneNumber'
@@ -37,6 +38,9 @@ const MainForm = ({ databaseInfo }) => {
         case 'status':
           _.set(defaultValues, idFieldNotion, { name: '', id: '', color: '' })
           break
+        case 'date':
+          _.set(defaultValues, idFieldNotion, { start: null })
+          break
         default:
           _.set(defaultValues, idFieldNotion, '')
           break
@@ -49,49 +53,27 @@ const MainForm = ({ databaseInfo }) => {
     async (values) => {
       const input = {
         idDatabase: _.get(databaseInfo, 'notion.id'),
-        idAuthorization: _.get(databaseInfo, 'form.idAuthorization')
+        idAuthorization: _.get(databaseInfo, 'form.idAuthorization'),
+        properties: _.chain(databaseInfo)
+          .get('fields', [])
+          .keyBy('idFieldNotion')
+          .mapValues((field, key) => {
+            const type = _.get(field, 'property.type')
+            switch (type) {
+              case 'date':
+                return {
+                  [type]: _.mapValues(_.get(values, key), (x) => {
+                    return x ? moment(x).format('YYYY-MM-DD') : null
+                  })
+                }
+              default:
+                return {
+                  [type]: _.get(values, key)
+                }
+            }
+          })
+          .value()
       }
-      _.each(_.get(databaseInfo, 'fields'), (field) => {
-        const { idFieldNotion, property } = field
-        _.set(
-          input,
-          `properties.${idFieldNotion}.${_.get(property, 'type')}`,
-          _.get(values, idFieldNotion)
-        )
-      })
-      // switch (type) {
-      // case 'title':
-      //   if (values[name]) {
-      //     _.set(input, `properties.${name}`, {
-      //       title: [{ text: { content: values[name] } }]
-      //     })
-      //   }
-      //   break
-      // case 'rich_text':
-      //   if (values[_.get(field, 'property.name')]) {
-      //     _.set(input, `properties.${name}`, {
-      //       rich_text: [{ text: { content: values[name] } }]
-      //     })
-      //   }
-      //   break
-      // case 'number':
-      //   if (values[name]) {
-      //     _.set(input, `properties.${name}`, {
-      //       number: _.toNumber(values[name])
-      //     })
-      //   }
-      //   break
-
-      // default:
-      //   if (values[name]) {
-      //     _.set(
-      //       input,
-      //       `properties.${name}.${_.get(field, 'type')}`,
-      //       values[name]
-      //     )
-      //   }
-      //   break
-      // }
 
       await post('notion/createDbItem', cleanDeep(input))
     },

@@ -40,6 +40,7 @@ const DateField = ({ label, name, ...others }) => {
           </label>
           <DatePicker
             {...input}
+            onChange={(date) => input.onChange({ start: date })}
             customInput={<Input input={input} />}
             // onChangeRaw={(date) => {
             //   const newRaw = new Date(date.currentTarget.value)
@@ -47,7 +48,7 @@ const DateField = ({ label, name, ...others }) => {
             //     input.onChange(newRaw)
             //   }
             // }}
-            selected={_.get(input, 'value')}
+            selected={_.get(input, 'value.start')}
             renderCustomHeader={({
               date,
               decreaseMonth,
@@ -142,15 +143,16 @@ const Input = forwardRef(({ onClick, input }, ref) => {
           onChange={(e) => {
             const value = _.get(e, 'target.value')
             if (moment(value).isValid()) {
-              input.onChange(new Date(value))
+              console.log(moment(value).toDate())
+              input.onChange({ start: moment(value).toDate() })
             } else if (!value) {
-              input.onChange(null)
+              input.onChange({ start: null })
             }
           }}
           value={
-            moment(_.get(input, 'value')).isValid()
-              ? moment(_.get(input, 'value')).format('MM/DD/YYYY')
-              : _.get(input, 'value')
+            moment(_.get(input, 'value.start')).isValid()
+              ? moment(_.get(input, 'value.start')).format('MM/DD/YYYY')
+              : _.get(input, 'value.start')
           }
         />
       </div>
