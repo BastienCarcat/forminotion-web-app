@@ -143,7 +143,6 @@ const Input = forwardRef(({ onClick, input }, ref) => {
           onChange={(e) => {
             const value = _.get(e, 'target.value')
             if (moment(value).isValid()) {
-              console.log(moment(value).toDate())
               input.onChange({ start: moment(value).toDate() })
             } else if (!value) {
               input.onChange({ start: null })

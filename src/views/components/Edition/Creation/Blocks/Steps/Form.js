@@ -17,7 +17,6 @@ const FormCreationStepForm = ({
 
   const getFields = useCallback(
     (database) => {
-      console.log('database', database)
       const properties = _.chain(database)
         .get('properties', [])
         .filter(
@@ -59,6 +58,9 @@ const FormCreationStepForm = ({
           case 'select':
           case 'status':
             _.set(defaultValues, id, { name: '', id: '', color: '' })
+            break
+          case 'date':
+            _.set(defaultValues, id, { start: null })
             break
           default:
             _.set(defaultValues, id, '')
