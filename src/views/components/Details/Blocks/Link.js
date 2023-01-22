@@ -28,8 +28,7 @@ const DetailsBlocksLink = () => {
         <div className="rounded-lg bg-white overflow-hidden shadow">
           <div className="p-6">
             <h2
-              className="text-base font-medium text-gray-900"
-              // className="text-xl tracking-tight font-extrabold text-gray-900 sm:text-2xl"
+              className="text-xl tracking-tight font-extrabold text-gray-900 sm:text-2xl"
               id="form-link-copy"
             >
               Form link

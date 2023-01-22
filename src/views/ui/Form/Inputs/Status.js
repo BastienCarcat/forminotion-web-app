@@ -127,37 +127,38 @@ const StatusField = ({
                             }
                             value={opt}
                           >
-                            <div className="flex justify-between gap-x-2">
-                              <div
-                                className={`flex justify-between items-center gap-x-2 ${
-                                  optionColor
-                                    ? `${_.get(
+                            {({ selected }) => (
+                              <div className="flex justify-between gap-x-2">
+                                <div
+                                  className={`flex justify-between items-center gap-x-2 ${
+                                    optionColor
+                                      ? `${_.get(
+                                          optionColors,
+                                          `bg_${_.get(opt, 'color')}`
+                                        )} px-4 py-0.5 rounded-xl`
+                                      : ''
+                                  }`}
+                                >
+                                  {optionColor && (
+                                    <span
+                                      className={`inline-block rounded-full h-2 w-2 ${_.get(
                                         optionColors,
-                                        `bg_${_.get(opt, 'color')}`
-                                      )} px-4 py-0.5 rounded-xl`
-                                    : ''
-                                }`}
-                              >
-                                {optionColor && (
-                                  <span
-                                    className={`inline-block rounded-full h-2 w-2 ${_.get(
-                                      optionColors,
-                                      _.get(opt, 'color')
-                                    )}`}
-                                  ></span>
-                                )}
-                                <span className="block truncate">
-                                  {getOptionLabel(opt)}
-                                </span>
-                              </div>
+                                        _.get(opt, 'color')
+                                      )}`}
+                                    ></span>
+                                  )}
+                                  <span className="block truncate">
+                                    {getOptionLabel(opt)}
+                                  </span>
+                                </div>
 
-                              {_.get(opt, 'id') ===
-                                _.get(input, 'value.id') && (
-                                <span className="text-primary">
-                                  <CheckIcon className="w-5 h-5" />
-                                </span>
-                              )}
-                            </div>
+                                {selected && (
+                                  <span className="text-primary">
+                                    <CheckIcon className="w-5 h-5" />
+                                  </span>
+                                )}
+                              </div>
+                            )}
                           </Listbox.Option>
                         ))
                         .value()}

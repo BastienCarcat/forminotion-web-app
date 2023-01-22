@@ -33,6 +33,7 @@ const FormDetailsScreen = () => {
     <AppBar>
       <PageHeader
         title={_.get(form, 'form.title')}
+        loading={loading}
         // actions={[
         //   <button
         //     key={0}

@@ -64,11 +64,7 @@ const SelectField = ({
                       {_.get(value, 'id') && (
                         <button
                           onClick={(event) => {
-                            input.onChange({
-                              name: null,
-                              id: null,
-                              color: null
-                            })
+                            input.onChange(null)
                             event.stopPropagation()
                             document.activeElement.blur()
                           }}
@@ -103,26 +99,27 @@ const SelectField = ({
                       }
                       value={opt}
                     >
-                      <div className="flex justify-between gap-x-2">
-                        <span
-                          className={`block truncate ${
-                            optionColor
-                              ? `${_.get(
-                                  optionColors,
-                                  `bg_${_.get(opt, 'color')}`
-                                )} px-4 py-0.5 rounded-xl`
-                              : ''
-                          }`}
-                        >
-                          {getOptionLabel(opt)}
-                        </span>
-
-                        {_.get(opt, 'id') === _.get(input, 'value.id') && (
-                          <span className="text-primary">
-                            <CheckIcon className="w-5 h-5" />
+                      {({ selected }) => (
+                        <div className="flex justify-between gap-x-2">
+                          <span
+                            className={`block truncate ${
+                              optionColor
+                                ? `${_.get(
+                                    optionColors,
+                                    `bg_${_.get(opt, 'color')}`
+                                  )} px-4 py-0.5 rounded-xl`
+                                : ''
+                            }`}
+                          >
+                            {getOptionLabel(opt)}
                           </span>
-                        )}
-                      </div>
+                          {selected && (
+                            <span className="text-primary">
+                              <CheckIcon className="w-5 h-5" />
+                            </span>
+                          )}
+                        </div>
+                      )}
                     </Listbox.Option>
                   ))
                 )}

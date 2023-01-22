@@ -99,28 +99,27 @@ const MultiSelectField = ({
                       }
                       value={opt}
                     >
-                      <div className="flex justify-between gap-x-2">
-                        <span
-                          className={`block truncate ${
-                            optionColor
-                              ? `${_.get(
-                                  optionColors,
-                                  `bg_${_.get(opt, 'color')}`
-                                )} px-4 py-0.5 rounded-xl`
-                              : ''
-                          }`}
-                        >
-                          {getOptionLabel(opt)}
-                        </span>
-                        {_.includes(
-                          _.map(_.get(input, 'value'), 'id'),
-                          _.get(opt, 'id')
-                        ) && (
-                          <span className="text-primary">
-                            <CheckIcon className="w-5 h-5" />
+                      {({ selected }) => (
+                        <div className="flex justify-between gap-x-2">
+                          <span
+                            className={`block truncate ${
+                              optionColor
+                                ? `${_.get(
+                                    optionColors,
+                                    `bg_${_.get(opt, 'color')}`
+                                  )} px-4 py-0.5 rounded-xl`
+                                : ''
+                            }`}
+                          >
+                            {getOptionLabel(opt)}
                           </span>
-                        )}
-                      </div>
+                          {selected && (
+                            <span className="text-primary">
+                              <CheckIcon className="w-5 h-5" />
+                            </span>
+                          )}
+                        </div>
+                      )}
                     </Listbox.Option>
                   )
                 })}
