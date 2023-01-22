@@ -43,7 +43,28 @@ module.exports = {
           700: '#000000',
           800: '#000000',
           900: '#000000'
-        }
+        },
+        'notion-default': '#37352F',
+        'notion-gray': '#9B9A97',
+        'notion-brown': '#64473A',
+        'notion-orange': '#D9730D',
+        'notion-yellow': '#DFAB01',
+        'notion-green': '#0F7B6C',
+        'notion-blue': '#0B6E99',
+        'notion-purple': '#6940A5',
+        'notion-pink': '#AD1A72',
+        'notion-red': '#E03E3E',
+
+        'notion-default-bg': '#F1F1F1',
+        'notion-gray-bg': '#EBECED',
+        'notion-brown-bg': '#E9E5E3',
+        'notion-orange-bg': '#FAEBDD',
+        'notion-yellow-bg': '#FBF3DB',
+        'notion-green-bg': '#DDEDEA',
+        'notion-blue-bg': '#DDEBF1',
+        'notion-purple-bg': '#EAE4F2',
+        'notion-pink-bg': '#F4DFEB',
+        'notion-red-bg': '#FBE4E4'
       },
       fontFamily: {
         main: ['DM Sans']

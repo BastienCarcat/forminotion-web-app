@@ -1,22 +1,41 @@
-import React, { Fragment, useCallback } from 'react'
+import React, { useMemo, useCallback } from 'react'
 import { Listbox } from '@headlessui/react'
 import { PropTypes } from 'prop-types'
 import { Field } from 'react-final-form'
 import _ from 'lodash'
+import { CheckIcon, ChevronDownIcon, XIcon } from '@heroicons/react/outline'
 
 const MultiSelectField = ({
   label,
   name,
   options,
+  optionColor,
   getOptionLabel,
   ...others
 }) => {
-  const handleRemoveValue = useCallback((input, value) => {
+  const handleRemoveValue = useCallback((input, value, event) => {
     const newValues = _.filter(
       _.get(input, 'value'),
       (x) => _.get(x, 'id') !== _.get(value, 'id')
     )
     input.onChange(newValues)
+    event.stopPropagation()
+    document.activeElement.blur()
+  }, [])
+
+  const optionColors = useMemo(() => {
+    return {
+      bg_default: 'bg-notion-default-bg',
+      bg_gray: 'bg-notion-gray-bg',
+      bg_brown: 'bg-notion-brown-bg',
+      bg_red: 'bg-notion-red-bg',
+      bg_orange: 'bg-notion-orange-bg',
+      bg_yellow: 'bg-notion-yellow-bg',
+      bg_green: 'bg-notion-green-bg',
+      bg_blue: 'bg-notion-blue-bg',
+      bg_purple: 'bg-notion-purple-bg',
+      bg_pink: 'bg-notion-pink-bg'
+    }
   }, [])
 
   return (
@@ -44,46 +63,26 @@ const MultiSelectField = ({
                       {_.map(value, (x, i) => (
                         <span
                           key={i}
-                          className="inline-flex items-center py-0.5 pl-2 pr-0.5 mx-0.5 rounded-full text-xs font-medium bg-primary-150 text-primary-600"
+                          // className="inline-flex items-center py-0.5 pl-2 pr-0.5 mx-0.5 rounded-full text-xs font-medium bg-primary-150 text-primary-600"
+                          className="inline-flex items-center py-0.5 pl-2 pr-0.5 mx-0.5 rounded-full text-xs font-medium bg-gray-200"
                         >
                           {getOptionLabel(x)}
                           <button
-                            onClick={() => handleRemoveValue(input, x)}
+                            onClick={(event) =>
+                              handleRemoveValue(input, x, event)
+                            }
                             type="button"
-                            className="flex-shrink-0 ml-0.5 h-4 w-4 rounded-full inline-flex items-center justify-center text-primary-400 hover:bg-primary-300 hover:text-primary-500 focus:outline-none focus:bg-primary-500 focus:text-white"
+                            // className="flex-shrink-0 ml-0.5 h-4 w-4 rounded-full inline-flex items-center justify-center text-primary-400 hover:bg-primary-300 hover:text-primary-500 focus:outline-none focus:bg-primary-500 focus:text-white"
+                            className="flex-shrink-0 ml-0.5 h-4 w-4 rounded-full inline-flex items-center justify-center hover:bg-gray-300 text-gray-700 hover:text-gray-900 focus:outline-none focus:bg-gray-500 focus:text-white"
                           >
                             <span className="sr-only">Remove option</span>
-                            <svg
-                              className="h-2 w-2"
-                              stroke="currentColor"
-                              fill="none"
-                              viewBox="0 0 8 8"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeWidth="1.5"
-                                d="M1 1l6 6m0-6L1 7"
-                              />
-                            </svg>
+                            <XIcon className="h-3 w-3" />
                           </button>
                         </span>
                       ))}
                     </div>
                     <span className="absolute inset-y-0 right-0 flex items-center pr-2">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth="2"
-                        stroke="currentColor"
-                        className="w-4 h-4 text-gray-500"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-                        />
-                      </svg>
+                      <ChevronDownIcon className="w-4 h-4 text-gray-500" />
                     </span>
                   </>
                 )}
@@ -94,21 +93,21 @@ const MultiSelectField = ({
                     <Listbox.Option
                       key={key}
                       className={({ active }) =>
-                        `cursor-pointer relative select-none py-2 pl-10 pr-4 ${
-                          active ? 'bg-gray-100' : 'text-gray-900'
-                        }`
+                        `cursor-pointer relative select-none ${
+                          optionColor ? 'py-1' : 'py-2'
+                        } px-4 ${active ? 'bg-gray-100' : ''}`
                       }
                       value={opt}
                     >
-                      <>
+                      <div className="flex justify-between gap-x-2">
                         <span
                           className={`block truncate ${
-                            _.includes(
-                              _.map(_.get(input, 'value'), 'id'),
-                              _.get(opt, 'id')
-                            )
-                              ? 'font-medium'
-                              : 'font-normal'
+                            optionColor
+                              ? `${_.get(
+                                  optionColors,
+                                  `bg_${_.get(opt, 'color')}`
+                                )} px-4 py-0.5 rounded-xl`
+                              : ''
                           }`}
                         >
                           {getOptionLabel(opt)}
@@ -116,25 +115,12 @@ const MultiSelectField = ({
                         {_.includes(
                           _.map(_.get(input, 'value'), 'id'),
                           _.get(opt, 'id')
-                        ) ? (
-                          <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-primary">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              strokeWidth="2"
-                              stroke="currentColor"
-                              className="w-5 h-5"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M4.5 12.75l6 6 9-13.5"
-                              />
-                            </svg>
+                        ) && (
+                          <span className="text-primary">
+                            <CheckIcon className="w-5 h-5" />
                           </span>
-                        ) : null}
-                      </>
+                        )}
+                      </div>
                     </Listbox.Option>
                   )
                 })}
@@ -151,7 +137,8 @@ MultiSelectField.propTypes = {
   label: PropTypes.string,
   name: PropTypes.string.isRequired,
   options: PropTypes.array.isRequired,
-  getOptionLabel: PropTypes.func.isRequired
+  getOptionLabel: PropTypes.func.isRequired,
+  optionColor: PropTypes.bool
 }
 
 export default MultiSelectField

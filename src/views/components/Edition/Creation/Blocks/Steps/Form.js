@@ -50,20 +50,20 @@ const FormCreationStepForm = ({
             break
           case 'rich_text':
           case 'title':
-            _.set(defaultValues, id, [{ text: { content: '' } }])
+            _.set(defaultValues, id, [{ text: { content: null } }])
             break
           case 'checkbox':
             _.set(defaultValues, id, false)
             break
           case 'select':
           case 'status':
-            _.set(defaultValues, id, { name: '', id: '', color: '' })
+            _.set(defaultValues, id, { name: null, id: null, color: null })
             break
           case 'date':
             _.set(defaultValues, id, { start: null })
             break
           default:
-            _.set(defaultValues, id, '')
+            _.set(defaultValues, id, null)
             break
         }
       })

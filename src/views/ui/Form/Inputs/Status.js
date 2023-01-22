@@ -3,9 +3,10 @@ import { Listbox } from '@headlessui/react'
 import { PropTypes } from 'prop-types'
 import { Field } from 'react-final-form'
 import _ from 'lodash'
-import { CheckIcon, ChevronDownIcon, XIcon } from '@heroicons/react/outline'
+import { ChevronDownIcon, XIcon } from '@heroicons/react/outline'
+import { CheckIcon } from '@heroicons/react/outline'
 
-const SelectField = ({
+const StatusField = ({
   label,
   name,
   options,
@@ -13,10 +14,21 @@ const SelectField = ({
   onChange,
   fieldProps,
   optionColor,
+  groups,
   ...others
 }) => {
   const optionColors = useMemo(() => {
     return {
+      default: 'bg-notion-default',
+      gray: 'bg-notion-gray',
+      brown: 'bg-notion-brown',
+      red: 'bg-notion-red',
+      orange: 'bg-notion-orange',
+      yellow: 'bg-notion-yellow',
+      green: 'bg-notion-green',
+      blue: 'bg-notion-blue',
+      purple: 'bg-notion-purple',
+      pink: 'bg-notion-pink',
       bg_default: 'bg-notion-default-bg',
       bg_gray: 'bg-notion-gray-bg',
       bg_brown: 'bg-notion-brown-bg',
@@ -93,37 +105,63 @@ const SelectField = ({
                     </div>
                   </Listbox.Option>
                 ) : (
-                  _.map(options, (opt, key) => (
-                    <Listbox.Option
-                      key={key}
-                      className={({ active }) =>
-                        `cursor-pointer select-none ${
-                          optionColor ? 'py-1' : 'py-2'
-                        } px-4 ${active ? 'bg-gray-100' : ''}`
-                      }
-                      value={opt}
-                    >
-                      <div className="flex justify-between gap-x-2">
-                        <span
-                          className={`block truncate ${
-                            optionColor
-                              ? `${_.get(
-                                  optionColors,
-                                  `bg_${_.get(opt, 'color')}`
-                                )} px-4 py-0.5 rounded-xl`
-                              : ''
-                          }`}
-                        >
-                          {getOptionLabel(opt)}
-                        </span>
-
-                        {_.get(opt, 'id') === _.get(input, 'value.id') && (
-                          <span className="text-primary">
-                            <CheckIcon className="w-5 h-5" />
-                          </span>
-                        )}
+                  _.map(groups, (group) => (
+                    <div key={_.get(group, 'id')} className="pb-2">
+                      <div className="px-3 py-1 text-base border-t border-gray-200">
+                        {_.get(group, 'name')}
                       </div>
-                    </Listbox.Option>
+                      {_.chain(options)
+                        .filter((opt) =>
+                          _.includes(
+                            _.get(group, 'option_ids'),
+                            _.get(opt, 'id')
+                          )
+                        )
+                        .map((opt) => (
+                          <Listbox.Option
+                            key={_.get(opt, 'id')}
+                            className={({ active }) =>
+                              `cursor-pointer select-none ${
+                                optionColor ? 'py-1' : 'py-2'
+                              } px-4 ${active ? 'bg-gray-100' : ''}`
+                            }
+                            value={opt}
+                          >
+                            <div className="flex justify-between gap-x-2">
+                              <div
+                                className={`flex justify-between items-center gap-x-2 ${
+                                  optionColor
+                                    ? `${_.get(
+                                        optionColors,
+                                        `bg_${_.get(opt, 'color')}`
+                                      )} px-4 py-0.5 rounded-xl`
+                                    : ''
+                                }`}
+                              >
+                                {optionColor && (
+                                  <span
+                                    className={`inline-block rounded-full h-2 w-2 ${_.get(
+                                      optionColors,
+                                      _.get(opt, 'color')
+                                    )}`}
+                                  ></span>
+                                )}
+                                <span className="block truncate">
+                                  {getOptionLabel(opt)}
+                                </span>
+                              </div>
+
+                              {_.get(opt, 'id') ===
+                                _.get(input, 'value.id') && (
+                                <span className="text-primary">
+                                  <CheckIcon className="w-5 h-5" />
+                                </span>
+                              )}
+                            </div>
+                          </Listbox.Option>
+                        ))
+                        .value()}
+                    </div>
                   ))
                 )}
               </Listbox.Options>
@@ -135,14 +173,15 @@ const SelectField = ({
   )
 }
 
-SelectField.propTypes = {
+StatusField.propTypes = {
   label: PropTypes.string,
   name: PropTypes.string.isRequired,
   options: PropTypes.array.isRequired,
   getOptionLabel: PropTypes.func.isRequired,
   onChange: PropTypes.func,
   fieldProps: PropTypes.object,
-  optionColor: PropTypes.bool
+  optionColor: PropTypes.bool,
+  groups: PropTypes.array.isRequired
 }
 
-export default SelectField
+export default StatusField

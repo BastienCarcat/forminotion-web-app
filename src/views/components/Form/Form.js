@@ -15,6 +15,7 @@ import PhoneNumberField from '../../ui/Form/Inputs/PhoneNumber'
 import MailField from '../../ui/Form/Inputs/Mail'
 import MultiSelectField from '../../ui/Form/Inputs/MultiSelect'
 import { useAxiosPostNoAuth } from '../../../hooks/useAxiosPostNoAuth'
+import StatusField from '../../ui/Form/Inputs/Status'
 
 const MainForm = ({ databaseInfo }) => {
   const [post] = useAxiosPostNoAuth()
@@ -29,20 +30,24 @@ const MainForm = ({ databaseInfo }) => {
           break
         case 'rich_text':
         case 'title':
-          _.set(defaultValues, idFieldNotion, [{ text: { content: '' } }])
+          _.set(defaultValues, idFieldNotion, [{ text: { content: null } }])
           break
         case 'checkbox':
           _.set(defaultValues, idFieldNotion, false)
           break
         case 'select':
         case 'status':
-          _.set(defaultValues, idFieldNotion, { name: '', id: '', color: '' })
+          _.set(defaultValues, idFieldNotion, {
+            name: null,
+            id: null,
+            color: null
+          })
           break
         case 'date':
           _.set(defaultValues, idFieldNotion, { start: null })
           break
         default:
-          _.set(defaultValues, idFieldNotion, '')
+          _.set(defaultValues, idFieldNotion, null)
           break
       }
     })
@@ -149,12 +154,13 @@ const MainForm = ({ databaseInfo }) => {
                               getOptionLabel={(option) =>
                                 _.get(option, 'name', '')
                               }
+                              optionColor
                             />
                           )
 
                         case 'status':
                           return (
-                            <SelectField
+                            <StatusField
                               name={_.get(field, 'idFieldNotion')}
                               label={_.get(field, 'label')}
                               options={_.get(
@@ -162,9 +168,15 @@ const MainForm = ({ databaseInfo }) => {
                                 'property.status.options',
                                 []
                               )}
+                              groups={_.get(
+                                field,
+                                'property.status.groups',
+                                []
+                              )}
                               getOptionLabel={(option) =>
                                 _.get(option, 'name', '')
                               }
+                              optionColor
                             />
                           )
 
@@ -213,6 +225,7 @@ const MainForm = ({ databaseInfo }) => {
                               getOptionLabel={(option) =>
                                 _.get(option, 'name', '')
                               }
+                              optionColor
                             />
                           )
 
