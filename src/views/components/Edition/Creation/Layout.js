@@ -172,7 +172,7 @@ const FormCreationLayout = () => {
     <>
       <section aria-labelledby="form-link-copy">
         <div className="rounded-lg bg-white overflow-hidden shadow">
-          <div className="p-4">
+          <div className="p-4 ">
             <h2
               className="text-xl tracking-tight font-extrabold text-gray-900 sm:text-2xl"
               id="form-link-copy"
@@ -183,63 +183,63 @@ const FormCreationLayout = () => {
               steps={steps}
               setCurrentStep={setCurrentStep}
             />
-
-            {loading ? (
-              <Loader />
-            ) : (
-              <Form
-                onSubmit={onSubmit}
-                // validate={validate}
-                mutators={{ ...arrayMutators }}
-                initialValues={initialValues}
-                a
-                render={({ handleSubmit }) => (
-                  <form onSubmit={handleSubmit}>
-                    {_.isEmpty(authorizations) ? (
-                      <div className="mt-10 flex flex-col items-center">
-                        <div>
-                          You need to authorize Forminotion to get access to
-                          your Notion workspace.
-                        </div>
-                        <button
-                          onClick={handleAddToNotion}
-                          type="button"
-                          className="mt-4 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-                        >
-                          Get authorization
-                        </button>
+            <Form
+              onSubmit={onSubmit}
+              // validate={validate}
+              mutators={{ ...arrayMutators }}
+              initialValues={initialValues}
+              a
+              render={({ handleSubmit }) => (
+                <form onSubmit={handleSubmit} className="relative">
+                  {loading && (
+                    <div className="absolute flex w-full h-full justify-center items-center bg-white z-10">
+                      <Loader />
+                    </div>
+                  )}
+                  {_.isEmpty(authorizations) ? (
+                    <div className="mt-10 flex flex-col items-center">
+                      <div>
+                        You need to authorize Forminotion to get access to your
+                        Notion workspace.
                       </div>
-                    ) : (
-                      <>
-                        {_.get(currentStep, 'position') ===
-                          stepPositions.FORM && (
-                          <FormCreationStepForm
-                            setCurrentStep={setCurrentStep}
-                            authorizations={authorizations}
-                            searhDatabases={searhDatabases}
-                            databases={databases}
-                            disabledFieldTypes={disabledFieldTypes}
-                          />
-                        )}
-                        {_.get(currentStep, 'position') ===
-                          stepPositions.FIELDS && (
-                          <FormCreationStepFields
-                            setCurrentStep={setCurrentStep}
-                            disabledFieldTypes={disabledFieldTypes}
-                          />
-                        )}
-                        {_.get(currentStep, 'position') ===
-                          stepPositions.PREVIEW && (
-                          <FormCreationStepPreview
-                            setCurrentStep={setCurrentStep}
-                          />
-                        )}
-                      </>
-                    )}
-                  </form>
-                )}
-              />
-            )}
+                      <button
+                        onClick={handleAddToNotion}
+                        type="button"
+                        className="mt-4 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                      >
+                        Get authorization
+                      </button>
+                    </div>
+                  ) : (
+                    <>
+                      {_.get(currentStep, 'position') ===
+                        stepPositions.FORM && (
+                        <FormCreationStepForm
+                          setCurrentStep={setCurrentStep}
+                          authorizations={authorizations}
+                          searhDatabases={searhDatabases}
+                          databases={databases}
+                          disabledFieldTypes={disabledFieldTypes}
+                        />
+                      )}
+                      {_.get(currentStep, 'position') ===
+                        stepPositions.FIELDS && (
+                        <FormCreationStepFields
+                          setCurrentStep={setCurrentStep}
+                          disabledFieldTypes={disabledFieldTypes}
+                        />
+                      )}
+                      {_.get(currentStep, 'position') ===
+                        stepPositions.PREVIEW && (
+                        <FormCreationStepPreview
+                          setCurrentStep={setCurrentStep}
+                        />
+                      )}
+                    </>
+                  )}
+                </form>
+              )}
+            />
           </div>
         </div>
       </section>

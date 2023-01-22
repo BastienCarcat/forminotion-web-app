@@ -22,7 +22,12 @@ const FormLayout = () => {
     init()
   }, [idForm, get])
 
-  if (loading) return <Loader />
+  if (loading)
+    return (
+      <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
+        <Loader />
+      </div>
+    )
 
   return <MainForm databaseInfo={databaseInfo} />
 }

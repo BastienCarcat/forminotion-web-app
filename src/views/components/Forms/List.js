@@ -46,7 +46,7 @@ const Forms = () => {
   return (
     <>
       {loading ? (
-        <div className="h-full flex justify-center">
+        <div className="h-full flex justify-center items-center">
           <Loader />
         </div>
       ) : (
