@@ -7,6 +7,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 import _ from 'lodash'
 import clsx from 'clsx'
 import { useNavigate } from 'react-router-dom'
+import Logo from '../../../Images/logo.svg'
 
 const UserMenu = () => {
   const navigate = useNavigate()
@@ -150,11 +151,11 @@ const AppBar = ({ children }) => {
                   </div>
                 </Transition.Child>
                 <div className="flex-shrink-0 flex items-center px-4">
-                  {/*<img*/}
-                  {/*  className="h-8 w-auto"*/}
-                  {/*  src="https://tailwindui.com/img/logos/workflow-logo-purple-500-mark-gray-700-text.svg"*/}
-                  {/*  alt="Workflow"*/}
-                  {/*/>*/}
+                  <img
+                    className="h-8 w-auto mr-2"
+                    src={Logo}
+                    alt="forminotion-logo"
+                  />
                   Forminotion
                 </div>
                 <div className="mt-5 flex-1 h-0 overflow-y-auto">
@@ -228,11 +229,11 @@ const AppBar = ({ children }) => {
         {/* Static sidebar for desktop */}
         <div className="hidden lg:flex lg:flex-col lg:w-64 lg:fixed lg:inset-y-0 lg:border-r lg:border-gray-200 lg:pt-5 lg:pb-4 lg:bg-white">
           <div className="flex items-center flex-shrink-0 px-6">
-            {/*<img*/}
-            {/*  className="h-8 w-auto"*/}
-            {/*  src="https://tailwindui.com/img/logos/workflow-logo-purple-500-mark-gray-700-text.svg"*/}
-            {/*  alt="Workflow"*/}
-            {/*/>*/}
+            <img
+              className="h-8 w-auto mr-2"
+              src={Logo}
+              alt="forminotion-logo"
+            />
             <span className="font-bold text-2xl">Forminotion</span>
           </div>
           {/* Sidebar component, swap this element with another sidebar if you like */}

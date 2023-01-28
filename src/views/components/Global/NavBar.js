@@ -5,6 +5,8 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import clsx from 'clsx'
+import Logo from '../../../Images/logo.svg'
+
 const url = 'http://localhost:3000/'
 const NavigationBar = () => {
   const { loginWithRedirect, isAuthenticated, user, logout } = useAuth0()
@@ -55,7 +57,14 @@ const NavigationBar = () => {
                     </Disclosure.Button>
                   </div>
                   <div className="font-main flex items-center font-bold">
-                    <Link to="/">Forminotion</Link>
+                    <Link to="/" className="flex items-center">
+                      <img
+                        className="h-8 w-8 mr-2"
+                        src={Logo}
+                        alt="forminotion-logo"
+                      />
+                      <span>Forminotion</span>
+                    </Link>
                   </div>
                   <div className="hidden md:ml-6 md:flex md:space-x-8">
                     {/* Current: "border-primary text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" */}
@@ -157,9 +166,8 @@ const NavigationBar = () => {
             <Disclosure.Panel className="md:hidden">
               <div className="pt-2 pb-3 space-y-1">
                 {/* Current: "bg-primary-50 border-primary text-primary-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" */}
-                <Disclosure.Button
-                  as="button"
-                  onClick={() => handleNavigate('pricing')}
+                <a
+                  href={`${url}#pricing`}
                   className={clsx(
                     'block pl-3 pr-4 py-2 border-l-4 text-base font-medium sm:pl-5 sm:pr-6 w-full flex',
                     _.get(location, 'pathname') === '/pricing'
@@ -168,7 +176,18 @@ const NavigationBar = () => {
                   )}
                 >
                   Pricing
-                </Disclosure.Button>
+                </a>
+                <a
+                  href={`${url}#guide`}
+                  className={clsx(
+                    'block pl-3 pr-4 py-2 border-l-4 text-base font-medium sm:pl-5 sm:pr-6 w-full flex',
+                    _.get(location, 'pathname') === '/pricing'
+                      ? 'bg-primary-50 border-primary text-primary-700'
+                      : 'border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700'
+                  )}
+                >
+                  Guide
+                </a>
               </div>
               {isAuthenticated && (
                 <div className="pt-4 pb-3 border-t border-gray-200">
