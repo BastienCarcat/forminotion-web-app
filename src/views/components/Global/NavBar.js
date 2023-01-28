@@ -6,12 +6,14 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import clsx from 'clsx'
 import Logo from '../../../Images/logo.svg'
+import { config } from '../../../config'
 
-const url = 'http://localhost:3000/'
 const NavigationBar = () => {
   const { loginWithRedirect, isAuthenticated, user, logout } = useAuth0()
   const navigate = useNavigate()
   const location = useLocation()
+
+  const { appUrl } = config || {}
 
   const login = useCallback(
     async (opt = {}) => {
@@ -69,13 +71,13 @@ const NavigationBar = () => {
                   <div className="hidden md:ml-6 md:flex md:space-x-8">
                     {/* Current: "border-primary text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" */}
                     <a
-                      href={`${url}#pricing`}
+                      href={`${appUrl}#pricing`}
                       className="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700"
                     >
                       Pricing
                     </a>
                     <a
-                      href={`${url}#guide`}
+                      href={`${appUrl}#guide`}
                       className="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700"
                     >
                       Guide
@@ -167,7 +169,7 @@ const NavigationBar = () => {
               <div className="pt-2 pb-3 space-y-1">
                 {/* Current: "bg-primary-50 border-primary text-primary-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" */}
                 <a
-                  href={`${url}#pricing`}
+                  href={`${appUrl}#pricing`}
                   className={clsx(
                     'block pl-3 pr-4 py-2 border-l-4 text-base font-medium sm:pl-5 sm:pr-6 w-full flex',
                     _.get(location, 'pathname') === '/pricing'
@@ -178,7 +180,7 @@ const NavigationBar = () => {
                   Pricing
                 </a>
                 <a
-                  href={`${url}#guide`}
+                  href={`${appUrl}#guide`}
                   className={clsx(
                     'block pl-3 pr-4 py-2 border-l-4 text-base font-medium sm:pl-5 sm:pr-6 w-full flex',
                     _.get(location, 'pathname') === '/pricing'

@@ -16,14 +16,14 @@ import TermsAndConditions from '../components/Global/Footer/TermsAndConditions'
 import PrivcyLegacy from '../components/Global/Footer/PrivcyLegacy'
 
 const App = () => {
-  const { baseUrl } = config || {}
+  const { apiUrl } = config || {}
   const { isAuthenticated, isLoading } = useAuth0()
 
   const location = useLocation()
 
   useEffect(() => {
-    axios.defaults.baseURL = baseUrl
-  }, [baseUrl])
+    axios.defaults.baseURL = apiUrl
+  }, [apiUrl])
 
   if (isLoading)
     return (

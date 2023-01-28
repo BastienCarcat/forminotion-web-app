@@ -1,14 +1,16 @@
 import React, { useCallback, useMemo, useState } from 'react'
 import { CheckIcon, ClipboardIcon } from '@heroicons/react/outline'
 import { useParams } from 'react-router-dom'
+import { config } from '../../../../config'
 
 const DetailsBlocksLink = () => {
   const [copied, setCopied] = useState(false)
   const { idForm } = useParams()
+  const { appUrl } = config || {}
 
   const link = useMemo(() => {
-    return `https://www.forminotion.com/form/${idForm}`
-  }, [idForm])
+    return `${appUrl}form/${idForm}`
+  }, [idForm, appUrl])
 
   const handleCopy = useCallback(async () => {
     await navigator?.clipboard.writeText(link)
