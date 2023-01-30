@@ -1,9 +1,11 @@
 import React, { useCallback, useMemo, useState } from 'react'
 import { CheckIcon, ClipboardIcon } from '@heroicons/react/outline'
 import { useParams } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import { config } from '../../../../config'
+import _ from 'lodash'
 
-const DetailsBlocksLink = () => {
+const DetailsBlocksLink = ({ form }) => {
   const [copied, setCopied] = useState(false)
   const { idForm } = useParams()
   const { appUrl } = config || {}
@@ -61,10 +63,13 @@ const DetailsBlocksLink = () => {
                 </div>
               </div>
               <button
-                key={0}
+                disabled={
+                  _.get(form, 'notion.deleted') ||
+                  _.get(form, 'notion.archived')
+                }
                 type="button"
                 onClick={handleOpenForm}
-                className="inline-flex items-center px-4 py-2 border border-transparent text-xs font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary-600"
+                className="disabled:opacity-50 disabled:bg-primary inline-flex items-center px-4 py-2 border border-transparent text-xs font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary-600"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -90,6 +95,8 @@ const DetailsBlocksLink = () => {
   )
 }
 
-DetailsBlocksLink.propTypes = {}
+DetailsBlocksLink.propTypes = {
+  form: PropTypes.object
+}
 
 export default DetailsBlocksLink

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { DuplicateIcon, TrashIcon } from '@heroicons/react/outline'
 import DetailsBlocksActionsDeleteDialog from './Dialogs/Delete'
 import DetailsBlocksActionsDuplicateDialog from './Dialogs/Duplicate'
+import _ from 'lodash'
 
 const DetailsBlocksActions = ({ form }) => {
   const [open, setOpen] = useState(null)
@@ -21,8 +22,10 @@ const DetailsBlocksActions = ({ form }) => {
           </div>
           <div className="mt-4">
             <button
+              disabled={_.get(form, 'notion.deleted')}
+              type="button"
               onClick={() => setOpen(dialogs.DUPLICATE)}
-              className="px-4 py-2 gap-x-2 flex justify-between items-center rounded-md hover:bg-gray-100 w-full"
+              className="disabled:opacity-50 px-4 py-2 gap-x-2 flex justify-between items-center rounded-md hover:bg-gray-100 w-full"
             >
               <div className="truncate">Duplicate form</div>
               <DuplicateIcon className="w-4 h-4" />

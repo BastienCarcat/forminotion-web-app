@@ -16,18 +16,27 @@ const DetailsBlocksNotionInfo = ({ form }) => {
         <div className="text-xl tracking-tight font-extrabold text-gray-900 sm:text-2xl">
           Notion database
         </div>
-
         <div className="mt-4">
-          <button
-            onClick={handleOpenNotionDatabase}
-            className="px-4 py-2 gap-x-2 flex justify-between items-center rounded-md hover:bg-gray-100 w-full"
-          >
-            <div className="truncate">
-              <span className="pr-2">{_.get(form, 'notion.icon.emoji')}</span>
-              <span>{_.get(form, 'notion.title[0].plain_text')}</span>
+          {_.get(form, 'notion.deleted') ? (
+            <div className="text-center text-gray-500">
+              Notion database deleted
             </div>
-            <ArrowRightIcon className="w-4 h-4" />
-          </button>
+          ) : (
+            <button
+              onClick={handleOpenNotionDatabase}
+              className="px-4 py-2 gap-x-2 flex justify-between items-center rounded-md hover:bg-gray-100 w-full"
+            >
+              <div className="truncate">
+                {_.get(form, 'notion.icon.emoji') && (
+                  <span className="pr-2">
+                    {_.get(form, 'notion.icon.emoji')}
+                  </span>
+                )}
+                <span>{_.get(form, 'notion.title[0].plain_text')}</span>
+              </div>
+              <ArrowRightIcon className="w-4 h-4" />
+            </button>
+          )}
         </div>
         {/*  <div className="text-xl mt-2 tracking-tight font-extrabold text-gray-900 sm:text-2xl">
           Stats
