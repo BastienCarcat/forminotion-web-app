@@ -171,10 +171,10 @@ const FormCreationLayout = () => {
   return (
     <>
       <section aria-labelledby="form-link-copy">
-        <div className="rounded-lg bg-white overflow-hidden shadow">
+        <div className="overflow-hidden rounded-lg bg-white shadow">
           <div className="p-4 ">
             <h2
-              className="text-xl tracking-tight font-extrabold text-gray-900 sm:text-2xl"
+              className="text-xl font-extrabold tracking-tight text-gray-900 sm:text-2xl"
               id="form-link-copy"
             >
               Form creation
@@ -192,7 +192,7 @@ const FormCreationLayout = () => {
               render={({ handleSubmit }) => (
                 <form onSubmit={handleSubmit} className="relative">
                   {loading && (
-                    <div className="absolute flex w-full h-full justify-center items-center bg-white z-10">
+                    <div className="absolute z-10 flex h-full w-full items-center justify-center bg-white">
                       <Loader />
                     </div>
                   )}
@@ -205,7 +205,7 @@ const FormCreationLayout = () => {
                       <button
                         onClick={handleAddToNotion}
                         type="button"
-                        className="mt-4 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                        className="mt-4 inline-flex items-center rounded-md border border-transparent bg-primary px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                       >
                         Get authorization
                       </button>

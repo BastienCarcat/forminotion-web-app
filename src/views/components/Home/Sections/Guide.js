@@ -17,20 +17,21 @@ const HomeLayoutSectionGuide = () => {
       },
       {
         title: 'Select your Notion database',
-        description: "Select the Notion database from which you want to create a form. Then select the fields you want to fill in with the form.",
+        description:
+          'Select the Notion database from which you want to create a form. Then select the fields you want to fill in with the form.',
         image: Select,
         alt: 'Create illustration'
       },
       {
         title: 'Create your form',
-        description:
-          'You can now create your form!',
+        description: 'You can now create your form!',
         image: Create,
         alt: 'Create illustration'
       },
       {
         title: 'Embed your form everywhere!',
-        description: "Copy the link and share it everywhere! You can embed it in Notion by typing \"/embed\" in Notion and pasting the link. You can also embed your form in a website with the html tag \"<iframe>\".",
+        description:
+          'Copy the link and share it everywhere! You can embed it in Notion by typing "/embed" in Notion and pasting the link. You can also embed your form in a website with the html tag "<iframe>".',
         image: Share,
         alt: 'Create illustration'
       }
@@ -39,7 +40,7 @@ const HomeLayoutSectionGuide = () => {
   )
 
   return (
-    <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 flex items-center justify-between">
+    <div className="mx-auto flex max-w-7xl items-center justify-between sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="lg:text-center">
           <h2 className="text-lg font-semibold text-secondary">Guide</h2>
@@ -54,14 +55,14 @@ const HomeLayoutSectionGuide = () => {
               <div
                 key={key}
                 className={clsx(
-                  'md:gap-x-8 gap-y-10 flex flex-col mb-10',
+                  'mb-10 flex flex-col gap-y-10 md:gap-x-8',
                   key % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
                 )}
               >
-                <div className="relative flex justify-center flex-col md:w-1/2">
+                <div className="relative flex flex-col justify-center md:w-1/2">
                   <dt>
                     <div className="absolute flex h-12 w-12 items-center justify-center rounded-md bg-secondary text-white">
-                      <span className="text-white text-xl">{key + 1}</span>
+                      <span className="text-xl text-white">{key + 1}</span>
                     </div>
                     <p className="ml-16 text-lg font-medium leading-6 text-gray-900">
                       {x.title}
@@ -71,7 +72,7 @@ const HomeLayoutSectionGuide = () => {
                     {x.description}
                   </dd>
                 </div>
-                <div className="flex align-center justify-center md:w-1/2">
+                <div className="align-center flex justify-center md:w-1/2">
                   <div className="w-[350px]">
                     <img src={x.image} alt={x.alt} />
                   </div>

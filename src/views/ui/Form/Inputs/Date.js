@@ -67,7 +67,7 @@ const DateField = ({ label, name, ...others }) => {
                     type="button"
                     className={`${
                       prevMonthButtonDisabled && 'cursor-not-allowed opacity-50'
-                    } inline-flex p-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-primary`}
+                    } inline-flex rounded border border-gray-300 bg-white p-1 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-0`}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -75,7 +75,7 @@ const DateField = ({ label, name, ...others }) => {
                       viewBox="0 0 24 24"
                       strokeWidth="1.5"
                       stroke="currentColor"
-                      className="w-5 h-5 text-gray-600"
+                      className="h-5 w-5 text-gray-600"
                     >
                       <path
                         strokeLinecap="round"
@@ -91,7 +91,7 @@ const DateField = ({ label, name, ...others }) => {
                     type="button"
                     className={`${
                       nextMonthButtonDisabled && 'cursor-not-allowed opacity-50'
-                    } inline-flex p-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-primary`}
+                    } inline-flex rounded border border-gray-300 bg-white p-1 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-0`}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -99,7 +99,7 @@ const DateField = ({ label, name, ...others }) => {
                       viewBox="0 0 24 24"
                       strokeWidth="1.5"
                       stroke="currentColor"
-                      className="w-5 h-5 text-gray-600"
+                      className="h-5 w-5 text-gray-600"
                     >
                       <path
                         strokeLinecap="round"
@@ -129,7 +129,7 @@ const Input = forwardRef(({ onClick, input }, ref) => {
 
   return (
     <div className="mt-1 flex rounded-md shadow-sm">
-      <div className="relative flex items-stretch flex-grow focus-within:z-10">
+      <div className="relative flex flex-grow items-stretch focus-within:z-10">
         <MaskedInput
           type="text"
           ref={ref}
@@ -138,7 +138,7 @@ const Input = forwardRef(({ onClick, input }, ref) => {
           placeholder="    /    /     "
           pipe={autoCorrectedDatePipe}
           mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]}
-          className="text-black focus:ring-primary focus:border-primary w-full rounded-none rounded-l-md sm:text-sm border-gray-300"
+          className="w-full rounded-none rounded-l-md border-gray-300 text-black focus:border-primary focus:ring-primary sm:text-sm"
           {...input}
           onChange={(e) => {
             const value = _.get(e, 'target.value')
@@ -158,7 +158,7 @@ const Input = forwardRef(({ onClick, input }, ref) => {
       <button
         onClick={onClick}
         type="button"
-        className="-ml-px relative inline-flex items-center space-x-2 px-4 py-2 border border-gray-300 text-sm font-medium rounded-r-md text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
+        className="relative -ml-px inline-flex items-center space-x-2 rounded-r-md border border-gray-300 bg-gray-50 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -166,7 +166,7 @@ const Input = forwardRef(({ onClick, input }, ref) => {
           viewBox="0 0 24 24"
           strokeWidth="1.6"
           stroke="currentColor"
-          className="w-5 h-5"
+          className="h-5 w-5"
         >
           <path
             strokeLinecap="round"

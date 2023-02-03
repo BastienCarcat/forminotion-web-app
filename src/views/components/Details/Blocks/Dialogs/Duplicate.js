@@ -39,7 +39,7 @@ const DetailsBlocksActionsDuplicateDialog = ({ onClose, open, form }) => {
     <Transition.Root show={open} as={Fragment}>
       <Dialog
         as="div"
-        className="fixed z-10 inset-0 overflow-y-auto"
+        className="fixed inset-0 z-10 overflow-y-auto"
         onClose={onClose}
       >
         <Form
@@ -48,7 +48,7 @@ const DetailsBlocksActionsDuplicateDialog = ({ onClose, open, form }) => {
           initialValues={initialValues}
           render={({ handleSubmit }) => (
             <form onSubmit={handleSubmit}>
-              <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+              <div className="flex min-h-screen items-end justify-center px-4 pt-4 pb-20 text-center sm:block sm:p-0">
                 <Transition.Child
                   as={Fragment}
                   enter="ease-out duration-300"
@@ -63,7 +63,7 @@ const DetailsBlocksActionsDuplicateDialog = ({ onClose, open, form }) => {
 
                 {/* This element is to trick the browser into centering the modal contents. */}
                 <span
-                  className="hidden sm:inline-block sm:align-middle sm:h-screen"
+                  className="hidden sm:inline-block sm:h-screen sm:align-middle"
                   aria-hidden="true"
                 >
                   &#8203;
@@ -77,9 +77,9 @@ const DetailsBlocksActionsDuplicateDialog = ({ onClose, open, form }) => {
                   leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                   leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                 >
-                  <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+                  <div className="inline-block transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left align-bottom shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6 sm:align-middle">
                     <div className="sm:flex sm:items-start">
-                      <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-orange-100 sm:mx-0 sm:h-10 sm:w-10">
+                      <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-orange-100 sm:mx-0 sm:h-10 sm:w-10">
                         <DuplicateIcon
                           className="h-6 w-6 text-orange-600"
                           aria-hidden="true"
@@ -88,7 +88,7 @@ const DetailsBlocksActionsDuplicateDialog = ({ onClose, open, form }) => {
                       <div className="mt-3 sm:mt-0 sm:ml-4">
                         <Dialog.Title
                           as="h3"
-                          className="text-lg leading-6 font-medium text-gray-900 sm:text-left text-center"
+                          className="text-center text-lg font-medium leading-6 text-gray-900 sm:text-left"
                         >
                           Duplicate form
                         </Dialog.Title>
@@ -110,7 +110,7 @@ const DetailsBlocksActionsDuplicateDialog = ({ onClose, open, form }) => {
                                   <div className="mt-1">
                                     <input
                                       type="text"
-                                      className="shadow-sm focus:ring-primary focus:border-primary block w-full sm:text-sm border-gray-300 rounded-md"
+                                      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
                                       {...input}
                                     />
                                   </div>
@@ -131,7 +131,7 @@ const DetailsBlocksActionsDuplicateDialog = ({ onClose, open, form }) => {
                                   <div className="mt-1">
                                     <textarea
                                       rows={2}
-                                      className="shadow-sm focus:ring-primary focus:border-primary block w-full sm:text-sm border-gray-300 rounded-md"
+                                      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
                                       {...input}
                                     />
                                   </div>
@@ -146,14 +146,14 @@ const DetailsBlocksActionsDuplicateDialog = ({ onClose, open, form }) => {
                       <button
                         disabled={loading}
                         type="submit"
-                        className="disabled:bg-primary disabled:opacity-50 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-primary text-base font-medium text-white hover:bg-primary-600 sm:ml-3 sm:w-auto sm:text-sm"
+                        className="inline-flex w-full justify-center rounded-md border border-transparent bg-primary px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-primary-600 disabled:bg-primary disabled:opacity-50 sm:ml-3 sm:w-auto sm:text-sm"
                       >
                         Duplicate
                       </button>
                       <button
                         disabled={loading}
                         type="button"
-                        className="disabled:opacity-50 disabled:bg-white mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 sm:mt-0 sm:w-auto sm:text-sm"
+                        className="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 disabled:bg-white disabled:opacity-50 sm:mt-0 sm:w-auto sm:text-sm"
                         onClick={onClose}
                       >
                         Cancel

@@ -36,24 +36,24 @@ const FormLayout = () => {
     _.get(databaseInfo, 'notion.archived')
   ) {
     return (
-      <div className="h-full w-full flex justify-center items-center flex-col p-8">
-        <div className="text-gray-900 text-xl max-w-lg text-center">Oops!</div>
-        <div className="text-gray-900 text-md max-w-lg text-center mt-2">
+      <div className="flex h-full w-full flex-col items-center justify-center p-8">
+        <div className="max-w-lg text-center text-xl text-gray-900">Oops!</div>
+        <div className="text-md mt-2 max-w-lg text-center text-gray-900">
           This form is no longer available.
         </div>
         <img
-          className="w-64 h-auto my-6"
+          className="my-6 h-auto w-64"
           src={Warning}
           alt="warning illustration"
         />
-        <div className="text-gray-900 text-md max-w-lg text-center">
+        <div className="text-md max-w-lg text-center text-gray-900">
           It seems that the notion database linked to this form has been
           deleted.
           {_.get(databaseInfo, 'notion.archived') && (
             <>
               <a
                 href={_.get(databaseInfo, 'notion.url')}
-                className="underline text-gray-800 mx-1"
+                className="mx-1 text-gray-800 underline"
                 target="_blank"
                 rel="noreferrer"
               >

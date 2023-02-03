@@ -9,7 +9,7 @@ import _ from 'lodash'
 
 const DetailsLayout = ({ form }) => {
   return (
-    <div className="gap-4 lg:gap-8 grid grid-cols-1 lg:grid-cols-3">
+    <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8">
       {(_.get(form, 'notion.deleted') || _.get(form, 'notion.archived')) && (
         <div className="lg:col-span-3">
           <WarningBlocksNotionInfo form={form} />

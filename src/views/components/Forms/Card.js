@@ -11,12 +11,12 @@ const FormCard = ({ form, handlePinForm }) => {
   }, [navigate, form])
 
   return (
-    <div className="relative shadow-sm text-sm border border-gray-200 rounded-md text-gray-900 font-medium hover:bg-gray-50 hover:text-gray-600 h-10">
+    <div className="relative h-10 rounded-md border border-gray-200 text-sm font-medium text-gray-900 shadow-sm hover:bg-gray-50 hover:text-gray-600">
       <button
         onClick={handleClickCard}
-        className="inset-0 absolute w-full text-left"
+        className="absolute inset-0 w-full text-left"
       >
-        <span className="truncate ml-4">{_.get(form, 'title')}</span>
+        <span className="ml-4 truncate">{_.get(form, 'title')}</span>
       </button>
       <button
         onClick={() =>
@@ -25,7 +25,7 @@ const FormCard = ({ form, handlePinForm }) => {
         className="absolute inset-y-0 right-0 mr-4"
       >
         {_.get(form, 'isPinned') ? (
-          <div className="hover:text-primary-600 text-primary h-5 w-5">
+          <div className="h-5 w-5 text-primary hover:text-primary-600">
             {/*<BookmarkIconSolid className="h-full" strokeWidth="1.5" />*/}
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +41,7 @@ const FormCard = ({ form, handlePinForm }) => {
             </svg>
           </div>
         ) : (
-          <div className="hover:text-gray-900 h-5 w-5">
+          <div className="h-5 w-5 hover:text-gray-900">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

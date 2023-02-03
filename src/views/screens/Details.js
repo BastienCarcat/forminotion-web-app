@@ -46,10 +46,10 @@ const FormDetailsScreen = () => {
         //   </button>
         // ]}
       />
-      <div className="bg-gray-100 flex-1 overflow-auto">
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 w-full lg:py-8 py-4 h-full">
+      <div className="flex-1 overflow-auto bg-gray-100">
+        <div className="mx-auto h-full w-full px-4 py-4 sm:px-6 lg:px-8 lg:py-8">
           {loading ? (
-            <div className="h-full justify-center items-center flex">
+            <div className="flex h-full items-center justify-center">
               <Loader />
             </div>
           ) : (

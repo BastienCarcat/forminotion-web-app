@@ -25,19 +25,19 @@ const FormCreationStepper = ({ steps, setCurrentStep }) => {
       <nav aria-label="Progress" className="mx-6 my-6 sm:mx-8">
         <ol
           role="list"
-          className="border border-gray-300 rounded-md divide-y divide-gray-300 md:flex md:divide-y-0"
+          className="divide-y divide-gray-300 rounded-md border border-gray-300 md:flex md:divide-y-0"
         >
           {_.map(steps, (step, key) => (
-            <li key={key} className="relative md:flex-1 md:flex">
+            <li key={key} className="relative md:flex md:flex-1">
               {step.status === 'COMPLETE' ? (
                 <div
                   onClick={() => setCurrentStep(_.get(step, 'position'))}
-                  className="group flex items-center w-full cursor-pointer"
+                  className="group flex w-full cursor-pointer items-center"
                 >
-                  <span className="px-6 py-3 flex items-center text-sm font-medium">
-                    <span className="flex-shrink-0 w-6 h-6 flex items-center justify-center bg-primary rounded-full group-hover:bg-primary-600">
+                  <span className="flex items-center px-6 py-3 text-sm font-medium">
+                    <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-primary group-hover:bg-primary-600">
                       <CheckIcon
-                        className="w-4 h-4 text-white"
+                        className="h-4 w-4 text-white"
                         aria-hidden="true"
                       />
                     </span>
@@ -48,10 +48,10 @@ const FormCreationStepper = ({ steps, setCurrentStep }) => {
                 </div>
               ) : step.status === 'CURRENT' ? (
                 <div
-                  className="px-6 py-3 flex items-center text-sm font-medium"
+                  className="flex items-center px-6 py-3 text-sm font-medium"
                   aria-current="step"
                 >
-                  <span className="flex-shrink-0 w-6 h-6 flex items-center justify-center border-2 border-primary rounded-full">
+                  <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full border-2 border-primary">
                     <span className="text-primary">{step.position}</span>
                   </span>
                   <span className="ml-3 text-sm font-medium text-primary">
@@ -60,8 +60,8 @@ const FormCreationStepper = ({ steps, setCurrentStep }) => {
                 </div>
               ) : (
                 <div className="group flex items-center">
-                  <span className="px-6 py-3  flex items-center text-sm font-medium">
-                    <span className="flex-shrink-0 w-6 h-6 flex items-center justify-center border-2 border-gray-300 rounded-full">
+                  <span className="flex items-center  px-6 py-3 text-sm font-medium">
+                    <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full border-2 border-gray-300">
                       <span className="text-gray-500">{step.position}</span>
                     </span>
                     <span className="ml-3 text-sm font-medium text-gray-500">
@@ -75,7 +75,7 @@ const FormCreationStepper = ({ steps, setCurrentStep }) => {
                 <>
                   {/* Arrow separator for lg screens and up */}
                   <div
-                    className="hidden md:block absolute top-0 right-0 h-full w-5"
+                    className="absolute top-0 right-0 hidden h-full w-5 md:block"
                     aria-hidden="true"
                   >
                     <svg

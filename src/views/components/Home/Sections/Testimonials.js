@@ -55,8 +55,8 @@ const HomeLayoutSectionTestimonials = () => {
   }, [setCurrentIndex, currentIndex, testimonials])
 
   return (
-    <div className="max-w-7xl mx-auto md:px-6 lg:px-8 ">
-      <div className="py-12 px-4 sm:px-6 md:py-16 flex flex-row items-center justify-between gap-x-12 sm:gap-x-16">
+    <div className="mx-auto max-w-7xl md:px-6 lg:px-8 ">
+      <div className="flex flex-row items-center justify-between gap-x-12 py-12 px-4 sm:gap-x-16 sm:px-6 md:py-16">
         <div className="w-10 cursor-pointer" onClick={goPrev}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -64,7 +64,7 @@ const HomeLayoutSectionTestimonials = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-10 h-10 text-secondary-200"
+            className="h-10 w-10 text-secondary-200"
           >
             <path
               strokeLinecap="round"
@@ -73,12 +73,12 @@ const HomeLayoutSectionTestimonials = () => {
             />
           </svg>
         </div>
-        <div className="md:flex md:flex-col max-w-4xl w-full">
+        <div className="w-full max-w-4xl md:flex md:flex-col">
           <div>
-            <blockquote className="mt-6 md:flex-grow md:flex md:flex-col">
-              <div className="relative text-lg font-medium text-white md:flex-grow min-h-[150px]">
+            <blockquote className="mt-6 md:flex md:flex-grow md:flex-col">
+              <div className="relative min-h-[150px] text-lg font-medium text-white md:flex-grow">
                 <svg
-                  className="absolute top-0 left-0 transform -translate-x-6 -translate-y-4 h-10 w-10 text-primary"
+                  className="absolute top-0 left-0 h-10 w-10 -translate-x-6 -translate-y-4 transform text-primary"
                   fill="currentColor"
                   viewBox="0 0 32 32"
                   aria-hidden="true"
@@ -91,7 +91,7 @@ const HomeLayoutSectionTestimonials = () => {
               </div>
               <footer className="mt-8">
                 <div className="flex items-center justify-end">
-                  <div className="flex-shrink-0 inline-flex rounded-full border-2 border-white">
+                  <div className="inline-flex flex-shrink-0 rounded-full border-2 border-white">
                     <img
                       className="h-12 w-12 rounded-full"
                       src={`${_.get(currentTestimonial, 'picture')}`}
@@ -119,7 +119,7 @@ const HomeLayoutSectionTestimonials = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-10 h-10 text-secondary-200"
+            className="h-10 w-10 text-secondary-200"
           >
             <path
               strokeLinecap="round"

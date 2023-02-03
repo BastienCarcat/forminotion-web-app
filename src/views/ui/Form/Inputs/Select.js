@@ -47,17 +47,17 @@ const SelectField = ({
             <Listbox.Label className="block text-sm font-medium text-gray-700">
               {label}
             </Listbox.Label>
-            <div className="mt-1 relative shadow-sm">
+            <div className="relative mt-1 shadow-sm">
               <Listbox.Button
                 className={({ value }) =>
-                  `bg-white border-[1px] disabled:opacity-50 cursor-pointer border-gray-300 relative w-full cursor-default py-2 pl-3 text-left rounded-md sm:text-sm ${
+                  `relative w-full cursor-pointer cursor-default rounded-md border-[1px] border-gray-300 bg-white py-2 pl-3 text-left disabled:opacity-50 sm:text-sm ${
                     value ? 'pr-12' : 'pr-8'
                   }`
                 }
               >
                 {({ value }) => (
                   <>
-                    <div className="truncate no-text">
+                    <div className="no-text truncate">
                       {getOptionLabel(value)}
                     </div>
                     <span className="absolute inset-y-0 right-0 flex items-center pr-2">
@@ -72,19 +72,19 @@ const SelectField = ({
                           className="pr-1"
                         >
                           <span className="sr-only">Remove value</span>
-                          <XIcon className="w-4 h-4 text-gray-400 hover:text-gray-600" />
+                          <XIcon className="h-4 w-4 text-gray-400 hover:text-gray-600" />
                         </button>
                       )}
 
-                      <ChevronDownIcon className="w-4 h-4 text-gray-500" />
+                      <ChevronDownIcon className="h-4 w-4 text-gray-500" />
                     </span>
                   </>
                 )}
               </Listbox.Button>
-              <Listbox.Options className="z-10 absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+              <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                 {_.isEmpty(options) ? (
                   <Listbox.Option value="">
-                    <div className="text-center py-1 text-gray-500">
+                    <div className="py-1 text-center text-gray-500">
                       No data
                     </div>
                   </Listbox.Option>
@@ -107,7 +107,7 @@ const SelectField = ({
                                 ? `${_.get(
                                     optionColors,
                                     `bg_${_.get(opt, 'color')}`
-                                  )} px-4 py-0.5 rounded-xl`
+                                  )} rounded-xl px-4 py-0.5`
                                 : ''
                             }`}
                           >
@@ -115,7 +115,7 @@ const SelectField = ({
                           </span>
                           {selected && (
                             <span className="text-primary">
-                              <CheckIcon className="w-5 h-5" />
+                              <CheckIcon className="h-5 w-5" />
                             </span>
                           )}
                         </div>

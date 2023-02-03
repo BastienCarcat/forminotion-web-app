@@ -10,7 +10,7 @@ const HomeLayout = () => {
     <div className="w-full overflow-hidden">
       <div
         id="cta"
-        className="relative w-full md:py-32 pt-32 pb-16 after:content-[''] after:bg-primary-150 after:-bottom-[10%] after:-inset-x-[10%] after:-top-1/2 after:absolute after:-z-10 after:transform after:-rotate-[8deg] after:-skew-y-0 after:-skew-x-[8deg]"
+        className="relative w-full pt-32 pb-16 after:absolute after:-inset-x-[10%] after:-bottom-[10%] after:-top-1/2 after:-z-10 after:-rotate-[8deg] after:-skew-y-0 after:-skew-x-[8deg] after:transform after:bg-primary-150 after:content-[''] md:py-32"
       >
         <HomeLayoutSectionCTA />
       </div>
@@ -21,7 +21,7 @@ const HomeLayout = () => {
 
       <div
         id="testimonials"
-        className="relative w-full md:py-32 py-16 after:content-[''] after:bg-secondary after:-inset-y-0 after:-inset-x-[10%] after:absolute after:-z-10 after:transform after:rotate-[8deg] after:skew-y-0 after:skew-x-[8deg]"
+        className="relative w-full py-16 after:absolute after:-inset-y-0 after:-inset-x-[10%] after:-z-10 after:rotate-[8deg] after:skew-y-0 after:skew-x-[8deg] after:transform after:bg-secondary after:content-[''] md:py-32"
       >
         <HomeLayoutSectionTestimonials />
       </div>

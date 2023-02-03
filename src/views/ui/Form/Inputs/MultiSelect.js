@@ -55,16 +55,16 @@ const MultiSelectField = ({
               input.onChange(value)
             }}
           >
-            <div className="mt-1 relative shadow-sm ">
-              <Listbox.Button className="border-[1px] cursor-pointer border-gray-300 relative w-full cursor-default py-2 pl-3 pr-10 text-left rounded-md sm:text-sm">
+            <div className="relative mt-1 shadow-sm ">
+              <Listbox.Button className="relative w-full cursor-pointer cursor-default rounded-md border-[1px] border-gray-300 py-2 pl-3 pr-10 text-left sm:text-sm">
                 {({ value }) => (
                   <>
-                    <div className="overflow-hidden whitespace-nowrap no-text">
+                    <div className="no-text overflow-hidden whitespace-nowrap">
                       {_.map(value, (x, i) => (
                         <span
                           key={i}
                           // className="inline-flex items-center py-0.5 pl-2 pr-0.5 mx-0.5 rounded-full text-xs font-medium bg-primary-150 text-primary-600"
-                          className="inline-flex items-center py-0.5 pl-2 pr-0.5 mx-0.5 rounded-full text-xs font-medium bg-gray-200"
+                          className="mx-0.5 inline-flex items-center rounded-full bg-gray-200 py-0.5 pl-2 pr-0.5 text-xs font-medium"
                         >
                           {getOptionLabel(x)}
                           <button
@@ -73,7 +73,7 @@ const MultiSelectField = ({
                             }
                             type="button"
                             // className="flex-shrink-0 ml-0.5 h-4 w-4 rounded-full inline-flex items-center justify-center text-primary-400 hover:bg-primary-300 hover:text-primary-500 focus:outline-none focus:bg-primary-500 focus:text-white"
-                            className="flex-shrink-0 ml-0.5 h-4 w-4 rounded-full inline-flex items-center justify-center hover:bg-gray-300 text-gray-700 hover:text-gray-900 focus:outline-none focus:bg-gray-500 focus:text-white"
+                            className="ml-0.5 inline-flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full text-gray-700 hover:bg-gray-300 hover:text-gray-900 focus:bg-gray-500 focus:text-white focus:outline-none"
                           >
                             <span className="sr-only">Remove option</span>
                             <XIcon className="h-3 w-3" />
@@ -82,18 +82,18 @@ const MultiSelectField = ({
                       ))}
                     </div>
                     <span className="absolute inset-y-0 right-0 flex items-center pr-2">
-                      <ChevronDownIcon className="w-4 h-4 text-gray-500" />
+                      <ChevronDownIcon className="h-4 w-4 text-gray-500" />
                     </span>
                   </>
                 )}
               </Listbox.Button>
-              <Listbox.Options className="z-10 absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+              <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                 {_.map(options, (opt, key) => {
                   return (
                     <Listbox.Option
                       key={key}
                       className={({ active }) =>
-                        `cursor-pointer relative select-none ${
+                        `relative cursor-pointer select-none ${
                           optionColor ? 'py-1' : 'py-2'
                         } px-4 ${active ? 'bg-gray-100' : ''}`
                       }
@@ -107,7 +107,7 @@ const MultiSelectField = ({
                                 ? `${_.get(
                                     optionColors,
                                     `bg_${_.get(opt, 'color')}`
-                                  )} px-4 py-0.5 rounded-xl`
+                                  )} rounded-xl px-4 py-0.5`
                                 : ''
                             }`}
                           >
@@ -115,7 +115,7 @@ const MultiSelectField = ({
                           </span>
                           {selected && (
                             <span className="text-primary">
-                              <CheckIcon className="w-5 h-5" />
+                              <CheckIcon className="h-5 w-5" />
                             </span>
                           )}
                         </div>

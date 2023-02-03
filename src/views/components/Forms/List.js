@@ -46,7 +46,7 @@ const Forms = () => {
   return (
     <>
       {loading ? (
-        <div className="h-full flex justify-center items-center">
+        <div className="flex h-full items-center justify-center">
           <Loader />
         </div>
       ) : (
@@ -54,13 +54,13 @@ const Forms = () => {
           {forms.length !== 0 ? (
             <>
               {_.find(forms, (form) => _.get(form, 'isPinned')) && (
-                <section className="flex-auto mb-8">
-                  <div className="p-4 rounded-lg bg-white h-full overflow-hidden shadow flex flex-col">
-                    <div className="text-xl tracking-tight font-extrabold text-gray-900 sm:text-2xl">
+                <section className="mb-8 flex-auto">
+                  <div className="flex h-full flex-col overflow-hidden rounded-lg bg-white p-4 shadow">
+                    <div className="text-xl font-extrabold tracking-tight text-gray-900 sm:text-2xl">
                       Pinned forms
                     </div>
                     <div className="mt-4 px-4">
-                      <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4">
+                      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                         {_.chain(forms)
                           .filter((form) => _.get(form, 'isPinned'))
                           .map((form, key) => (
@@ -78,12 +78,12 @@ const Forms = () => {
               )}
 
               <section className="flex-auto">
-                <div className="p-4 rounded-lg bg-white h-full overflow-hidden shadow flex flex-col">
-                  <div className="text-xl tracking-tight font-extrabold text-gray-900 sm:text-2xl">
+                <div className="flex h-full flex-col overflow-hidden rounded-lg bg-white p-4 shadow">
+                  <div className="text-xl font-extrabold tracking-tight text-gray-900 sm:text-2xl">
                     All
                   </div>
                   <div className="mt-4 px-4">
-                    <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4">
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                       {_.map(forms, (form, key) => (
                         <FormCard
                           form={form}
@@ -97,9 +97,9 @@ const Forms = () => {
               </section>
             </>
           ) : (
-            <div className="text-center flex flex-col justify-center h-full">
+            <div className="flex h-full flex-col justify-center text-center">
               <svg
-                className="mx-auto h-12 w-12 text-grayAppbar-400"
+                className="text-grayAppbar-400 mx-auto h-12 w-12"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -123,7 +123,7 @@ const Forms = () => {
                 <button
                   onClick={() => navigate('/edition')}
                   type="button"
-                  className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primary-600"
+                  className="inline-flex items-center rounded-md border border-transparent bg-primary px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-600"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

@@ -85,9 +85,9 @@ const FormCreationStepForm = ({
       <FormSpy subscription={{ values: true }}>
         {({ values }) => (
           <>
-            <div className="px-4 sm:px-6 lg:px-12 py-6">
+            <div className="px-4 py-6 sm:px-6 lg:px-12">
               <div className="grid grid-cols-2 gap-x-4">
-                <div className="pt-4 col-span-2 lg:col-span-1">
+                <div className="col-span-2 pt-4 lg:col-span-1">
                   <SelectField
                     name="authorization"
                     label="Notion Workspace"
@@ -108,7 +108,7 @@ const FormCreationStepForm = ({
                   />
                 </div>
 
-                <div className="pt-4 col-span-2 lg:col-span-1">
+                <div className="col-span-2 pt-4 lg:col-span-1">
                   <SelectField
                     name="database"
                     label="Notion Database"
@@ -127,7 +127,7 @@ const FormCreationStepForm = ({
                   />
                 </div>
 
-                <div className="pt-4 col-span-2">
+                <div className="col-span-2 pt-4">
                   <Field name="title">
                     {({ input }) => (
                       <div>
@@ -140,7 +140,7 @@ const FormCreationStepForm = ({
                         <div className="mt-1">
                           <input
                             type="text"
-                            className="shadow-sm focus:ring-primary focus:border-primary block w-full sm:text-sm border-gray-300 rounded-md"
+                            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
                             {...input}
                           />
                         </div>
@@ -149,7 +149,7 @@ const FormCreationStepForm = ({
                   </Field>
                 </div>
 
-                <div className="pt-4 col-span-2">
+                <div className="col-span-2 pt-4">
                   <Field name="description">
                     {({ input }) => (
                       <div>
@@ -162,7 +162,7 @@ const FormCreationStepForm = ({
                         <div className="mt-1">
                           <textarea
                             rows={2}
-                            className="shadow-sm focus:ring-primary focus:border-primary block w-full sm:text-sm border-gray-300 rounded-md"
+                            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
                             {...input}
                           />
                         </div>
@@ -171,11 +171,11 @@ const FormCreationStepForm = ({
                   </Field>
                 </div>
               </div>
-              <div className="pt-4 flex justify-end">
+              <div className="flex justify-end pt-4">
                 <button
                   onClick={changeStep}
                   type="button"
-                  className="disabled:opacity-50 disabled:bg-primary inline-flex items-center px-4 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary-600"
+                  className="inline-flex items-center rounded-md border border-transparent bg-primary px-4 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-primary-600 disabled:bg-primary disabled:opacity-50"
                   disabled={
                     !(
                       _.get(values, 'authorization.id') &&

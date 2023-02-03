@@ -13,7 +13,7 @@ const PhoneNumberField = ({ label, name, ...others }) => {
           >
             {label}
           </label>
-          <div className="mt-1 relative shadow-sm">
+          <div className="relative mt-1 shadow-sm">
             <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -21,7 +21,7 @@ const PhoneNumberField = ({ label, name, ...others }) => {
                 viewBox="0 0 24 24"
                 strokeWidth="2"
                 stroke="currentColor"
-                className="w-4 h-4 text-gray-500"
+                className="h-4 w-4 text-gray-500"
               >
                 <path
                   fillRule="evenodd"
@@ -32,7 +32,7 @@ const PhoneNumberField = ({ label, name, ...others }) => {
             </div>
             <input
               type="text"
-              className="focus:ring-primary focus:border-primary pl-9 w-full sm:text-sm border-gray-300 rounded-md"
+              className="w-full rounded-md border-gray-300 pl-9 focus:border-primary focus:ring-primary sm:text-sm"
               {...input}
             />
           </div>

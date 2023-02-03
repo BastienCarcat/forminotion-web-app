@@ -5,7 +5,7 @@ import Loader from '../Globals/Loader'
 
 const PageHeader = ({ title, actions, loading }) => {
   return (
-    <div className="border-b border-gray-200 px-4 py-4 flex items-center justify-between sm:px-6 lg:px-8 drop-shadow">
+    <div className="flex items-center justify-between border-b border-gray-200 px-4 py-4 drop-shadow sm:px-6 lg:px-8">
       {loading ? (
         <div className="py-[5px]">
           <Loader size={24} />
@@ -13,7 +13,7 @@ const PageHeader = ({ title, actions, loading }) => {
       ) : (
         <div className="flex-1">
           {title && (
-            <h1 className="text-xl font-medium leading-6 text-gray-900 sm:truncate py-[5px]">
+            <h1 className="py-[5px] text-xl font-medium leading-6 text-gray-900 sm:truncate">
               {title}
             </h1>
           )}

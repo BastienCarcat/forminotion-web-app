@@ -38,15 +38,15 @@ const NavigationBar = () => {
 
   return (
     <>
-      <Disclosure as="nav" className="bg-white shadow w-full">
+      <Disclosure as="nav" className="w-full bg-white shadow">
         {({ open }) => (
           <>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="flex justify-between h-16">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+              <div className="flex h-16 justify-between">
                 <div className="flex">
                   <div className="-ml-2 mr-2 flex items-center md:hidden">
                     {/* Mobile menu button */}
-                    <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100">
+                    <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500">
                       <span className="sr-only">Open main menu</span>
                       {open ? (
                         <XIcon className="block h-6 w-6" aria-hidden="true" />
@@ -58,10 +58,10 @@ const NavigationBar = () => {
                       )}
                     </Disclosure.Button>
                   </div>
-                  <div className="font-main flex items-center font-bold">
+                  <div className="flex items-center font-main font-bold">
                     <Link to="/" className="flex items-center">
                       <img
-                        className="h-8 w-8 mr-2"
+                        className="mr-2 h-8 w-8"
                         src={Logo}
                         alt="forminotion-logo"
                       />
@@ -72,13 +72,13 @@ const NavigationBar = () => {
                     {/* Current: "border-primary text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" */}
                     <a
                       href={`${appUrl}#pricing`}
-                      className="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                      className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
                     >
                       Pricing
                     </a>
                     <a
                       href={`${appUrl}#guide`}
-                      className="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                      className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
                     >
                       Guide
                     </a>
@@ -91,16 +91,16 @@ const NavigationBar = () => {
                         <button
                           type="button"
                           onClick={() => handleNavigate('/forms')}
-                          className="inline-flex items-center px-3 py-2 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-primary hover:bg-primary-600"
+                          className="inline-flex items-center rounded border border-transparent bg-primary px-3 py-2 text-xs font-medium text-white shadow-sm hover:bg-primary-600"
                         >
                           <span>My workspace</span>
                         </button>
                       </div>
-                      <div className="hidden md:ml-4 md:flex-shrink-0 md:flex md:items-center z-10">
+                      <div className="z-10 hidden md:ml-4 md:flex md:flex-shrink-0 md:items-center">
                         {/* Profile dropdown */}
-                        <Menu as="div" className="ml-3 relative">
+                        <Menu as="div" className="relative ml-3">
                           <div>
-                            <Menu.Button className="bg-white rounded-full flex text-sm ">
+                            <Menu.Button className="flex rounded-full bg-white text-sm ">
                               <span className="sr-only">Open user menu</span>
                               <img
                                 className="h-8 w-8 rounded-full"
@@ -118,14 +118,14 @@ const NavigationBar = () => {
                             leaveFrom="transform opacity-100 scale-100"
                             leaveTo="transform opacity-0 scale-95"
                           >
-                            <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-200">
+                            <Menu.Items className="absolute right-0 mt-2 w-48 origin-top-right divide-y divide-gray-200 rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5">
                               <div className="py-1">
                                 <Menu.Item>
                                   {({ active }) => (
                                     <button
                                       onClick={() => handleNavigate('/logout')}
                                       className={clsx(
-                                        'w-full text-left px-4 py-2 text-sm text-gray-700',
+                                        'w-full px-4 py-2 text-left text-sm text-gray-700',
                                         active ? 'bg-gray-100' : ''
                                       )}
                                     >
@@ -144,7 +144,7 @@ const NavigationBar = () => {
                       <button
                         onClick={login}
                         type="button"
-                        className="inline-flex items-center mx-2 px-2.5 py-1.5 border border-transparent text-xs font-medium rounded text-primary hover:text-primary-200"
+                        className="mx-2 inline-flex items-center rounded border border-transparent px-2.5 py-1.5 text-xs font-medium text-primary hover:text-primary-200"
                       >
                         Sign in
                       </button>
@@ -155,7 +155,7 @@ const NavigationBar = () => {
                           })
                         }
                         type="button"
-                        className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-primary hover:bg-primary-600"
+                        className="inline-flex items-center rounded border border-transparent bg-primary px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-primary-600"
                       >
                         Try for free
                       </button>
@@ -166,15 +166,15 @@ const NavigationBar = () => {
             </div>
 
             <Disclosure.Panel className="md:hidden">
-              <div className="pt-2 pb-3 space-y-1">
+              <div className="space-y-1 pt-2 pb-3">
                 {/* Current: "bg-primary-50 border-primary text-primary-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" */}
                 <a
                   href={`${appUrl}#pricing`}
                   className={clsx(
-                    'block pl-3 pr-4 py-2 border-l-4 text-base font-medium sm:pl-5 sm:pr-6 w-full flex',
+                    'block flex w-full border-l-4 py-2 pl-3 pr-4 text-base font-medium sm:pl-5 sm:pr-6',
                     _.get(location, 'pathname') === '/pricing'
-                      ? 'bg-primary-50 border-primary text-primary-700'
-                      : 'border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700'
+                      ? 'border-primary bg-primary-50 text-primary-700'
+                      : 'border-transparent text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700'
                   )}
                 >
                   Pricing
@@ -182,17 +182,17 @@ const NavigationBar = () => {
                 <a
                   href={`${appUrl}#guide`}
                   className={clsx(
-                    'block pl-3 pr-4 py-2 border-l-4 text-base font-medium sm:pl-5 sm:pr-6 w-full flex',
+                    'block flex w-full border-l-4 py-2 pl-3 pr-4 text-base font-medium sm:pl-5 sm:pr-6',
                     _.get(location, 'pathname') === '/pricing'
-                      ? 'bg-primary-50 border-primary text-primary-700'
-                      : 'border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700'
+                      ? 'border-primary bg-primary-50 text-primary-700'
+                      : 'border-transparent text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700'
                   )}
                 >
                   Guide
                 </a>
               </div>
               {isAuthenticated && (
-                <div className="pt-4 pb-3 border-t border-gray-200">
+                <div className="border-t border-gray-200 pt-4 pb-3">
                   <div className="flex items-center px-4 sm:px-6">
                     <div className="flex-shrink-0">
                       <img
@@ -214,14 +214,14 @@ const NavigationBar = () => {
                     <Disclosure.Button
                       as="button"
                       onClick={() => handleNavigate('/forms')}
-                      className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 sm:px-6"
+                      className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800 sm:px-6"
                     >
                       My forms
                     </Disclosure.Button>
                     <Disclosure.Button
                       as="button"
                       onClick={handleLogout}
-                      className="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 sm:px-6"
+                      className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800 sm:px-6"
                     >
                       Sign out
                     </Disclosure.Button>

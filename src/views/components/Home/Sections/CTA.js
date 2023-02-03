@@ -17,24 +17,24 @@ const HomeLayoutSectionCTA = () => {
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 flex items-center justify-between gap-x-10">
-        <div className="text-neutral-900 font-main w-[500px]">
-          <h1 className="font-extrabold text-5xl mb-6">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-x-10 sm:px-6 lg:px-8">
+        <div className="w-[500px] font-main text-neutral-900">
+          <h1 className="mb-6 text-5xl font-extrabold">
             Create beautifull forms for Notion
           </h1>
-          <div className="text-2xl mb-6">
+          <div className="mb-6 text-2xl">
             Forminotion makes it easy to fill your Notion tables by generating
             beautifull forms
           </div>
           <button
             onClick={start}
             type="button"
-            className="items-center px-6 py-3 rounded-md bg-primary hover:bg-primary-600 text-white"
+            className="items-center rounded-md bg-primary px-6 py-3 text-white hover:bg-primary-600"
           >
             Try for free
           </button>
         </div>
-        <div className="w-[600px] md:block hidden">
+        <div className="hidden w-[600px] md:block">
           <img src={AppScreen} alt="App screenshot" />
         </div>
       </div>

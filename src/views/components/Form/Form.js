@@ -89,7 +89,7 @@ const MainForm = ({ databaseInfo }) => {
 
   //Do a global Comp const with both name and label in common and specify Comp as the field type
   return (
-    <div className="max-w-2xl mx-auto px-6 lg:px-8 md:w-3/5 lg:w-1/2 w-full">
+    <div className="mx-auto w-full max-w-2xl px-6 md:w-3/5 lg:w-1/2 lg:px-8">
       <Form
         onSubmit={onSubmit}
         initialValues={initialValues}
@@ -100,7 +100,7 @@ const MainForm = ({ databaseInfo }) => {
           >
             <div className="pt-8">
               <div>
-                <h3 className="text-lg leading-6 font-medium text-gray-900">
+                <h3 className="text-lg font-medium leading-6 text-gray-900">
                   {_.get(databaseInfo, 'form.title')}
                 </h3>
                 {_.get(databaseInfo, 'form.description') && (
@@ -246,13 +246,13 @@ const MainForm = ({ databaseInfo }) => {
               <a
                 href="/"
                 target="_blank"
-                className="text-xs hover:underline pt-1 text-gray-400"
+                className="pt-1 text-xs text-gray-400 hover:underline"
               >
                 Powered by Forminotion
               </a>
               <button
                 type="submit"
-                className="mt-4 py-2 px-4 text-sm font-medium rounded-md text-white bg-primary hover:opacity-80"
+                className="mt-4 rounded-md bg-primary py-2 px-4 text-sm font-medium text-white hover:opacity-80"
               >
                 Save
               </button>

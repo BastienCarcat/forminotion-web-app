@@ -38,13 +38,13 @@ const FormCreationStepFields = ({ setCurrentStep, disabledFieldTypes }) => {
         <FieldArray name="fields">
           {({ fields }) => (
             <div>
-              <div className="overflow-auto px-2 sm:columns-2 columns-1 lg:columns-3">
+              <div className="columns-1 overflow-auto px-2 sm:columns-2 lg:columns-3">
                 {fields.map((name, index) => (
                   <Field key={name} name={`${name}.enabled`} type="checkbox">
                     {({ input }) => (
                       <div
                         className={clsx(
-                          'px-3 py-2 text-base sm:text-sm rounded-md flex border mt-4 first:mt-0',
+                          'mt-4 flex rounded-md border px-3 py-2 text-base first:mt-0 sm:text-sm',
                           _.includes(
                             disabledFieldTypes,
                             _.get(fields, `value[${index}].property.type`)
@@ -57,7 +57,7 @@ const FormCreationStepFields = ({ setCurrentStep, disabledFieldTypes }) => {
                               fields,
                               `value[${index}].property.id`
                             )}`}
-                            className="font-medium text-gray-700 select-none cursor-pointer"
+                            className="cursor-pointer select-none font-medium text-gray-700"
                           >
                             {_.get(fields, `value[${index}].label`)}
                           </label>
@@ -74,7 +74,7 @@ const FormCreationStepFields = ({ setCurrentStep, disabledFieldTypes }) => {
                               `value[${index}].property.id`
                             )}`}
                             type="checkbox"
-                            className="focus:ring-transparent h-5 w-5 text-primary border-gray-300 rounded cursor-pointer"
+                            className="h-5 w-5 cursor-pointer rounded border-gray-300 text-primary focus:ring-transparent"
                             checked={_.get(values, `fields[${index}].enabled`)}
                           />
                         </div>
@@ -86,11 +86,11 @@ const FormCreationStepFields = ({ setCurrentStep, disabledFieldTypes }) => {
             </div>
           )}
         </FieldArray>
-        <div className="pt-4 flex justify-end">
+        <div className="flex justify-end pt-4">
           <button
             onClick={changeStep}
             type="button"
-            className="disabled:opacity-50 disabled:bg-primary inline-flex items-center px-4 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary-600"
+            className="inline-flex items-center rounded-md border border-transparent bg-primary px-4 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-primary-600 disabled:bg-primary disabled:opacity-50"
             disabled={
               !_.find(
                 _.get(values, 'fields', []),

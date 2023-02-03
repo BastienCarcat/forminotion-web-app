@@ -23,7 +23,7 @@ const UserMenu = () => {
     >
       <Menu.Items
         className={clsx(
-          'lg:origin-top origin-top-right lg:w-auto w-48 z-10 mx-3 absolute right-0 lg:left-0 mt-1 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-200 focus:outline-none'
+          'absolute right-0 z-10 mx-3 mt-1 w-48 origin-top-right divide-y divide-gray-200 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none lg:left-0 lg:w-auto lg:origin-top'
         )}
       >
         <div className="py-1">
@@ -45,7 +45,7 @@ const UserMenu = () => {
               <button
                 onClick={() => navigate('/')}
                 className={clsx(
-                  'w-full text-left px-4 py-2 text-sm',
+                  'w-full px-4 py-2 text-left text-sm',
                   active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
                 )}
               >
@@ -60,7 +60,7 @@ const UserMenu = () => {
               <button
                 onClick={() => navigate('/logout')}
                 className={clsx(
-                  'w-full text-left px-4 py-2 text-sm',
+                  'w-full px-4 py-2 text-left text-sm',
                   active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
                 )}
               >
@@ -103,7 +103,7 @@ const AppBar = ({ children }) => {
         <Transition.Root show={sidebarOpen} as={Fragment}>
           <Dialog
             as="div"
-            className="fixed inset-0 flex z-40 lg:hidden"
+            className="fixed inset-0 z-40 flex lg:hidden"
             onClose={setSidebarOpen}
           >
             <Transition.Child
@@ -126,7 +126,7 @@ const AppBar = ({ children }) => {
               leaveFrom="translate-x-0"
               leaveTo="-translate-x-full"
             >
-              <div className="relative flex-1 flex flex-col max-w-xs w-full pt-5 pb-4 bg-white">
+              <div className="relative flex w-full max-w-xs flex-1 flex-col bg-white pt-5 pb-4">
                 <Transition.Child
                   as={Fragment}
                   enter="ease-in-out duration-300"
@@ -139,7 +139,7 @@ const AppBar = ({ children }) => {
                   <div className="absolute top-0 right-0 -mr-12 pt-2">
                     <button
                       type="button"
-                      className="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+                      className="ml-1 flex h-10 w-10 items-center justify-center rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
                       onClick={() => setSidebarOpen(false)}
                     >
                       <span className="sr-only">Close sidebar</span>
@@ -150,15 +150,15 @@ const AppBar = ({ children }) => {
                     </button>
                   </div>
                 </Transition.Child>
-                <div className="flex-shrink-0 flex items-center px-4">
+                <div className="flex flex-shrink-0 items-center px-4">
                   <img
-                    className="h-8 w-auto mr-2"
+                    className="mr-2 h-8 w-auto"
                     src={Logo}
                     alt="forminotion-logo"
                   />
                   Forminotion
                 </div>
-                <div className="mt-5 flex-1 h-0 overflow-y-auto">
+                <div className="mt-5 h-0 flex-1 overflow-y-auto">
                   <nav className="px-2">
                     <div className="space-y-1">
                       {navigationItems.map((item) => (
@@ -166,16 +166,16 @@ const AppBar = ({ children }) => {
                           key={item.name}
                           onClick={() => navigate(_.get(item, 'path'))}
                           className={clsx(
-                            'w-full group flex items-center px-2 py-2 text-base leading-5 font-medium rounded-md',
+                            'group flex w-full items-center rounded-md px-2 py-2 text-base font-medium leading-5',
                             item.current
                               ? 'bg-gray-100 text-gray-900'
-                              : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                              : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                           )}
                           aria-current={item.current ? 'page' : undefined}
                         >
                           <item.icon
                             className={clsx(
-                              'mr-3 flex-shrink-0 h-6 w-6',
+                              'mr-3 h-6 w-6 flex-shrink-0',
                               item.current
                                 ? 'text-gray-500'
                                 : 'text-gray-400 group-hover:text-gray-500'
@@ -220,37 +220,37 @@ const AppBar = ({ children }) => {
                 </div>
               </div>
             </Transition.Child>
-            <div className="flex-shrink-0 w-14" aria-hidden="true">
+            <div className="w-14 flex-shrink-0" aria-hidden="true">
               {/* Dummy element to force sidebar to shrink to fit close icon */}
             </div>
           </Dialog>
         </Transition.Root>
 
         {/* Static sidebar for desktop */}
-        <div className="hidden lg:flex lg:flex-col lg:w-64 lg:fixed lg:inset-y-0 lg:border-r lg:border-gray-200 lg:pt-5 lg:pb-4 lg:bg-white">
-          <div className="flex items-center flex-shrink-0 px-6">
+        <div className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col lg:border-r lg:border-gray-200 lg:bg-white lg:pt-5 lg:pb-4">
+          <div className="flex flex-shrink-0 items-center px-6">
             <img
-              className="h-8 w-auto mr-2"
+              className="mr-2 h-8 w-auto"
               src={Logo}
               alt="forminotion-logo"
             />
-            <span className="font-bold text-2xl">Forminotion</span>
+            <span className="text-2xl font-bold">Forminotion</span>
           </div>
           {/* Sidebar component, swap this element with another sidebar if you like */}
-          <div className="mt-6 h-0 flex-1 flex flex-col overflow-y-auto">
+          <div className="mt-6 flex h-0 flex-1 flex-col overflow-y-auto">
             {/* User account dropdown */}
-            <Menu as="div" className="px-3 relative inline-block text-left">
+            <Menu as="div" className="relative inline-block px-3 text-left">
               <div>
-                <Menu.Button className="group w-full rounded-md px-3.5 py-2 text-sm text-left font-medium text-gray-700 hover:bg-gray-100">
-                  <span className="flex w-full justify-between items-center">
+                <Menu.Button className="group w-full rounded-md px-3.5 py-2 text-left text-sm font-medium text-gray-700 hover:bg-gray-100">
+                  <span className="flex w-full items-center justify-between">
                     <span className="flex min-w-0 items-center justify-between space-x-3">
                       <img
-                        className="w-7 h-7 bg-gray-300 rounded-full flex-shrink-0"
+                        className="h-7 w-7 flex-shrink-0 rounded-full bg-gray-300"
                         src={_.get(user, 'picture')}
                         alt="Profile picture"
                       />
-                      <span className="flex-1 flex flex-col min-w-0">
-                        <span className="text-gray-900 text-sm font-medium truncate">
+                      <span className="flex min-w-0 flex-1 flex-col">
+                        <span className="truncate text-sm font-medium text-gray-900">
                           {_.get(user, 'nickname')}
                         </span>
                         {/*<span className="text-gray-500 text-sm truncate">*/}
@@ -259,7 +259,7 @@ const AppBar = ({ children }) => {
                       </span>
                     </span>
                     <SelectorIcon
-                      className="flex-shrink-0 h-5 w-5 text-gray-400 group-hover:text-gray-500"
+                      className="h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                       aria-hidden="true"
                     />
                   </span>
@@ -291,7 +291,7 @@ const AppBar = ({ children }) => {
             {/*    />*/}
             {/*  </div>*/}
             {/*</div>*/}
-            <span className="bg-gray-200 h-px mx-3 my-2" />
+            <span className="mx-3 my-2 h-px bg-gray-200" />
             {/* Navigation */}
             <nav className="px-3">
               <div className="space-y-1">
@@ -300,16 +300,16 @@ const AppBar = ({ children }) => {
                     key={item.name}
                     onClick={() => navigate(_.get(item, 'path'))}
                     className={clsx(
-                      'w-full group flex items-center px-2 py-2 text-sm font-medium rounded-md',
+                      'group flex w-full items-center rounded-md px-2 py-2 text-sm font-medium',
                       item.current
                         ? 'bg-gray-200 text-gray-900'
-                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                        : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
                     )}
                     aria-current={item.current ? 'page' : undefined}
                   >
                     <item.icon
                       className={clsx(
-                        'mr-3 flex-shrink-0 h-6 w-6',
+                        'mr-3 h-6 w-6 flex-shrink-0',
                         item.current
                           ? 'text-gray-500'
                           : 'text-gray-400 group-hover:text-gray-500'
@@ -355,19 +355,19 @@ const AppBar = ({ children }) => {
           </div>
         </div>
         {/* Main column */}
-        <div className="lg:pl-64 flex flex-col h-full overflow-hidden">
+        <div className="flex h-full flex-col overflow-hidden lg:pl-64">
           {/* Search header */}
-          <div className="sticky top-0 z-10 flex-shrink-0 flex h-16 bg-white border-b border-gray-200 lg:hidden">
+          <div className="sticky top-0 z-10 flex h-16 flex-shrink-0 border-b border-gray-200 bg-white lg:hidden">
             <button
               type="button"
-              className="px-4 border-r border-gray-200 text-gray-500"
+              className="border-r border-gray-200 px-4 text-gray-500"
               onClick={() => setSidebarOpen(true)}
             >
               <span className="sr-only">Open sidebar</span>
               <MenuAlt1Icon className="h-6 w-6" aria-hidden="true" />
             </button>
             {/*Search bar*/}
-            <div className="flex-1 flex justify-end px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-1 justify-end px-4 sm:px-6 lg:px-8">
               {/*<div className="flex-1 flex">*/}
               {/*  <form className="w-full flex md:ml-0" action="#" method="GET">*/}
               {/*    <label htmlFor="search-field" className="sr-only">*/}
@@ -389,9 +389,9 @@ const AppBar = ({ children }) => {
               {/*</div>*/}
               <div className="flex items-center">
                 {/* Profile dropdown */}
-                <Menu as="div" className="ml-3 relative">
+                <Menu as="div" className="relative ml-3">
                   <div>
-                    <Menu.Button className="max-w-xs bg-white flex items-center text-sm rounded-full">
+                    <Menu.Button className="flex max-w-xs items-center rounded-full bg-white text-sm">
                       <span className="sr-only">Open user menu</span>
                       <img
                         className="h-8 w-8 rounded-full"

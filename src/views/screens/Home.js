@@ -6,9 +6,9 @@ import Footer from '../components/Global/Footer/Footer'
 const HomeScreen = () => {
   return (
     <>
-      <div className="min-h-screen w-full flex flex-col">
+      <div className="flex min-h-screen w-full flex-col">
         <NavigationBar />
-        <div className="flex-1 flex flex-col">
+        <div className="flex flex-1 flex-col">
           <HomeLayout />
         </div>
       </div>

@@ -14,10 +14,10 @@ const TextField = ({ label, name, ...others }) => {
           >
             {label}
           </label>
-          <div className="mt-1 relative shadow-sm">
+          <div className="relative mt-1 shadow-sm">
             <input
               type="text"
-              className="focus:ring-primary focus:border-primary w-full sm:text-sm border-gray-300 rounded-md"
+              className="w-full rounded-md border-gray-300 focus:border-primary focus:ring-primary sm:text-sm"
               {...input}
               onChange={(event) =>
                 input.onChange([

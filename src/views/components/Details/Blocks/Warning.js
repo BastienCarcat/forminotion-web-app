@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 
 const WarningBlocksNotionInfo = ({ form }) => {
   return (
-    <div className="rounded-md shadow bg-red-100 p-4">
+    <div className="rounded-md bg-red-100 p-4 shadow">
       <div className="flex">
         <div className="flex-shrink-0">
           <ExclamationIcon
@@ -27,7 +27,7 @@ const WarningBlocksNotionInfo = ({ form }) => {
                 in Notion. (
                 <a
                   href={_.get(form, 'notion.url')}
-                  className="underline font-bold text-red-800 mr-1"
+                  className="mr-1 font-bold text-red-800 underline"
                   target="_blank"
                   rel="noreferrer"
                 >

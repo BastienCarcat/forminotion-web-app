@@ -29,24 +29,24 @@ const DetailsBlocksLink = ({ form }) => {
   return (
     <>
       <section aria-labelledby="form-link-copy">
-        <div className="rounded-lg bg-white overflow-hidden shadow">
+        <div className="overflow-hidden rounded-lg bg-white shadow">
           <div className="p-6">
             <h2
-              className="text-xl tracking-tight font-extrabold text-gray-900 sm:text-2xl"
+              className="text-xl font-extrabold tracking-tight text-gray-900 sm:text-2xl"
               id="form-link-copy"
             >
               Form link
             </h2>
-            <div className="flex items-center gap-x-6 mt-4">
+            <div className="mt-4 flex items-center gap-x-6">
               <div className="flex-1">
                 <div className="relative rounded-md shadow-sm">
                   <input
                     type="text"
-                    className="block w-full pr-10 sm:text-sm border-gray-300 rounded-md"
+                    className="block w-full rounded-md border-gray-300 pr-10 sm:text-sm"
                     disabled
                     value={link}
                   />
-                  <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
+                  <div className="absolute inset-y-0 right-0 flex items-center pr-3">
                     {copied ? (
                       <CheckIcon
                         className="h-5 w-5 text-green-400"
@@ -55,7 +55,7 @@ const DetailsBlocksLink = ({ form }) => {
                     ) : (
                       <ClipboardIcon
                         onClick={handleCopy}
-                        className="h-5 w-5 text-gray-400 hover:text-gray-500 cursor-pointer"
+                        className="h-5 w-5 cursor-pointer text-gray-400 hover:text-gray-500"
                         aria-hidden="true"
                       />
                     )}
@@ -69,7 +69,7 @@ const DetailsBlocksLink = ({ form }) => {
                 }
                 type="button"
                 onClick={handleOpenForm}
-                className="disabled:opacity-50 disabled:bg-primary inline-flex items-center px-4 py-2 border border-transparent text-xs font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary-600"
+                className="inline-flex items-center rounded-md border border-transparent bg-primary px-4 py-2 text-xs font-medium text-white shadow-sm hover:bg-primary-600 disabled:bg-primary disabled:opacity-50"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

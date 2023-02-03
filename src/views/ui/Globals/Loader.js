@@ -6,7 +6,7 @@ const Loader = ({ size = 36 }) => {
     <div role="status">
       <svg
         aria-hidden="true"
-        className="text-gray-200 animate-spin fill-primary"
+        className="animate-spin fill-primary text-gray-200"
         style={{
           width: size,
           height: size

@@ -5,15 +5,15 @@ import { PropTypes } from 'prop-types'
 const NotAvailableField = ({ label, type, ...others }) => {
   return (
     <div className="relative">
-      <label className="blur-[1px] opacity-50 block text-sm font-medium text-gray-700">
+      <label className="block text-sm font-medium text-gray-700 opacity-50 blur-[1px]">
         {label}
       </label>
-      <div className="mt-1 relative rounded-md shadow-sm">
+      <div className="relative mt-1 rounded-md shadow-sm">
         <input
           {...others}
           disabled
           type="text"
-          className="disabled:blur-[1px] disabled:opacity-50 disabled:bg-gray-100 block w-full sm:text-sm border-gray-300 rounded-md"
+          className="block w-full rounded-md border-gray-300 disabled:bg-gray-100 disabled:opacity-50 disabled:blur-[1px] sm:text-sm"
         />
       </div>
       <div className="absolute top-1/2 left-1/2 w-full -translate-y-1/2 -translate-x-1/2">
@@ -24,7 +24,7 @@ const NotAvailableField = ({ label, type, ...others }) => {
             viewBox="0 0 24 24"
             strokeWidth="1.5"
             stroke="currentColor"
-            className="w-6 h-6 mr-1"
+            className="mr-1 h-6 w-6"
           >
             <path
               strokeLinecap="round"

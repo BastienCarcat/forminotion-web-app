@@ -9,8 +9,8 @@ const FormEditionScreen = () => {
   return (
     <AppBar>
       <PageHeader title="New form" />
-      <div className="bg-gray-100 flex-1 overflow-auto">
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 w-full lg:max-w-6xl sm:max-w-4xl lg:py-8 py-4">
+      <div className="flex-1 overflow-auto bg-gray-100">
+        <div className="mx-auto w-full px-4 py-4 sm:max-w-4xl sm:px-6 lg:max-w-6xl lg:px-8 lg:py-8">
           <FormCreationLayout />
         </div>
       </div>

@@ -34,16 +34,16 @@ const DetailsBlocksGuide = () => {
   return (
     <>
       <section aria-labelledby="form-link-copy">
-        <div className="rounded-lg bg-white overflow-hidden shadow">
+        <div className="overflow-hidden rounded-lg bg-white shadow">
           <div className="p-4">
             <h2
-              className="text-xl tracking-tight font-extrabold text-gray-900 sm:text-2xl"
+              className="text-xl font-extrabold tracking-tight text-gray-900 sm:text-2xl"
               id="form-link-copy"
             >
               How to embed your form ?
             </h2>
-            <div className="grid grid-cols-2 gap-x-6 mt-4">
-              <div className="w-96 mt-14">
+            <div className="mt-4 grid grid-cols-2 gap-x-6">
+              <div className="mt-14 w-96">
                 <img
                   src={_.chain(steps)
                     .find((x) => _.get(x, 'id') === currentStep)
@@ -61,7 +61,7 @@ const DetailsBlocksGuide = () => {
                   >
                     <span
                       className={clsx(
-                        'absolute top-0 left-0 w-1 h-full lg:w-full lg:h-1 lg:bottom-0 lg:top-auto',
+                        'absolute top-0 left-0 h-full w-1 lg:bottom-0 lg:top-auto lg:h-1 lg:w-full',
                         currentStep === _.get(step, 'id')
                           ? 'bg-primary'
                           : 'bg-red-400'
@@ -72,7 +72,7 @@ const DetailsBlocksGuide = () => {
                       <span className="flex-shrink-0">
                         <span
                           className={clsx(
-                            'w-10 h-10 flex items-center justify-center border-2 rounded-full',
+                            'flex h-10 w-10 items-center justify-center rounded-full border-2',
                             currentStep === _.get(step, 'id')
                               ? 'border-primary'
                               : 'border-gray-500'
@@ -89,10 +89,10 @@ const DetailsBlocksGuide = () => {
                           </span>
                         </span>
                       </span>
-                      <span className="text-left mt-0.5 ml-4 min-w-0 flex flex-col">
+                      <span className="mt-0.5 ml-4 flex min-w-0 flex-col text-left">
                         <span
                           className={clsx(
-                            'text-xs font-semibold tracking-wide uppercase',
+                            'text-xs font-semibold uppercase tracking-wide',
                             currentStep === _.get(step, 'id')
                               ? 'text-primary'
                               : 'text-gray-900'
