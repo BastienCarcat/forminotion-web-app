@@ -27,7 +27,6 @@ const DetailsLayout = ({ form }) => {
         <DetailsBlocksNotionInfo form={form} />
         <DetailsBlocksActions form={form} />
       </div>
-
       {/*<div className="lg:col-span-3">*/}
       {/*  <Example />*/}
       {/*</div>*/}
