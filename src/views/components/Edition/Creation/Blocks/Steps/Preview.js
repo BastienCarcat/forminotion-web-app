@@ -14,8 +14,9 @@ import PhoneNumberField from '../../../../../ui/Form/Inputs/PhoneNumber'
 import MailField from '../../../../../ui/Form/Inputs/Mail'
 import MultiSelectField from '../../../../../ui/Form/Inputs/MultiSelect'
 import NotAvailableField from '../../../../../ui/Form/Inputs/NotAvailable'
+import Loader from '../../../../../ui/Globals/Loader'
 
-const FormCreationStepPreview = () => {
+const FormCreationStepPreview = ({ loading }) => {
   return (
     <div className="px-4 sm:px-6 lg:px-12">
       <p>This is a preview of your new form. </p>
@@ -160,14 +161,20 @@ const FormCreationStepPreview = () => {
               <div className="flex justify-end pt-4">
                 <button
                   type="submit"
-                  className="inline-flex items-center rounded-md border border-transparent bg-primary px-4 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-primary-600 disabled:bg-primary disabled:opacity-50"
+                  className="relative inline-flex items-center rounded-md border border-transparent bg-primary px-4 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-primary-600 disabled:bg-primary disabled:opacity-50"
                   disabled={
                     !(
                       _.get(values, 'authorization.id') &&
                       _.get(values, 'database.id')
-                    )
+                    ) || loading
                   }
                 >
+                  {loading && (
+                    <Loader
+                      className="absolute top-1/2 left-1/2 flex h-full w-full -translate-x-1/2 -translate-y-1/2 transform items-center justify-center rounded-[inherit] bg-[inherit]"
+                      size={18}
+                    />
+                  )}
                   Create
                   <CheckIcon
                     className="ml-2 -mr-1 h-5 w-5"
@@ -183,7 +190,7 @@ const FormCreationStepPreview = () => {
   )
 }
 FormCreationStepPreview.propTypes = {
-  setCurrentStep: PropTypes.func
+  loading: PropTypes.bool
 }
 
 export default FormCreationStepPreview

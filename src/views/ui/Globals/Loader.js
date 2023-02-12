@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Loader = ({ size = 36 }) => {
+const Loader = ({ size = 36, ...other }) => {
   return (
-    <div role="status">
+    <div role="status" {...other}>
       <svg
         aria-hidden="true"
         className="animate-spin fill-primary text-gray-200"

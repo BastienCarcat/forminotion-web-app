@@ -29,11 +29,14 @@ const FormCreationStepFields = ({ setCurrentStep, disabledFieldTypes }) => {
   return (
     <div className="px-4 sm:px-6 lg:px-12">
       <p>Select the fields you want to include in your form.</p>
-      <div className="text-sm text-gray-500">
-        {`${_.join(notSupportedFields, ', ')} ${
-          _.size(notSupportedFields) === 1 ? 'field is' : 'fields are'
-        } not yet supported`}
-      </div>
+      {!_.isEmpty(notSupportedFields) && (
+        <div className="text-sm text-gray-500">
+          {`${_.join(notSupportedFields, ', ')} ${
+            _.size(notSupportedFields) === 1 ? 'field is' : 'fields are'
+          } not yet supported`}
+        </div>
+      )}
+
       <div className="py-6">
         <FieldArray name="fields">
           {({ fields }) => (

@@ -16,9 +16,11 @@ import MailField from '../../ui/Form/Inputs/Mail'
 import MultiSelectField from '../../ui/Form/Inputs/MultiSelect'
 import { useAxiosPostNoAuth } from '../../../hooks/useAxiosPostNoAuth'
 import StatusField from '../../ui/Form/Inputs/Status'
+import Loader from '../../ui/Globals/Loader'
+import Warning from '../../../Images/warning.svg'
 
 const MainForm = ({ databaseInfo }) => {
-  const [post] = useAxiosPostNoAuth()
+  const [post, loading] = useAxiosPostNoAuth()
 
   const initialValues = useMemo(() => {
     const defaultValues = {}
@@ -85,7 +87,31 @@ const MainForm = ({ databaseInfo }) => {
     [post, databaseInfo]
   )
 
-  if (!databaseInfo) return <div>No database loaded</div>
+  if (!databaseInfo)
+    return (
+      <div className="flex h-full w-full flex-col items-center justify-center p-8">
+        <div className="max-w-lg text-center text-xl text-gray-900">Oops!</div>
+
+        <img
+          className="my-6 h-auto w-64"
+          src={Warning}
+          alt="warning illustration"
+        />
+        <div className="text-md max-w-lg text-center text-gray-900">
+          It seems that the form you are trying to load does not exist or has
+          been deleted. Return to
+          <a
+            href="/"
+            className="mx-1 text-gray-800 underline"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Forminotion
+          </a>
+          to create a new one!
+        </div>
+      </div>
+    )
 
   //Do a global Comp const with both name and label in common and specify Comp as the field type
   return (
@@ -251,9 +277,16 @@ const MainForm = ({ databaseInfo }) => {
                 Powered by Forminotion
               </a>
               <button
+                disabled={loading}
                 type="submit"
-                className="mt-4 rounded-md bg-primary py-2 px-4 text-sm font-medium text-white hover:opacity-80"
+                className="relative mt-4 rounded-md bg-primary py-2 px-4 text-sm font-medium text-white hover:opacity-80 disabled:bg-primary disabled:opacity-50"
               >
+                {loading && (
+                  <Loader
+                    className="absolute top-1/2 left-1/2 flex h-full w-full -translate-x-1/2 -translate-y-1/2 transform items-center justify-center rounded-[inherit] bg-[inherit]"
+                    size={18}
+                  />
+                )}
                 Save
               </button>
             </div>

@@ -50,7 +50,7 @@ const FormCreationLayout = () => {
 
   const { user } = useAuth0()
   const [get] = useAxiosGet()
-  const [post] = useAxiosPost()
+  const [post, loadingSubmit] = useAxiosPost()
 
   const initialValues = useMemo(() => {
     return {
@@ -233,6 +233,7 @@ const FormCreationLayout = () => {
                         stepPositions.PREVIEW && (
                         <FormCreationStepPreview
                           setCurrentStep={setCurrentStep}
+                          loading={loadingSubmit}
                         />
                       )}
                     </>
