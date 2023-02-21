@@ -11,29 +11,30 @@ const HomeLayoutSectionGuide = () => {
       {
         title: 'Register and connect to Notion',
         description:
-          'Start by creating an account by clicking on "try for free". Then authorize Forminotion to access your Notion workspace. To do this, click on "get authorization" and select pages that contain your databases.',
+          'Start by registering by clicking "Try For Free" and connecting it to your Notion account. This will enable Forminotion to access all Notion databases you shared with us and allow you to start using the form generator.',
         image: SignIn,
-        alt: 'Create illustration'
+        alt: 'Register illustration'
       },
       {
         title: 'Select your Notion database',
         description:
-          'Select the Notion database from which you want to create a form. Then select the fields you want to fill in with the form.',
+          "Once you've connected your accounts, you'll be able to select the Notion database you want to create a form for. This can be any database you have set up in Notion and shared with us.",
         image: Select,
-        alt: 'Create illustration'
+        alt: 'Select form illustration'
       },
       {
         title: 'Create your form',
-        description: 'You can now create your form!',
+        description:
+          "You can now start creating your form using Forminotion's easy-to-use form generator. You'll be able to customize your form to fit your specific needs, including choosing which fields to include.",
         image: Create,
-        alt: 'Create illustration'
+        alt: 'Create form illustration'
       },
       {
         title: 'Embed your form everywhere!',
         description:
-          'Copy the link and share it everywhere! You can embed it in Notion by typing "/embed" in Notion and pasting the link. You can also embed your form in a website with the html tag "<iframe>".',
+          'You can now easily embed your form anywhere you want : on your website, Notion workspace, blog, or anywhere else you want to collect data. This way, you can collect information from anyone, anywhere, and all the data will be stored in your Notion database.',
         image: Share,
-        alt: 'Create illustration'
+        alt: 'Embed form illustration'
       }
     ],
     []

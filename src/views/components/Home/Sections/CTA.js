@@ -22,9 +22,11 @@ const HomeLayoutSectionCTA = () => {
           <h1 className="mb-6 text-5xl font-extrabold">
             Create beautifull forms for Notion
           </h1>
-          <div className="mb-6 text-2xl">
-            Forminotion makes it easy to fill your Notion tables by generating
-            beautifull forms
+          <div className="mb-6 text-xl">
+            Transform your Notion database into a powerful data collection tool
+            with Forminotion&apos;s easy-to-use form generator, simplifying data
+            entry for you and your team, allowing you to focus on what matters
+            most: your work.
           </div>
           <button
             onClick={start}
