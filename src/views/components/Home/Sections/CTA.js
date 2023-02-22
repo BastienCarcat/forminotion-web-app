@@ -20,7 +20,7 @@ const HomeLayoutSectionCTA = () => {
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-x-10 sm:px-6 lg:px-8">
         <div className="w-[500px] font-main text-neutral-900">
           <h1 className="mb-6 text-5xl font-extrabold">
-            Create beautifull forms for Notion
+            Create beautiful forms for Notion
           </h1>
           <div className="mb-6 text-xl">
             Transform your Notion database into a powerful data collection tool
