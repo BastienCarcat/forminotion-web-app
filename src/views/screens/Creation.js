@@ -1,11 +1,11 @@
 import { withAuthenticationRequired } from '@auth0/auth0-react'
 import React from 'react'
 import Loader from '../ui/Globals/Loader'
-import FormCreationLayout from '../components/Edition/Creation/Layout'
 import PageHeader from '../ui/Page/Header'
 import AppBar from '../components/Global/AppBar'
+import FormCreationLayout from '../components/Creation/Layout'
 
-const FormEditionScreen = () => {
+const FormCreationScreen = () => {
   return (
     <AppBar>
       <PageHeader title="New form" />
@@ -18,8 +18,8 @@ const FormEditionScreen = () => {
   )
 }
 
-FormEditionScreen.propTypes = {}
+FormCreationScreen.propTypes = {}
 
-export default withAuthenticationRequired(FormEditionScreen, {
+export default withAuthenticationRequired(FormCreationScreen, {
   onRedirecting: () => <Loader />
 })

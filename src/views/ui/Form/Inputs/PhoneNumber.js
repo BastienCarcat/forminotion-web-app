@@ -43,7 +43,7 @@ const PhoneNumberField = ({ label, name, ...others }) => {
 }
 
 PhoneNumberField.propTypes = {
-  label: PropTypes.string,
+  label: PropTypes.any,
   name: PropTypes.string.isRequired
 }
 

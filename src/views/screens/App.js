@@ -7,13 +7,14 @@ import FormScreen from './Form'
 import _ from 'lodash'
 import HomeScreen from './Home'
 import FormsListScreen from './Forms'
-import FormEditionScreen from './FormEdition'
+import FormEditionScreen from './Edition'
 import Loader from '../ui/Globals/Loader'
 import PricingScreen from './Pricing'
 import LogoutScreen from './Logout'
 import FormDetailsScreen from './Details'
 import TermsAndConditions from '../components/Global/Footer/TermsAndConditions'
 import PrivcyLegacy from '../components/Global/Footer/PrivcyLegacy'
+import FormCreationScreen from './Creation'
 
 const App = () => {
   const { apiUrl } = config || {}
@@ -43,7 +44,8 @@ const App = () => {
           {isAuthenticated && (
             <>
               <Route path="/forms" element={<FormsListScreen />} />
-              <Route path="/edition" element={<FormEditionScreen />} />
+              <Route path="/creation" element={<FormCreationScreen />} />
+              <Route path="/edition/:idForm" element={<FormEditionScreen />} />
               <Route path="/details/:idForm" element={<FormDetailsScreen />} />
             </>
           )}

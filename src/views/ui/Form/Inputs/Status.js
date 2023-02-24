@@ -175,7 +175,7 @@ const StatusField = ({
 }
 
 StatusField.propTypes = {
-  label: PropTypes.string,
+  label: PropTypes.any,
   name: PropTypes.string.isRequired,
   options: PropTypes.array.isRequired,
   getOptionLabel: PropTypes.func.isRequired,

@@ -119,7 +119,7 @@ const DateField = ({ label, name, ...others }) => {
 }
 
 DateField.propTypes = {
-  label: PropTypes.string,
+  label: PropTypes.any,
   name: PropTypes.string.isRequired
 }
 

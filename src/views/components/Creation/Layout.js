@@ -7,11 +7,11 @@ import FormCreationStepFields from './Blocks/Steps/Fields'
 import arrayMutators from 'final-form-arrays'
 import FormCreationStepPreview from './Blocks/Steps/Preview'
 import { useAuth0 } from '@auth0/auth0-react'
-import { useAxiosGet } from '../../../../hooks/useAxiosGet'
-import { useAxiosPost } from '../../../../hooks/useAxiosPost'
-import Loader from '../../../ui/Globals/Loader'
 import delay from 'delay'
 import { useNavigate } from 'react-router-dom'
+import { useAxiosPost } from '../../../hooks/useAxiosPost'
+import { useAxiosGet } from '../../../hooks/useAxiosGet'
+import Loader from '../../ui/Globals/Loader'
 
 export const stepPositions = Object.freeze({
   FORM: 1,
