@@ -17,7 +17,7 @@ const FormsListScreen = () => {
           <button
             key={0}
             type="button"
-            onClick={() => navigate('/edition')}
+            onClick={() => navigate('/creation')}
             className="inline-flex items-center rounded-md border border-transparent bg-primary px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-primary-600"
           >
             <PlusSmIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />

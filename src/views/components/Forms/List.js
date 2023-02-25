@@ -121,7 +121,7 @@ const Forms = () => {
               </p>
               <div className="mt-6">
                 <button
-                  onClick={() => navigate('/edition')}
+                  onClick={() => navigate('/creation')}
                   type="button"
                   className="inline-flex items-center rounded-md border border-transparent bg-primary px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-600"
                 >
