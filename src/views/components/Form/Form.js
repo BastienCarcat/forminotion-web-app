@@ -137,136 +137,140 @@ const MainForm = ({ databaseInfo }) => {
                 )}
               </div>
               <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-                {_.map(_.get(databaseInfo, 'fields'), (field) => (
-                  <div className="sm:col-span-3 " key={_.get(field, 'id')}>
-                    {(() => {
-                      switch (_.get(field, 'property.type')) {
-                        case 'title':
-                        case 'rich_text':
-                          return (
-                            <TextField
-                              name={_.get(field, 'idFieldNotion')}
-                              label={_.get(field, 'label')}
-                            />
-                          )
-
-                        case 'number':
-                          return (
-                            <NumberField
-                              name={_.get(field, 'idFieldNotion')}
-                              label={_.get(field, 'label')}
-                            />
-                          )
-
-                        case 'checkbox':
-                          return (
-                            <div className="flex h-full">
-                              <SwitchField
+                {_.chain(databaseInfo)
+                  .get('fields', [])
+                  .orderBy('order')
+                  .map((field) => (
+                    <div className="sm:col-span-3 " key={_.get(field, 'id')}>
+                      {(() => {
+                        switch (_.get(field, 'property.type')) {
+                          case 'title':
+                          case 'rich_text':
+                            return (
+                              <TextField
                                 name={_.get(field, 'idFieldNotion')}
                                 label={_.get(field, 'label')}
                               />
-                            </div>
-                          )
+                            )
 
-                        case 'select':
-                          return (
-                            <SelectField
-                              name={_.get(field, 'idFieldNotion')}
-                              label={_.get(field, 'label')}
-                              options={_.get(
-                                field,
-                                'property.select.options',
-                                []
-                              )}
-                              getOptionLabel={(option) =>
-                                _.get(option, 'name', '')
-                              }
-                              optionColor
-                            />
-                          )
+                          case 'number':
+                            return (
+                              <NumberField
+                                name={_.get(field, 'idFieldNotion')}
+                                label={_.get(field, 'label')}
+                              />
+                            )
 
-                        case 'status':
-                          return (
-                            <StatusField
-                              name={_.get(field, 'idFieldNotion')}
-                              label={_.get(field, 'label')}
-                              options={_.get(
-                                field,
-                                'property.status.options',
-                                []
-                              )}
-                              groups={_.get(
-                                field,
-                                'property.status.groups',
-                                []
-                              )}
-                              getOptionLabel={(option) =>
-                                _.get(option, 'name', '')
-                              }
-                              optionColor
-                            />
-                          )
+                          case 'checkbox':
+                            return (
+                              <div className="flex h-full">
+                                <SwitchField
+                                  name={_.get(field, 'idFieldNotion')}
+                                  label={_.get(field, 'label')}
+                                />
+                              </div>
+                            )
 
-                        case 'date':
-                          return (
-                            <DateField
-                              name={_.get(field, 'idFieldNotion')}
-                              label={_.get(field, 'label')}
-                            />
-                          )
+                          case 'select':
+                            return (
+                              <SelectField
+                                name={_.get(field, 'idFieldNotion')}
+                                label={_.get(field, 'label')}
+                                options={_.get(
+                                  field,
+                                  'property.select.options',
+                                  []
+                                )}
+                                getOptionLabel={(option) =>
+                                  _.get(option, 'name', '')
+                                }
+                                optionColor
+                              />
+                            )
 
-                        case 'url':
-                          return (
-                            <URLField
-                              name={_.get(field, 'idFieldNotion')}
-                              label={_.get(field, 'label')}
-                            />
-                          )
+                          case 'status':
+                            return (
+                              <StatusField
+                                name={_.get(field, 'idFieldNotion')}
+                                label={_.get(field, 'label')}
+                                options={_.get(
+                                  field,
+                                  'property.status.options',
+                                  []
+                                )}
+                                groups={_.get(
+                                  field,
+                                  'property.status.groups',
+                                  []
+                                )}
+                                getOptionLabel={(option) =>
+                                  _.get(option, 'name', '')
+                                }
+                                optionColor
+                              />
+                            )
 
-                        case 'phone_number':
-                          return (
-                            <PhoneNumberField
-                              name={_.get(field, 'idFieldNotion')}
-                              label={_.get(field, 'label')}
-                            />
-                          )
+                          case 'date':
+                            return (
+                              <DateField
+                                name={_.get(field, 'idFieldNotion')}
+                                label={_.get(field, 'label')}
+                              />
+                            )
 
-                        case 'email':
-                          return (
-                            <MailField
-                              name={_.get(field, 'idFieldNotion')}
-                              label={_.get(field, 'label')}
-                            />
-                          )
+                          case 'url':
+                            return (
+                              <URLField
+                                name={_.get(field, 'idFieldNotion')}
+                                label={_.get(field, 'label')}
+                              />
+                            )
 
-                        case 'multi_select':
-                          return (
-                            <MultiSelectField
-                              name={_.get(field, 'idFieldNotion')}
-                              label={_.get(field, 'label')}
-                              options={_.get(
-                                field,
-                                'property.multi_select.options',
-                                []
-                              )}
-                              getOptionLabel={(option) =>
-                                _.get(option, 'name', '')
-                              }
-                              optionColor
-                            />
-                          )
+                          case 'phone_number':
+                            return (
+                              <PhoneNumberField
+                                name={_.get(field, 'idFieldNotion')}
+                                label={_.get(field, 'label')}
+                              />
+                            )
 
-                        default:
-                          return (
-                            <NotAvailableField
-                              label={_.get(field, 'label')}
-                              type={_.get(field, 'property.type')}
-                            />
-                          )
-                      }
-                    })()}
-                  </div>
-                ))}
+                          case 'email':
+                            return (
+                              <MailField
+                                name={_.get(field, 'idFieldNotion')}
+                                label={_.get(field, 'label')}
+                              />
+                            )
+
+                          case 'multi_select':
+                            return (
+                              <MultiSelectField
+                                name={_.get(field, 'idFieldNotion')}
+                                label={_.get(field, 'label')}
+                                options={_.get(
+                                  field,
+                                  'property.multi_select.options',
+                                  []
+                                )}
+                                getOptionLabel={(option) =>
+                                  _.get(option, 'name', '')
+                                }
+                                optionColor
+                              />
+                            )
+
+                          default:
+                            return (
+                              <NotAvailableField
+                                label={_.get(field, 'label')}
+                                type={_.get(field, 'property.type')}
+                              />
+                            )
+                        }
+                      })()}
+                    </div>
+                  ))
+                  .value()}
               </div>
             </div>
             <div className="flex justify-between">

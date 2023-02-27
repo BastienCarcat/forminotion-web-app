@@ -1,7 +1,7 @@
-import React, { useState, useMemo, useCallback } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import _ from 'lodash'
-import { Form } from 'react-final-form'
 import PropTypes from 'prop-types'
+import { Form } from 'react-final-form'
 import FieldFormEditionBlockForm from './Field'
 
 const FormEditionBlockForm = ({ form }) => {
@@ -61,6 +61,10 @@ const FormEditionBlockForm = ({ form }) => {
     )
   }, [])
 
+  // useEffect(() => {
+  //   console.log('form', form)
+  // }, [form])
+
   return (
     <section aria-labelledby="preview-form">
       <div className="overflow-hidden rounded-lg bg-white shadow">
@@ -108,16 +112,9 @@ const FormEditionBlockForm = ({ form }) => {
                     Powered by Forminotion
                   </a>
                   <button
-                    // disabled={loading}
-                    type="submit"
+                    type="button"
                     className="relative mt-4 rounded-md bg-primary py-2 px-4 text-sm font-medium text-white hover:opacity-80 disabled:bg-primary disabled:opacity-50"
                   >
-                    {/*{loading && (*/}
-                    {/*  <Loader*/}
-                    {/*    className="absolute top-1/2 left-1/2 flex h-full w-full -translate-x-1/2 -translate-y-1/2 transform items-center justify-center rounded-[inherit] bg-[inherit]"*/}
-                    {/*    size={18}*/}
-                    {/*  />*/}
-                    {/*)}*/}
                     Save
                   </button>
                 </div>
