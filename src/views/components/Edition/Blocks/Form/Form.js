@@ -1,10 +1,11 @@
 import React, { useCallback, useMemo, useState } from 'react'
 import _ from 'lodash'
-import PropTypes from 'prop-types'
 import { Form } from 'react-final-form'
 import FieldFormEditionBlockForm from './Field'
+import { useContextFormEdition } from '../../Contexts/behaviour'
 
-const FormEditionBlockForm = ({ form }) => {
+const FormEditionBlockForm = () => {
+  const { form } = useContextFormEdition()
   // const [loading, setLoading] = useState(false)
   const [fields, setFields] = useState(_.get(form, 'fields', []))
 
@@ -13,9 +14,9 @@ const FormEditionBlockForm = ({ form }) => {
     _.each(fields, (field) => {
       const { idFieldNotion, property } = field
       switch (_.get(property, 'type')) {
-        case 'multi_select':
-          _.set(defaultValues, idFieldNotion, [])
-          break
+        // case 'multi_select':
+        //   _.set(defaultValues, idFieldNotion, [])
+        //   break
         case 'rich_text':
         case 'title':
           _.set(defaultValues, idFieldNotion, [{ text: { content: '' } }])
@@ -127,8 +128,6 @@ const FormEditionBlockForm = ({ form }) => {
   )
 }
 
-FormEditionBlockForm.propTypes = {
-  form: PropTypes.object
-}
+FormEditionBlockForm.propTypes = {}
 
 export default FormEditionBlockForm

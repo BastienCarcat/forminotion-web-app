@@ -11,6 +11,7 @@ const MultiSelectField = ({
   options,
   optionColor,
   getOptionLabel,
+  initialValue = [],
   ...others
 }) => {
   const handleRemoveValue = useCallback((input, value, event) => {
@@ -39,7 +40,7 @@ const MultiSelectField = ({
   }, [])
 
   return (
-    <Field name={name} {...others}>
+    <Field name={name} initialValue={initialValue} {...others}>
       {({ input }) => (
         <div>
           <label
@@ -137,7 +138,8 @@ MultiSelectField.propTypes = {
   name: PropTypes.string.isRequired,
   options: PropTypes.array.isRequired,
   getOptionLabel: PropTypes.func.isRequired,
-  optionColor: PropTypes.bool
+  optionColor: PropTypes.bool,
+  initialValue: PropTypes.array
 }
 
 export default MultiSelectField
