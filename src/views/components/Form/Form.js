@@ -32,7 +32,7 @@ const MainForm = ({ databaseInfo }) => {
           break
         case 'rich_text':
         case 'title':
-          _.set(defaultValues, idFieldNotion, [{ text: { content: null } }])
+          _.set(defaultValues, idFieldNotion, [{ text: { content: '' } }])
           break
         case 'checkbox':
           _.set(defaultValues, idFieldNotion, false)
@@ -49,7 +49,7 @@ const MainForm = ({ databaseInfo }) => {
           _.set(defaultValues, idFieldNotion, { start: null })
           break
         default:
-          _.set(defaultValues, idFieldNotion, null)
+          _.set(defaultValues, idFieldNotion, '')
           break
       }
     })
@@ -57,7 +57,7 @@ const MainForm = ({ databaseInfo }) => {
   }, [databaseInfo])
 
   const onSubmit = useCallback(
-    async (values) => {
+    async (values, form) => {
       const input = {
         idDatabase: _.get(databaseInfo, 'notion.id'),
         idAuthorization: _.get(databaseInfo, 'form.idAuthorization'),
@@ -83,6 +83,7 @@ const MainForm = ({ databaseInfo }) => {
       }
 
       await post('notion/createDbItem', cleanDeep(input))
+      form.reset()
     },
     [post, databaseInfo]
   )
