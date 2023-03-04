@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 import { useDrag, useDrop } from 'react-dnd'
@@ -17,7 +17,14 @@ import MailField from '../../../../ui/Form/Inputs/Mail'
 import MultiSelectField from '../../../../ui/Form/Inputs/MultiSelect'
 import NotAvailableField from '../../../../ui/Form/Inputs/NotAvailable'
 
-const FieldFormEditionBlockForm = ({ field, dragField, index }) => {
+const FieldFormEditionBlockForm = ({ field, index, name, fields }) => {
+  const dragField = useCallback(
+    (dragIndex, hoverIndex) => {
+      fields.swap(dragIndex, hoverIndex)
+    },
+    [fields]
+  )
+
   const [{ handlerId, isOver }, drop] = useDrop(
     {
       accept: DraggableTypes.FIELD,
@@ -62,7 +69,7 @@ const FieldFormEditionBlockForm = ({ field, dragField, index }) => {
             case 'rich_text':
               return (
                 <TextField
-                  name={_.get(field, 'idFieldNotion')}
+                  name={`${name}.defaultValue`}
                   label={
                     <div className="flex items-center">
                       <div ref={drag}>
@@ -78,7 +85,7 @@ const FieldFormEditionBlockForm = ({ field, dragField, index }) => {
             case 'number':
               return (
                 <NumberField
-                  name={_.get(field, 'idFieldNotion')}
+                  name={`${name}.defaultValue`}
                   label={
                     <div className="flex items-center">
                       <div ref={drag}>
@@ -95,7 +102,7 @@ const FieldFormEditionBlockForm = ({ field, dragField, index }) => {
               return (
                 <div className="flex h-full">
                   <SwitchField
-                    name={_.get(field, 'idFieldNotion')}
+                    name={`${name}.defaultValue`}
                     label={
                       <div className="flex items-center">
                         <div ref={drag}>
@@ -112,7 +119,7 @@ const FieldFormEditionBlockForm = ({ field, dragField, index }) => {
             case 'select':
               return (
                 <SelectField
-                  name={_.get(field, 'idFieldNotion')}
+                  name={`${name}.defaultValue`}
                   label={
                     <div className="flex items-center">
                       <div ref={drag}>
@@ -131,7 +138,7 @@ const FieldFormEditionBlockForm = ({ field, dragField, index }) => {
             case 'status':
               return (
                 <StatusField
-                  name={_.get(field, 'idFieldNotion')}
+                  name={`${name}.defaultValue`}
                   label={
                     <div className="flex items-center">
                       <div ref={drag}>
@@ -151,7 +158,7 @@ const FieldFormEditionBlockForm = ({ field, dragField, index }) => {
             case 'date':
               return (
                 <DateField
-                  name={_.get(field, 'idFieldNotion')}
+                  name={`${name}.defaultValue`}
                   label={
                     <div className="flex items-center">
                       <div ref={drag}>
@@ -167,7 +174,7 @@ const FieldFormEditionBlockForm = ({ field, dragField, index }) => {
             case 'url':
               return (
                 <URLField
-                  name={_.get(field, 'idFieldNotion')}
+                  name={`${name}.defaultValue`}
                   label={
                     <div className="flex items-center">
                       <div ref={drag}>
@@ -183,7 +190,7 @@ const FieldFormEditionBlockForm = ({ field, dragField, index }) => {
             case 'phone_number':
               return (
                 <PhoneNumberField
-                  name={_.get(field, 'idFieldNotion')}
+                  name={`${name}.defaultValue`}
                   label={
                     <div className="flex items-center">
                       <div ref={drag}>
@@ -199,7 +206,7 @@ const FieldFormEditionBlockForm = ({ field, dragField, index }) => {
             case 'email':
               return (
                 <MailField
-                  name={_.get(field, 'idFieldNotion')}
+                  name={`${name}.defaultValue`}
                   label={
                     <div className="flex items-center">
                       <div ref={drag}>
@@ -215,7 +222,7 @@ const FieldFormEditionBlockForm = ({ field, dragField, index }) => {
             case 'multi_select':
               return (
                 <MultiSelectField
-                  name={_.get(field, 'idFieldNotion')}
+                  name={`${name}.defaultValue`}
                   label={
                     <div className="flex items-center">
                       <div ref={drag}>
@@ -255,8 +262,9 @@ const FieldFormEditionBlockForm = ({ field, dragField, index }) => {
 
 FieldFormEditionBlockForm.propTypes = {
   field: PropTypes.object,
-  dragField: PropTypes.func,
-  index: PropTypes.number
+  index: PropTypes.number,
+  name: PropTypes.string,
+  fields: PropTypes.object
 }
 
 export default FieldFormEditionBlockForm

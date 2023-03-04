@@ -8,6 +8,10 @@ import React, {
   useState
 } from 'react'
 import { useAxiosGet } from '../../../../hooks/useAxiosGet'
+import { useAxiosPost } from '../../../../hooks/useAxiosPost'
+import deepmerge from 'deepmerge'
+import _ from 'lodash'
+import numeral from 'numeral'
 
 const ContextBehaviourFormEdition = createContext(null)
 
@@ -15,21 +19,22 @@ const ProviderBehaviourFormEdition = ({ idForm, children }) => {
   const [form, setForm] = useState(null)
   const [loading, setLoading] = useState(true)
 
-  const [get] = useAxiosGet()
+  const [get, loadingGet] = useAxiosGet()
+  const [post, loadingPost] = useAxiosPost()
 
-  const getFormById = useCallback(async () => {
-    try {
+  useEffect(() => {
+    if (loadingPost || loadingGet) {
       setLoading(true)
-
-      const form = await get('form/getById', {
-        params: { id: idForm }
-      })
-      setForm(form)
-    } catch (e) {
-      throw new Error(e)
-    } finally {
+    } else {
       setLoading(false)
     }
+  }, [loadingPost, loadingGet])
+
+  const getFormById = useCallback(async () => {
+    const form = await get('form/getById', {
+      params: { id: idForm }
+    })
+    setForm(form)
   }, [get, idForm])
 
   useEffect(() => {
@@ -38,13 +43,72 @@ const ProviderBehaviourFormEdition = ({ idForm, children }) => {
     }
   }, [idForm])
 
+  const updateForm = useCallback(
+    async (values) => {
+      if (values) {
+        const response = await post('form/update', {
+          id: idForm,
+          ...values
+        })
+        setForm((form) => {
+          return {
+            ...form,
+            form: deepmerge(_.get(form, 'form'), response)
+          }
+        })
+      }
+    },
+    [idForm, post]
+  )
+
+  const updateFields = useCallback(
+    async (values) => {
+      if (values) {
+        const response = await post('field/update', {
+          fields: _.map(values, (x, index) => ({
+            ...x,
+            order: numeral(index).add(1).value()
+          }))
+        })
+        setForm((form) => {
+          return {
+            ...form,
+            fields: [
+              ..._.chain(form)
+                .get('fields')
+                .filter(
+                  (x) => !_.includes(_.map(response, 'id'), _.get(x, 'id'))
+                )
+                .value(),
+              ...response
+            ]
+          }
+        })
+      }
+    },
+    [post]
+  )
+
+  const updateFormAndFields = useCallback(
+    async (values) => {
+      await Promise.all([
+        updateForm(_.get(values, 'form')),
+        updateFields(_.get(values, 'fields'))
+      ])
+    },
+    [updateForm, updateFields]
+  )
+
   const context = useMemo(
     () => ({
       form,
       idForm,
-      loading
+      loading,
+      updateForm,
+      updateFields,
+      updateFormAndFields
     }),
-    [form, idForm, loading]
+    [form, idForm, loading, updateForm, updateFields, updateFormAndFields]
   )
 
   return (
