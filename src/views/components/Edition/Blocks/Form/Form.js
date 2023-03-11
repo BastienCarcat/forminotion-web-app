@@ -48,8 +48,9 @@ const FormEditionBlockForm = () => {
               Powered by Forminotion
             </a>
             <button
+              disabled={true}
               type="button"
-              className="relative mt-4 rounded-md bg-primary py-2 px-4 text-sm font-medium text-white hover:opacity-80 disabled:bg-primary disabled:opacity-50"
+              className="relative mt-4 rounded-md bg-primary py-2 px-4 text-sm font-medium text-white hover:opacity-80 disabled:opacity-50"
             >
               Save
             </button>
