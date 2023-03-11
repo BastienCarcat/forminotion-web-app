@@ -1,17 +1,17 @@
 import React, { useMemo } from 'react'
+import { config } from '../../../../config'
 
-// const url = 'https://www.forminotion.com/'
-const url = 'http://localhost:3000/'
 const Footer = () => {
+  const { appUrl } = config || {}
   const navigation = useMemo(
     () => ({
       ressources: [
-        { name: 'Guides', href: `${url}#guide` },
-        { name: 'Pricing', href: `${url}#pricing` }
+        { name: 'Guides', href: `${appUrl}#guide` },
+        { name: 'Pricing', href: `${appUrl}#pricing` }
       ],
       legal: [
-        { name: 'Privacy policy', href: `${url}privacy-policy` },
-        { name: 'Terms and conditions', href: `${url}terms-and-conditions` }
+        { name: 'Privacy policy', href: `${appUrl}privacy-policy` },
+        { name: 'Terms and conditions', href: `${appUrl}terms-and-conditions` }
       ],
       social: [
         {
@@ -51,7 +51,7 @@ const Footer = () => {
         }
       ]
     }),
-    []
+    [appUrl]
   )
 
   return (
