@@ -27,7 +27,10 @@ const ProviderBehaviourForm = ({ children }) => {
 
   const linkDatabaseToForm = useCallback(
     (databaseURL) => {
-      setLocalDatabases({ ...localDatabases, [idForm]: databaseURL })
+      setLocalDatabases({
+        ...localDatabases,
+        [idForm]: { idDatabase: databaseURL }
+      })
     },
     [idForm, localDatabases, setLocalDatabases]
   )
