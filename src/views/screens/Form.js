@@ -1,5 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React from 'react'
 import FormLayout from '../components/Form/Layout'
+import { ProviderBehaviourForm } from '../components/Form/Contexts/behaviour'
 
 const FormScreen = () => {
   // const [darkMode, setDarkMode] = useState(true)
@@ -17,29 +18,18 @@ const FormScreen = () => {
   //   }
   // }, [])
 
-  const [storage, setStorage] = useState(null)
-
-  const setLocal = useCallback(() => {
-    localStorage.setItem('test_notion', 'test')
-  }, [])
-
-  useEffect(() => {
-    const data = localStorage.getItem('test_notion')
-    setStorage(data)
-  }, [])
-
   return (
-    <div
-      // className={clsx(
-      //   'h-full w-full',
-      //   darkMode ? 'bg-notion-dark-bg' : ' bg-white'
-      // )}
-      className="h-full w-full bg-white"
-    >
-      <FormLayout />
-      <button onClick={setLocal}>CLICK ME</button>
-      {storage && <div>{storage}</div>}
-    </div>
+    <ProviderBehaviourForm>
+      <div
+        // className={clsx(
+        //   'h-full w-full',
+        //   darkMode ? 'bg-notion-dark-bg' : ' bg-white'
+        // )}
+        className="h-full w-full bg-white"
+      >
+        <FormLayout />
+      </div>
+    </ProviderBehaviourForm>
   )
 }
 
