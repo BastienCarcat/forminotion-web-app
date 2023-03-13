@@ -29,7 +29,14 @@ const ProviderBehaviourForm = ({ children }) => {
     (databaseURL) => {
       setLocalDatabases({
         ...localDatabases,
-        [idForm]: { idDatabase: databaseURL }
+        [idForm]: {
+          idDatabase: _.chain(databaseURL)
+            .split('/')
+            .last()
+            .split('?')
+            .head()
+            .value()
+        }
       })
     },
     [idForm, localDatabases, setLocalDatabases]

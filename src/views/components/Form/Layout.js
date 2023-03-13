@@ -70,7 +70,8 @@ const FormLayout = () => {
 
   const fakeData = useMemo(
     () => ({
-      databaseURL: 'test'
+      databaseURL:
+        'https://www.notion.so/fbd9bc26ec5a441194f6387021ea1716?v=e2c50cc25b1744c18b9fbb9aad100f8b'
     }),
     []
   )
@@ -82,30 +83,37 @@ const FormLayout = () => {
     [linkDatabaseToForm]
   )
 
+  const callback = useCallback(() => {
+    console.log('cb')
+  }, [])
+
   const handleAddToNotion = useCallback(() => {
     const win = window.open(
       `https://api.notion.com/v1/oauth/authorize?owner=user&client_id=${
         process.env.REACT_APP_NOTION_CLIENT_ID
-      }&response_type=code&idDatabase=${_.get(
+      }&response_type=code&state=idDatabase${_.get(
         localDatabase,
         'idDatabase'
-      )}&idForm=${idForm}`,
+      )}idForm${idForm}`,
       '_blank',
       'location=yes,height=800,width=600,scrollbars=yes,status=yes'
     )
+    win.addEventListener('storage', () => {
+      console.log('storage changed')
+    })
     let i = 0
     const closeDetectInterval = setInterval(async () => {
       i++
       if (win.closed) {
-        // setLoading(true)
         clearInterval(closeDetectInterval)
+        callback()
       }
       if (i === 120) {
         clearInterval(closeDetectInterval)
         win.close()
       }
-    }, 1000)
-  }, [idForm, localDatabase])
+    }, 10000)
+  }, [idForm, localDatabase, callback])
 
   return _.get(localDatabase, 'idDatabase') &&
     _.get(localDatabase, 'idAuthorization') ? (
@@ -118,7 +126,7 @@ const FormLayout = () => {
     <button
       onClick={handleAddToNotion}
       type="button"
-      className="mt-4 inline-flex items-center rounded-md border border-transparent bg-primary px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+      className="mt-4 inline-flex items-center rounded-md border border-transparent bg-primary px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-primary-600 "
     >
       Get authorization
     </button>
