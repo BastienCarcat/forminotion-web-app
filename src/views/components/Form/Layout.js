@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react'
+import React, { useCallback, useState } from 'react'
 import MainForm from './Form'
 import { useContextForm } from './Contexts/behaviour'
 import _ from 'lodash'
@@ -65,27 +65,27 @@ const FormLayout = () => {
   //   )
   // }
 
-  const { linkDatabaseToForm, localDatabase } = useContextForm()
+  const { localDatabase, getDatabaseById } = useContextForm()
   const { idForm } = useParams()
 
-  const fakeData = useMemo(
-    () => ({
-      databaseURL:
-        'https://www.notion.so/fbd9bc26ec5a441194f6387021ea1716?v=e2c50cc25b1744c18b9fbb9aad100f8b'
-    }),
-    []
-  )
+  const [url, setUrl] = useState(null)
+
+  const handleChangeUrl = useCallback((event) => {
+    setUrl(event.target.value)
+  }, [])
 
   const linkDatabase = useCallback(
-    (databaseURL) => {
-      linkDatabaseToForm(databaseURL)
+    async (databaseURL) => {
+      if (databaseURL) {
+        await getDatabaseById(databaseURL, true)
+      }
     },
-    [linkDatabaseToForm]
+    [getDatabaseById]
   )
 
-  const callback = useCallback(() => {
-    console.log('cb')
-  }, [])
+  const onCloseWindow = useCallback(async () => {
+    await getDatabaseById(_.get(localDatabase, 'idDatabase'))
+  }, [getDatabaseById, localDatabase])
 
   const handleAddToNotion = useCallback(() => {
     const win = window.open(
@@ -98,30 +98,34 @@ const FormLayout = () => {
       '_blank',
       'location=yes,height=800,width=600,scrollbars=yes,status=yes'
     )
-    win.addEventListener('storage', () => {
-      console.log('storage changed')
-    })
+
     let i = 0
-    const closeDetectInterval = setInterval(async () => {
+    const closeDetectInterval = setInterval(() => {
       i++
       if (win.closed) {
         clearInterval(closeDetectInterval)
-        callback()
+        onCloseWindow()
       }
       if (i === 120) {
         clearInterval(closeDetectInterval)
         win.close()
       }
-    }, 10000)
-  }, [idForm, localDatabase, callback])
+    }, 500)
+  }, [idForm, localDatabase, onCloseWindow])
 
   return _.get(localDatabase, 'idDatabase') &&
     _.get(localDatabase, 'idAuthorization') ? (
     <MainForm />
   ) : !_.get(localDatabase, 'idDatabase') ? (
-    <button onClick={() => linkDatabase(_.get(fakeData, 'databaseURL'))}>
-      link database
-    </button>
+    <>
+      <input
+        value={url}
+        onChange={handleChangeUrl}
+        type="text"
+        className="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
+      ></input>
+      <button onClick={() => linkDatabase(url)}>link database</button>
+    </>
   ) : (
     <button
       onClick={handleAddToNotion}

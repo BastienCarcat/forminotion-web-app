@@ -10,6 +10,7 @@ import React, {
 import useLocalStorage from '../../../../hooks/useLocalStorage'
 import _ from 'lodash'
 import { useParams } from 'react-router-dom'
+import { useAxiosGetNoAuth } from '../../../../hooks/useAxiosGetNoAuth'
 
 const ContextBehaviourForm = createContext(null)
 
@@ -18,6 +19,8 @@ const ProviderBehaviourForm = ({ children }) => {
   const [localDatabases, setLocalDatabases] = useLocalStorage('databases')
   const [localDatabase, setLocalDatabase] = useState(null)
 
+  const [get, loadingGet] = useAxiosGetNoAuth()
+
   useEffect(() => {
     const localDb = _.get(localDatabases, idForm)
     if (localDb) {
@@ -25,26 +28,61 @@ const ProviderBehaviourForm = ({ children }) => {
     }
   }, [idForm, localDatabases])
 
-  const linkDatabaseToForm = useCallback(
-    (databaseURL) => {
+  const getDatabaseById = useCallback(
+    async (database, decodeURL = false) => {
+      let idDatabase = database
+      if (decodeURL) {
+        idDatabase = _.chain(database)
+          .split('/')
+          .last()
+          .split('?')
+          .head()
+          .value()
+      }
+
+      const db = await get('database/getById', {
+        params: { id: idDatabase }
+      })
+
       setLocalDatabases({
         ...localDatabases,
         [idForm]: {
-          idDatabase: _.chain(databaseURL)
-            .split('/')
-            .last()
-            .split('?')
-            .head()
-            .value()
+          idDatabase,
+          ...(_.get(db, 'idAuthorization') && {
+            idAuthorization: _.get(db, 'idAuthorization')
+          })
         }
       })
     },
-    [idForm, localDatabases, setLocalDatabases]
+    [get, localDatabases, setLocalDatabases, idForm]
   )
 
+  // const linkDatabaseToForm = useCallback(
+  //   async (databaseURL) => {
+  //     const idDatabase = _.chain(databaseURL)
+  //       .split('/')
+  //       .last()
+  //       .split('?')
+  //       .head()
+  //       .value()
+  //
+  //     const res = await getDatabaseById(idDatabase)
+  //
+  //     if (!res) {
+  //       setLocalDatabases({
+  //         ...localDatabases,
+  //         [idForm]: {
+  //           idDatabase
+  //         }
+  //       })
+  //     }
+  //   },
+  //   [idForm, localDatabases, setLocalDatabases, getDatabaseById]
+  // )
+
   const context = useMemo(
-    () => ({ linkDatabaseToForm, localDatabase }),
-    [linkDatabaseToForm, localDatabase]
+    () => ({ localDatabase, getDatabaseById }),
+    [localDatabase, getDatabaseById]
   )
 
   return (
