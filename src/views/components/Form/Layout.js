@@ -77,6 +77,10 @@ const FormLayout = () => {
   const linkDatabase = useCallback(
     async (databaseURL) => {
       if (databaseURL) {
+        // lancer un search notion et si je trouve une database avec le même id, ça veux dire que j'ai déjà l'authorization pour cette database.
+        // si je ne la trouve pas, il va falloir redemander une authorization au user mais sans créer l'authorization comme elle existe déjà
+        // PB : poue lancer le search j'ai besoin de l'authorization de base.
+        // SOLUTION : Set l'authorization dans le storage en mode "global" a tous les forms (avec une aute key storage)
         await getDatabaseById(databaseURL, true)
       }
     },
