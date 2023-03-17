@@ -37,6 +37,17 @@ const ProviderBehaviourForm = ({ children }) => {
           .last()
           .split('?')
           .head()
+          .split('', 32)
+          .thru((chunks) => {
+            return [
+              chunks.slice(0, 8).join(''),
+              chunks.slice(8, 12).join(''),
+              chunks.slice(12, 16).join(''),
+              chunks.slice(16, 20).join(''),
+              chunks.slice(20).join('')
+            ]
+          })
+          .join('-')
           .value()
       }
 
