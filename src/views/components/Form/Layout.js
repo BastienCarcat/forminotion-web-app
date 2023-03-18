@@ -77,11 +77,28 @@ const FormLayout = () => {
   const linkDatabase = useCallback(
     async (databaseURL) => {
       if (databaseURL) {
+        const idDatabase = _.chain(databaseURL)
+          .split('/')
+          .last()
+          .split('?')
+          .head()
+          .split('', 32)
+          .thru((chunks) => {
+            return [
+              chunks.slice(0, 8).join(''),
+              chunks.slice(8, 12).join(''),
+              chunks.slice(12, 16).join(''),
+              chunks.slice(16, 20).join(''),
+              chunks.slice(20).join('')
+            ]
+          })
+          .join('-')
+          .value()
         // lancer un search notion et si je trouve une database avec le même id, ça veux dire que j'ai déjà l'authorization pour cette database.
         // si je ne la trouve pas, il va falloir redemander une authorization au user mais sans créer l'authorization comme elle existe déjà
         // PB : poue lancer le search j'ai besoin de l'authorization de base.
         // SOLUTION : Set l'authorization dans le storage en mode "global" a tous les forms (avec une aute key storage)
-        await getDatabaseById(databaseURL, true)
+        await getDatabaseById(idDatabase)
       }
     },
     [getDatabaseById]
@@ -118,7 +135,7 @@ const FormLayout = () => {
   }, [idForm, localDatabase, onCloseWindow])
 
   return _.get(localDatabase, 'idDatabase') &&
-    _.get(localDatabase, 'idAuthorization') ? (
+    _.get(localDatabase, 'isAuthorized') ? (
     <MainForm />
   ) : !_.get(localDatabase, 'idDatabase') ? (
     <>

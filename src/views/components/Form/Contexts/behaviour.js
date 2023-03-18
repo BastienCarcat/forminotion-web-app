@@ -18,6 +18,7 @@ const ProviderBehaviourForm = ({ children }) => {
   const { idForm } = useParams()
   const [localDatabases, setLocalDatabases] = useLocalStorage('databases')
   const [localDatabase, setLocalDatabase] = useState(null)
+  const [form, setForm] = useState(null)
 
   const [get, loadingGet] = useAxiosGetNoAuth()
 
@@ -25,75 +26,81 @@ const ProviderBehaviourForm = ({ children }) => {
     const localDb = _.get(localDatabases, idForm)
     if (localDb) {
       setLocalDatabase(localDb)
+      if (_.get(localDb, 'isAuthorized')) {
+        getFormByIdDatabase(_.get(localDb, 'idDatabase'))
+      }
     }
-  }, [idForm, localDatabases])
+  }, [idForm])
 
   const getDatabaseById = useCallback(
-    async (database, decodeURL = false) => {
-      let idDatabase = database
-      if (decodeURL) {
-        idDatabase = _.chain(database)
-          .split('/')
-          .last()
-          .split('?')
-          .head()
-          .split('', 32)
-          .thru((chunks) => {
-            return [
-              chunks.slice(0, 8).join(''),
-              chunks.slice(8, 12).join(''),
-              chunks.slice(12, 16).join(''),
-              chunks.slice(16, 20).join(''),
-              chunks.slice(20).join('')
-            ]
-          })
-          .join('-')
-          .value()
+    async (idDatabase) => {
+      const response = await get('form/getByIdDatabase', {
+        params: { idDatabase }
+      })
+
+      if (response && _.get(response, 'form.idAuthorization')) {
+        setForm(response)
       }
 
-      const db = await get('database/getById', {
-        params: { id: idDatabase }
-      })
+      const newItem = {
+        idDatabase,
+        ...(_.get(response, 'form.idAuthorization') && {
+          isAuthorized: true
+        })
+      }
 
       setLocalDatabases({
         ...localDatabases,
-        [idForm]: {
-          idDatabase,
-          ...(_.get(db, 'idAuthorization') && {
-            idAuthorization: _.get(db, 'idAuthorization')
-          })
-        }
+        [idForm]: newItem
       })
+      setLocalDatabase(newItem)
     },
     [get, localDatabases, setLocalDatabases, idForm]
   )
 
+  const getFormByIdDatabase = useCallback(
+    async (idDatabase) => {
+      const response = await get('form/getByIdDatabase', {
+        params: { idDatabase }
+      })
+      setForm(response)
+    },
+    [get]
+  )
+
   // const linkDatabaseToForm = useCallback(
-  //   async (databaseURL) => {
+  //   (databaseURL) => {
   //     const idDatabase = _.chain(databaseURL)
   //       .split('/')
   //       .last()
   //       .split('?')
   //       .head()
+  //       .split('', 32)
+  //       .thru((chunks) => {
+  //         return [
+  //           chunks.slice(0, 8).join(''),
+  //           chunks.slice(8, 12).join(''),
+  //           chunks.slice(12, 16).join(''),
+  //           chunks.slice(16, 20).join(''),
+  //           chunks.slice(20).join('')
+  //         ]
+  //       })
+  //       .join('-')
   //       .value()
   //
-  //     const res = await getDatabaseById(idDatabase)
-  //
-  //     if (!res) {
-  //       setLocalDatabases({
-  //         ...localDatabases,
-  //         [idForm]: {
-  //           idDatabase
-  //         }
-  //       })
-  //     }
+  //     setLocalDatabases({
+  //       ...localDatabases,
+  //       [idForm]: {
+  //         idDatabase
+  //       }
+  //     })
   //   },
-  //   [idForm, localDatabases, setLocalDatabases, getDatabaseById]
+  //   [idForm, localDatabases, setLocalDatabases]
   // )
 
   const context = useMemo(
-    () => ({ localDatabase, getDatabaseById }),
-    [localDatabase, getDatabaseById]
+    () => ({ localDatabase, getDatabaseById, form }),
+    [localDatabase, getDatabaseById, form]
   )
 
   return (

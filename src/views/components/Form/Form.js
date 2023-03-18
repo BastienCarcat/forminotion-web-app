@@ -5,7 +5,6 @@ import { Form } from 'react-final-form'
 import NumberField from '../../ui/Form/Inputs/Number'
 import SelectField from '../../ui/Form/Inputs/Select'
 import SwitchField from '../../ui/Form/Inputs/Switch'
-import PropTypes from 'prop-types'
 import TextField from '../../ui/Form/Inputs/Text'
 import NotAvailableField from '../../ui/Form/Inputs/NotAvailable'
 import moment from 'moment'
@@ -18,13 +17,15 @@ import { useAxiosPostNoAuth } from '../../../hooks/useAxiosPostNoAuth'
 import StatusField from '../../ui/Form/Inputs/Status'
 import Loader from '../../ui/Globals/Loader'
 import Warning from '../../../Images/warning.svg'
+import { useContextForm } from './Contexts/behaviour'
 
-const MainForm = ({ databaseInfo }) => {
+const MainForm = () => {
   const [post, loading] = useAxiosPostNoAuth()
+  const { form: formInfo } = useContextForm()
 
   const initialValues = useMemo(() => {
     const defaultValues = {}
-    _.each(_.get(databaseInfo, 'fields'), (field) => {
+    _.each(_.get(formInfo, 'fields'), (field) => {
       const { idFieldNotion, property } = field
       switch (_.get(property, 'type')) {
         case 'multi_select':
@@ -54,14 +55,14 @@ const MainForm = ({ databaseInfo }) => {
       }
     })
     return defaultValues
-  }, [databaseInfo])
+  }, [formInfo])
 
   const onSubmit = useCallback(
     async (values, form) => {
       const input = {
-        idDatabase: _.get(databaseInfo, 'notion.id'),
-        idAuthorization: _.get(databaseInfo, 'form.idAuthorization'),
-        properties: _.chain(databaseInfo)
+        idDatabase: _.get(formInfo, 'notion.id'),
+        idAuthorization: _.get(formInfo, 'form.idAuthorization'),
+        properties: _.chain(formInfo)
           .get('fields', [])
           .keyBy('idFieldNotion')
           .mapValues((field, key) => {
@@ -85,10 +86,10 @@ const MainForm = ({ databaseInfo }) => {
       await post('notion/createDbItem', cleanDeep(input))
       form.reset()
     },
-    [post, databaseInfo]
+    [post, formInfo]
   )
 
-  if (!databaseInfo)
+  if (!formInfo)
     return (
       <div className="flex h-full w-full flex-col items-center justify-center p-8">
         <div className="max-w-lg text-center text-xl text-gray-900">Oops!</div>
@@ -128,16 +129,16 @@ const MainForm = ({ databaseInfo }) => {
             <div className="pt-8">
               <div>
                 <h3 className="text-lg font-medium leading-6 text-gray-900">
-                  {_.get(databaseInfo, 'form.title')}
+                  {_.get(formInfo, 'form.title')}
                 </h3>
-                {_.get(databaseInfo, 'form.description') && (
+                {_.get(formInfo, 'form.description') && (
                   <p className="mt-1 text-sm text-gray-500">
-                    {_.get(databaseInfo, 'form.description')}
+                    {_.get(formInfo, 'form.description')}
                   </p>
                 )}
               </div>
               <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-                {_.chain(databaseInfo)
+                {_.chain(formInfo)
                   .get('fields', [])
                   .orderBy('order')
                   .map((field) => (
@@ -302,8 +303,6 @@ const MainForm = ({ databaseInfo }) => {
   )
 }
 
-MainForm.propTypes = {
-  databaseInfo: PropTypes.object
-}
+MainForm.propTypes = {}
 
 export default MainForm
