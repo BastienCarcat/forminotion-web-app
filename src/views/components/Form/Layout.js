@@ -65,7 +65,8 @@ const FormLayout = () => {
   //   )
   // }
 
-  const { localDatabase, getDatabaseById } = useContextForm()
+  const { localDatabase, getDatabaseById, form, updateIdDatabase } =
+    useContextForm()
   const { idForm } = useParams()
 
   const [url, setUrl] = useState(null)
@@ -74,34 +75,46 @@ const FormLayout = () => {
     setUrl(event.target.value)
   }, [])
 
+  const formatUrlToUuid = useCallback((url) => {
+    return _.chain(url)
+      .split('/')
+      .last()
+      .split('?')
+      .head()
+      .split('', 32)
+      .thru((chunks) => {
+        return [
+          chunks.slice(0, 8).join(''),
+          chunks.slice(8, 12).join(''),
+          chunks.slice(12, 16).join(''),
+          chunks.slice(16, 20).join(''),
+          chunks.slice(20).join('')
+        ]
+      })
+      .join('-')
+      .value()
+  }, [])
+
+  const handleUpdateIdDatabase = useCallback(
+    async (databaseURL) => {
+      if (databaseURL) {
+        const idDatabase = formatUrlToUuid(databaseURL)
+
+        await updateIdDatabase(idDatabase)
+      }
+    },
+    [formatUrlToUuid, updateIdDatabase]
+  )
+
   const linkDatabase = useCallback(
     async (databaseURL) => {
       if (databaseURL) {
-        const idDatabase = _.chain(databaseURL)
-          .split('/')
-          .last()
-          .split('?')
-          .head()
-          .split('', 32)
-          .thru((chunks) => {
-            return [
-              chunks.slice(0, 8).join(''),
-              chunks.slice(8, 12).join(''),
-              chunks.slice(12, 16).join(''),
-              chunks.slice(16, 20).join(''),
-              chunks.slice(20).join('')
-            ]
-          })
-          .join('-')
-          .value()
-        // lancer un search notion et si je trouve une database avec le même id, ça veux dire que j'ai déjà l'authorization pour cette database.
-        // si je ne la trouve pas, il va falloir redemander une authorization au user mais sans créer l'authorization comme elle existe déjà
-        // PB : poue lancer le search j'ai besoin de l'authorization de base.
-        // SOLUTION : Set l'authorization dans le storage en mode "global" a tous les forms (avec une aute key storage)
+        const idDatabase = formatUrlToUuid(databaseURL)
+
         await getDatabaseById(idDatabase)
       }
     },
-    [getDatabaseById]
+    [getDatabaseById, formatUrlToUuid]
   )
 
   const onCloseWindow = useCallback(async () => {
@@ -136,7 +149,19 @@ const FormLayout = () => {
 
   return _.get(localDatabase, 'idDatabase') &&
     _.get(localDatabase, 'isAuthorized') ? (
-    <MainForm />
+    _.get(form, 'notion.invalidId') ? (
+      <>
+        <input
+          value={url}
+          onChange={handleChangeUrl}
+          type="text"
+          className="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
+        ></input>
+        <button onClick={() => handleUpdateIdDatabase(url)}>Update ID</button>
+      </>
+    ) : (
+      <MainForm />
+    )
   ) : !_.get(localDatabase, 'idDatabase') ? (
     <>
       <input

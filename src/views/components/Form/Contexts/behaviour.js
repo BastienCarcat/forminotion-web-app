@@ -11,6 +11,7 @@ import useLocalStorage from '../../../../hooks/useLocalStorage'
 import _ from 'lodash'
 import { useParams } from 'react-router-dom'
 import { useAxiosGetNoAuth } from '../../../../hooks/useAxiosGetNoAuth'
+import { useAxiosPostNoAuth } from '../../../../hooks/useAxiosPostNoAuth'
 
 const ContextBehaviourForm = createContext(null)
 
@@ -21,6 +22,7 @@ const ProviderBehaviourForm = ({ children }) => {
   const [form, setForm] = useState(null)
 
   const [get, loadingGet] = useAxiosGetNoAuth()
+  const [post, loadingPost] = useAxiosPostNoAuth()
 
   useEffect(() => {
     const localDb = _.get(localDatabases, idForm)
@@ -38,7 +40,7 @@ const ProviderBehaviourForm = ({ children }) => {
         params: { idDatabase }
       })
 
-      if (response && _.get(response, 'form.idAuthorization')) {
+      if (response) {
         setForm(response)
       }
 
@@ -63,44 +65,64 @@ const ProviderBehaviourForm = ({ children }) => {
       const response = await get('form/getByIdDatabase', {
         params: { idDatabase }
       })
-      setForm(response)
+
+      if (response) {
+        setForm(response)
+      }
     },
     [get]
   )
 
-  // const linkDatabaseToForm = useCallback(
-  //   (databaseURL) => {
-  //     const idDatabase = _.chain(databaseURL)
-  //       .split('/')
-  //       .last()
-  //       .split('?')
-  //       .head()
-  //       .split('', 32)
-  //       .thru((chunks) => {
-  //         return [
-  //           chunks.slice(0, 8).join(''),
-  //           chunks.slice(8, 12).join(''),
-  //           chunks.slice(12, 16).join(''),
-  //           chunks.slice(16, 20).join(''),
-  //           chunks.slice(20).join('')
-  //         ]
-  //       })
-  //       .join('-')
-  //       .value()
-  //
-  //     setLocalDatabases({
-  //       ...localDatabases,
-  //       [idForm]: {
-  //         idDatabase
-  //       }
-  //     })
-  //   },
-  //   [idForm, localDatabases, setLocalDatabases]
-  // )
+  const updateIdDatabase = useCallback(
+    async (idDatabase) => {
+      const response = await get('form/getByIdDatabase', {
+        params: { idDatabase }
+      })
+      if (response) {
+        setForm(response)
+      } else {
+        await post('form/update', {
+          id: _.get(form, 'form.id'),
+          idDatabase
+        })
+
+        setForm({
+          ...form,
+          form: {
+            ..._.get(form, 'form'),
+            idDatabase
+          }
+        })
+
+        const newItem = {
+          ...localDatabase,
+          idDatabase
+        }
+
+        setLocalDatabases({
+          ...localDatabases,
+          [idForm]: newItem
+        })
+        setLocalDatabase(newItem)
+        await getFormByIdDatabase(idDatabase)
+      }
+    },
+    [
+      getFormByIdDatabase,
+      localDatabase,
+      get,
+      post,
+      form,
+      localDatabases,
+      setLocalDatabase,
+      setLocalDatabases,
+      idForm
+    ]
+  )
 
   const context = useMemo(
-    () => ({ localDatabase, getDatabaseById, form }),
-    [localDatabase, getDatabaseById, form]
+    () => ({ localDatabase, getDatabaseById, form, updateIdDatabase }),
+    [localDatabase, getDatabaseById, form, updateIdDatabase]
   )
 
   return (
