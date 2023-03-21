@@ -65,8 +65,13 @@ const FormLayout = () => {
   //   )
   // }
 
-  const { localDatabase, getDatabaseById, form, updateIdDatabase } =
-    useContextForm()
+  const {
+    localDatabase,
+    getDatabaseById,
+    form,
+    updateIdDatabase,
+    clearStorage
+  } = useContextForm()
   const { idForm } = useParams()
 
   const [url, setUrl] = useState(null)
@@ -147,39 +152,46 @@ const FormLayout = () => {
     }, 500)
   }, [idForm, localDatabase, onCloseWindow])
 
-  return _.get(localDatabase, 'idDatabase') &&
-    _.get(localDatabase, 'isAuthorized') ? (
-    _.get(form, 'notion.invalidId') ? (
-      <>
-        <input
-          value={url}
-          onChange={handleChangeUrl}
-          type="text"
-          className="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
-        ></input>
-        <button onClick={() => handleUpdateIdDatabase(url)}>Update ID</button>
-      </>
-    ) : (
-      <MainForm />
-    )
-  ) : !_.get(localDatabase, 'idDatabase') ? (
+  return (
     <>
-      <input
-        value={url}
-        onChange={handleChangeUrl}
-        type="text"
-        className="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
-      ></input>
-      <button onClick={() => linkDatabase(url)}>link database</button>
+      <button onClick={clearStorage}>CLEAR STORAGE</button>
+      {_.get(localDatabase, 'idDatabase') &&
+      _.get(localDatabase, 'isAuthorized') ? (
+        _.get(form, 'notion.invalidId') ? (
+          <>
+            <input
+              value={url}
+              onChange={handleChangeUrl}
+              type="text"
+              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
+            ></input>
+            <button onClick={() => handleUpdateIdDatabase(url)}>
+              Update ID
+            </button>
+          </>
+        ) : (
+          <MainForm />
+        )
+      ) : !_.get(localDatabase, 'idDatabase') ? (
+        <>
+          <input
+            value={url}
+            onChange={handleChangeUrl}
+            type="text"
+            className="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
+          ></input>
+          <button onClick={() => linkDatabase(url)}>link database</button>
+        </>
+      ) : (
+        <button
+          onClick={handleAddToNotion}
+          type="button"
+          className="mt-4 inline-flex items-center rounded-md border border-transparent bg-primary px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-primary-600 "
+        >
+          Get authorization
+        </button>
+      )}
     </>
-  ) : (
-    <button
-      onClick={handleAddToNotion}
-      type="button"
-      className="mt-4 inline-flex items-center rounded-md border border-transparent bg-primary px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-primary-600 "
-    >
-      Get authorization
-    </button>
   )
 }
 

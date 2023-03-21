@@ -120,9 +120,19 @@ const ProviderBehaviourForm = ({ children }) => {
     ]
   )
 
+  const clearStorage = useCallback(() => {
+    setLocalDatabases({})
+  }, [setLocalDatabases])
+
   const context = useMemo(
-    () => ({ localDatabase, getDatabaseById, form, updateIdDatabase }),
-    [localDatabase, getDatabaseById, form, updateIdDatabase]
+    () => ({
+      localDatabase,
+      getDatabaseById,
+      form,
+      updateIdDatabase,
+      clearStorage
+    }),
+    [localDatabase, getDatabaseById, form, updateIdDatabase, clearStorage]
   )
 
   return (
