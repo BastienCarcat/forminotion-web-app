@@ -193,7 +193,8 @@ const ProviderBehaviourForm = ({ children }) => {
 
   const clearStorage = useCallback(() => {
     setLocalDatabases({})
-  }, [setLocalDatabases])
+    setAuthorization('')
+  }, [setLocalDatabases, setAuthorization])
 
   const context = useMemo(
     () => ({
