@@ -18,6 +18,7 @@ const ContextBehaviourForm = createContext(null)
 const ProviderBehaviourForm = ({ children }) => {
   const { idForm } = useParams()
   const [localDatabases, setLocalDatabases] = useLocalStorage('databases')
+  const [authorization, setAuthorization] = useLocalStorage('authorization')
   const [localDatabase, setLocalDatabase] = useState(null)
   const [form, setForm] = useState(null)
 
@@ -28,36 +29,106 @@ const ProviderBehaviourForm = ({ children }) => {
     const localDb = _.get(localDatabases, idForm)
     if (localDb) {
       setLocalDatabase(localDb)
-      if (_.get(localDb, 'isAuthorized')) {
-        getFormByIdDatabase(_.get(localDb, 'idDatabase'))
-      }
+      getFormByIdDatabase(_.get(localDb, 'idDatabase'))
     }
   }, [idForm])
 
-  const getDatabaseById = useCallback(
-    async (idDatabase) => {
-      const response = await get('form/getByIdDatabase', {
-        params: { idDatabase }
-      })
+  const callbackAuthorization = useCallback(async () => {
+    const idDatabase = _.get(localDatabase, 'idDatabase')
+    const response = await get('form/getByIdDatabase', {
+      params: { idDatabase }
+    })
 
-      if (response) {
-        setForm(response)
-      }
+    if (response) {
+      setAuthorization(_.get(response, 'form.idAuthorization'))
 
-      const newItem = {
-        idDatabase,
-        ...(_.get(response, 'form.idAuthorization') && {
-          isAuthorized: true
-        })
-      }
+      setForm(response)
 
       setLocalDatabases({
         ...localDatabases,
-        [idForm]: newItem
+        [idForm]: { idDatabase }
       })
-      setLocalDatabase(newItem)
+      setLocalDatabase({ idDatabase })
+    }
+  }, [
+    get,
+    localDatabases,
+    setLocalDatabases,
+    idForm,
+    localDatabase,
+    setAuthorization
+  ])
+
+  const checkUrl = useCallback(
+    async (url) => {
+      const idDatabase = _.chain(url)
+        .split('/')
+        .last()
+        .split('?')
+        .head()
+        .split('', 32)
+        .thru((chunks) => {
+          return [
+            chunks.slice(0, 8).join(''),
+            chunks.slice(8, 12).join(''),
+            chunks.slice(12, 16).join(''),
+            chunks.slice(16, 20).join(''),
+            chunks.slice(20).join('')
+          ]
+        })
+        .join('-')
+        .value()
+
+      if (idDatabase) {
+        const response = await get('form/getByIdDatabase', {
+          params: { idDatabase }
+        })
+
+        if (response) {
+          setForm(response)
+
+          setLocalDatabases({
+            ...localDatabases,
+            [idForm]: { idDatabase }
+          })
+          setLocalDatabase({ idDatabase })
+
+          if (!authorization) {
+            setAuthorization(_.get(response, 'form.idAuthorization'))
+          }
+        } else {
+          if (authorization) {
+            const formCreated = await post('form/duplicateIfAuthorized', {
+              idForm,
+              idDatabase,
+              idAuthorization: authorization
+            })
+            setForm(formCreated)
+            if (_.get(formCreated, 'unauthorized')) {
+              return
+            }
+            setForm(formCreated)
+
+            setLocalDatabases({
+              ...localDatabases,
+              [idForm]: { idDatabase }
+            })
+            setLocalDatabase({ idDatabase })
+          }
+        }
+      }
     },
-    [get, localDatabases, setLocalDatabases, idForm]
+    [
+      get,
+      setForm,
+      setLocalDatabases,
+      localDatabases,
+      idForm,
+      setLocalDatabase,
+      authorization,
+      setAuthorization,
+      post
+    ]
   )
 
   const getFormByIdDatabase = useCallback(
@@ -127,12 +198,22 @@ const ProviderBehaviourForm = ({ children }) => {
   const context = useMemo(
     () => ({
       localDatabase,
-      getDatabaseById,
+      callbackAuthorization,
       form,
       updateIdDatabase,
-      clearStorage
+      clearStorage,
+      authorization,
+      checkUrl
     }),
-    [localDatabase, getDatabaseById, form, updateIdDatabase, clearStorage]
+    [
+      localDatabase,
+      callbackAuthorization,
+      form,
+      updateIdDatabase,
+      clearStorage,
+      authorization,
+      checkUrl
+    ]
   )
 
   return (

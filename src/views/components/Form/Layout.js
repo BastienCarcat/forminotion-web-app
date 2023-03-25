@@ -67,10 +67,12 @@ const FormLayout = () => {
 
   const {
     localDatabase,
-    getDatabaseById,
+    callbackAuthorization,
     form,
     updateIdDatabase,
-    clearStorage
+    clearStorage,
+    authorization,
+    checkUrl
   } = useContextForm()
   const { idForm } = useParams()
 
@@ -114,17 +116,15 @@ const FormLayout = () => {
   const linkDatabase = useCallback(
     async (databaseURL) => {
       if (databaseURL) {
-        const idDatabase = formatUrlToUuid(databaseURL)
-
-        await getDatabaseById(idDatabase)
+        await checkUrl(databaseURL)
       }
     },
-    [getDatabaseById, formatUrlToUuid]
+    [checkUrl]
   )
 
   const onCloseWindow = useCallback(async () => {
-    await getDatabaseById(_.get(localDatabase, 'idDatabase'))
-  }, [getDatabaseById, localDatabase])
+    await callbackAuthorization()
+  }, [callbackAuthorization])
 
   const handleAddToNotion = useCallback(() => {
     const win = window.open(
@@ -155,8 +155,7 @@ const FormLayout = () => {
   return (
     <>
       <button onClick={clearStorage}>CLEAR STORAGE</button>
-      {_.get(localDatabase, 'idDatabase') &&
-      _.get(localDatabase, 'isAuthorized') ? (
+      {_.get(localDatabase, 'idDatabase') && authorization ? (
         _.get(form, 'notion.invalidId') ? (
           <>
             <input
@@ -169,6 +168,14 @@ const FormLayout = () => {
               Update ID
             </button>
           </>
+        ) : _.get(form, 'notion.mismatchedFields') ? (
+          <div>
+            Les forms sont incompatibles créer en un nouveau ou rafraichir.
+          </div>
+        ) : _.get(form, 'unauthorized') ? (
+          <div>
+            La database n est pas autorisée ou alors l id (url) n est pas bon.
+          </div>
         ) : (
           <MainForm />
         )
