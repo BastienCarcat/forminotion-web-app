@@ -84,14 +84,20 @@ const ProviderBehaviourForm = ({ children }) => {
           params: { idDatabase }
         })
 
+        setLocalDatabases({
+          ...localDatabases,
+          [idForm]: { idDatabase }
+        })
+        setLocalDatabase({ idDatabase })
+
         if (response) {
           setForm(response)
 
-          setLocalDatabases({
-            ...localDatabases,
-            [idForm]: { idDatabase }
-          })
-          setLocalDatabase({ idDatabase })
+          // setLocalDatabases({
+          //   ...localDatabases,
+          //   [idForm]: { idDatabase }
+          // })
+          // setLocalDatabase({ idDatabase })
 
           if (!authorization) {
             setAuthorization(_.get(response, 'form.idAuthorization'))
@@ -109,11 +115,11 @@ const ProviderBehaviourForm = ({ children }) => {
             }
             setForm(formCreated)
 
-            setLocalDatabases({
-              ...localDatabases,
-              [idForm]: { idDatabase }
-            })
-            setLocalDatabase({ idDatabase })
+            // setLocalDatabases({
+            //   ...localDatabases,
+            //   [idForm]: { idDatabase }
+            // })
+            // setLocalDatabase({ idDatabase })
           }
         }
       }
