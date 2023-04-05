@@ -86,8 +86,8 @@ const FormCreationStepForm = ({
         {({ values }) => (
           <>
             <div className="px-4 py-6 sm:px-6 lg:px-12">
-              <div className="grid grid-cols-2 gap-x-4">
-                <div className="col-span-2 pt-4 lg:col-span-1">
+              <div className="grid grid-cols-4 gap-x-4">
+                <div className="col-span-4 pt-4 lg:col-span-2">
                   <SelectField
                     name="authorization"
                     label="Notion Workspace"
@@ -108,7 +108,7 @@ const FormCreationStepForm = ({
                   />
                 </div>
 
-                <div className="col-span-2 pt-4 lg:col-span-1">
+                <div className="col-span-4 pt-4 lg:col-span-2">
                   <SelectField
                     name="database"
                     label="Notion Database"
@@ -127,7 +127,7 @@ const FormCreationStepForm = ({
                   />
                 </div>
 
-                <div className="col-span-2 pt-4">
+                <div className="col-span-4 pt-4 lg:col-span-3">
                   <Field name="title">
                     {({ input }) => (
                       <div>
@@ -148,8 +148,33 @@ const FormCreationStepForm = ({
                     )}
                   </Field>
                 </div>
-
-                <div className="col-span-2 pt-4">
+                <div className="col-span-4 flex items-end pt-4 lg:col-span-1">
+                  <Field key={name} name="isTemplate" type="checkbox">
+                    {({ input }) => (
+                      <div className="mt-4 flex flex-1 rounded-md border border-gray-300 px-3 py-2 text-base shadow-sm first:mt-0 sm:text-sm">
+                        <div className="flex-1">
+                          <label
+                            htmlFor="isTemplate"
+                            className="cursor-pointer select-none font-medium text-gray-700"
+                          >
+                            Allow template
+                          </label>
+                        </div>
+                        <div className="ml-3 flex items-center">
+                          <input
+                            disabled={false} // disabled for non-premium users
+                            {...input}
+                            id="isTemplate"
+                            type="checkbox"
+                            className="h-5 w-5 cursor-pointer rounded border-gray-300 text-primary focus:ring-transparent"
+                            // checked={_.get(values, `fields[${index}].enabled`)}
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </Field>
+                </div>
+                <div className="col-span-4 pt-4">
                   <Field name="description">
                     {({ input }) => (
                       <div>

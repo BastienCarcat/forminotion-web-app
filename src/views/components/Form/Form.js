@@ -26,31 +26,31 @@ const MainForm = () => {
   const initialValues = useMemo(() => {
     const defaultValues = {}
     _.each(_.get(formInfo, 'fields'), (field) => {
-      const { idFieldNotion, property } = field
+      const { idProperty, property } = field
       switch (_.get(property, 'type')) {
         case 'multi_select':
-          _.set(defaultValues, idFieldNotion, [])
+          _.set(defaultValues, idProperty, [])
           break
         case 'rich_text':
         case 'title':
-          _.set(defaultValues, idFieldNotion, [{ text: { content: '' } }])
+          _.set(defaultValues, idProperty, [{ text: { content: '' } }])
           break
         case 'checkbox':
-          _.set(defaultValues, idFieldNotion, false)
+          _.set(defaultValues, idProperty, false)
           break
         case 'select':
         case 'status':
-          _.set(defaultValues, idFieldNotion, {
+          _.set(defaultValues, idProperty, {
             name: null,
             id: null,
             color: null
           })
           break
         case 'date':
-          _.set(defaultValues, idFieldNotion, { start: null })
+          _.set(defaultValues, idProperty, { start: null })
           break
         default:
-          _.set(defaultValues, idFieldNotion, '')
+          _.set(defaultValues, idProperty, '')
           break
       }
     })
@@ -64,7 +64,7 @@ const MainForm = () => {
         idAuthorization: _.get(formInfo, 'form.idAuthorization'),
         properties: _.chain(formInfo)
           .get('fields', [])
-          .keyBy('idFieldNotion')
+          .keyBy('idProperty')
           .mapValues((field, key) => {
             const type = _.get(field, 'property.type')
             switch (type) {
@@ -149,7 +149,7 @@ const MainForm = () => {
                           case 'rich_text':
                             return (
                               <TextField
-                                name={_.get(field, 'idFieldNotion')}
+                                name={_.get(field, 'idProperty')}
                                 label={_.get(field, 'label')}
                               />
                             )
@@ -157,7 +157,7 @@ const MainForm = () => {
                           case 'number':
                             return (
                               <NumberField
-                                name={_.get(field, 'idFieldNotion')}
+                                name={_.get(field, 'idProperty')}
                                 label={_.get(field, 'label')}
                               />
                             )
@@ -166,7 +166,7 @@ const MainForm = () => {
                             return (
                               <div className="flex h-full">
                                 <SwitchField
-                                  name={_.get(field, 'idFieldNotion')}
+                                  name={_.get(field, 'idProperty')}
                                   label={_.get(field, 'label')}
                                 />
                               </div>
@@ -175,7 +175,7 @@ const MainForm = () => {
                           case 'select':
                             return (
                               <SelectField
-                                name={_.get(field, 'idFieldNotion')}
+                                name={_.get(field, 'idProperty')}
                                 label={_.get(field, 'label')}
                                 options={_.get(
                                   field,
@@ -192,7 +192,7 @@ const MainForm = () => {
                           case 'status':
                             return (
                               <StatusField
-                                name={_.get(field, 'idFieldNotion')}
+                                name={_.get(field, 'idProperty')}
                                 label={_.get(field, 'label')}
                                 options={_.get(
                                   field,
@@ -214,7 +214,7 @@ const MainForm = () => {
                           case 'date':
                             return (
                               <DateField
-                                name={_.get(field, 'idFieldNotion')}
+                                name={_.get(field, 'idProperty')}
                                 label={_.get(field, 'label')}
                               />
                             )
@@ -222,7 +222,7 @@ const MainForm = () => {
                           case 'url':
                             return (
                               <URLField
-                                name={_.get(field, 'idFieldNotion')}
+                                name={_.get(field, 'idProperty')}
                                 label={_.get(field, 'label')}
                               />
                             )
@@ -230,7 +230,7 @@ const MainForm = () => {
                           case 'phone_number':
                             return (
                               <PhoneNumberField
-                                name={_.get(field, 'idFieldNotion')}
+                                name={_.get(field, 'idProperty')}
                                 label={_.get(field, 'label')}
                               />
                             )
@@ -238,7 +238,7 @@ const MainForm = () => {
                           case 'email':
                             return (
                               <MailField
-                                name={_.get(field, 'idFieldNotion')}
+                                name={_.get(field, 'idProperty')}
                                 label={_.get(field, 'label')}
                               />
                             )
@@ -246,7 +246,7 @@ const MainForm = () => {
                           case 'multi_select':
                             return (
                               <MultiSelectField
-                                name={_.get(field, 'idFieldNotion')}
+                                name={_.get(field, 'idProperty')}
                                 label={_.get(field, 'label')}
                                 options={_.get(
                                   field,

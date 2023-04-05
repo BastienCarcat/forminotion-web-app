@@ -15,7 +15,7 @@ const Forms = () => {
 
   const getForms = useCallback(async () => {
     try {
-      const data = await call('form/getAll')
+      const data = await call('form/getForms')
 
       if (data) {
         setForms(data)

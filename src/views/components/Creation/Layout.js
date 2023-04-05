@@ -112,11 +112,12 @@ const FormCreationLayout = () => {
         ),
         description: _.get(values, 'description', ''),
         idAuthorization: _.get(values, 'authorization.id'),
-        idNotionDatabase: _.get(values, 'database.id'),
-        fields: _.get(values, 'fields')
+        idDatabase: _.get(values, 'database.id'),
+        fields: _.get(values, 'fields'),
+        isTemplate: _.get(values, 'isTemplate')
       }
 
-      const newForm = await post('form/create', input)
+      const newForm = await post('form/createForm', input)
       if (newForm) {
         navigate(`/details/${_.get(newForm, 'id')}`)
       }
@@ -127,7 +128,7 @@ const FormCreationLayout = () => {
   const initialize = useCallback(async () => {
     try {
       setLoading(true)
-      const wp = await get('authorization/getAll')
+      const wp = await get('authorization/getAuthorizations')
 
       if (!_.isEmpty(wp)) {
         setAuthorizations(wp)
@@ -148,7 +149,7 @@ const FormCreationLayout = () => {
     const win = window.open(
       `https://api.notion.com/v1/oauth/authorize?owner=user&client_id=${
         process.env.REACT_APP_NOTION_CLIENT_ID
-      }&response_type=code&state=user${_.get(user, 'email')}`,
+      }&response_type=code&state=${_.get(user, 'email')}`,
       '_blank',
       'location=yes,height=800,width=600,scrollbars=yes,status=yes'
     )

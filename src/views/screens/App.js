@@ -1,10 +1,9 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import axios from 'axios'
 import React, { useEffect } from 'react'
-import { Route, Routes, useLocation, Navigate } from 'react-router-dom'
+import { Route, Routes, Navigate } from 'react-router-dom'
 import { config } from './../../config/index'
 import FormScreen from './Form'
-import _ from 'lodash'
 import HomeScreen from './Home'
 import FormsListScreen from './Forms'
 import FormEditionScreen from './Edition'
@@ -15,12 +14,13 @@ import FormDetailsScreen from './Details'
 import TermsAndConditions from '../components/Global/Footer/TermsAndConditions'
 import PrivcyLegacy from '../components/Global/Footer/PrivcyLegacy'
 import FormCreationScreen from './Creation'
+import AuthorizeScreen from './Authorize'
 
 const App = () => {
   const { apiUrl } = config || {}
   const { isAuthenticated, isLoading } = useAuth0()
 
-  const location = useLocation()
+  // const location = useLocation()
 
   useEffect(() => {
     axios.defaults.baseURL = apiUrl
@@ -35,31 +35,53 @@ const App = () => {
 
   return (
     <>
-      {_.startsWith(_.get(location, 'pathname'), '/form/') ? (
-        <Routes>
-          <Route path="/form/:idForm" element={<FormScreen />} />
-        </Routes>
-      ) : (
-        <Routes>
-          {isAuthenticated && (
-            <>
-              <Route path="/forms" element={<FormsListScreen />} />
-              <Route path="/creation" element={<FormCreationScreen />} />
-              <Route path="/edition/:idForm" element={<FormEditionScreen />} />
-              <Route path="/details/:idForm" element={<FormDetailsScreen />} />
-            </>
-          )}
-          <Route path="/" element={<HomeScreen />} />
-          <Route path="/pricing" element={<PricingScreen />} />
-          <Route path="/logout" element={<LogoutScreen />} />
-          <Route
-            path="/terms-and-conditions"
-            element={<TermsAndConditions />}
-          />
-          <Route path="/privacy-policy" element={<PrivcyLegacy />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      )}
+      {/*{_.startsWith(_.get(location, 'pathname'), '/form/') ? (*/}
+      {/*  <Routes>*/}
+      {/*    <Route path="/form/:idForm" element={<FormScreen />} />*/}
+      {/*  </Routes>*/}
+      {/*) : (*/}
+      {/*  <Routes>*/}
+      {/*    {isAuthenticated && (*/}
+      {/*      <>*/}
+      {/*        <Route path="/forms" element={<FormsListScreen />} />*/}
+      {/*        <Route path="/creation" element={<FormCreationScreen />} />*/}
+      {/*        <Route path="/edition/:idForm" element={<FormEditionScreen />} />*/}
+      {/*        <Route path="/details/:idForm" element={<FormDetailsScreen />} />*/}
+      {/*      </>*/}
+      {/*    )}*/}
+      {/*    <Route path="/form/:idForm" element={<FormScreen />} />*/}
+      {/*    <Route path="/" element={<HomeScreen />} />*/}
+      {/*    <Route path="/pricing" element={<PricingScreen />} />*/}
+      {/*    <Route path="/logout" element={<LogoutScreen />} />*/}
+      {/*    <Route*/}
+      {/*      path="/terms-and-conditions"*/}
+      {/*      element={<TermsAndConditions />}*/}
+      {/*    />*/}
+      {/*    <Route path="/privacy-policy" element={<PrivcyLegacy />} />*/}
+      {/*    <Route path="*" element={<Navigate to="/" replace />} />*/}
+      {/*  </Routes>*/}
+      {/*)}*/}
+      <Routes>
+        {isAuthenticated && (
+          <>
+            <Route path="/forms" element={<FormsListScreen />} />
+            <Route path="/creation" element={<FormCreationScreen />} />
+            <Route path="/edition/:idForm" element={<FormEditionScreen />} />
+            <Route path="/details/:idForm" element={<FormDetailsScreen />} />
+          </>
+        )}
+        <Route path="/form/:idForm" element={<FormScreen />} />
+        <Route
+          path="/authorize/:idAuthorization"
+          element={<AuthorizeScreen />}
+        />
+        <Route path="/pricing" element={<PricingScreen />} />
+        <Route path="/logout" element={<LogoutScreen />} />
+        <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+        <Route path="/privacy-policy" element={<PrivcyLegacy />} />
+        <Route path="/" element={<HomeScreen />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
     </>
   )
 }
