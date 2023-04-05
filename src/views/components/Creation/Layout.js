@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom'
 import { useAxiosPost } from '../../../hooks/useAxiosPost'
 import { useAxiosGet } from '../../../hooks/useAxiosGet'
 import Loader from '../../ui/Globals/Loader'
+import { config } from '../../../config'
 
 export const stepPositions = Object.freeze({
   FORM: 1,
@@ -27,6 +28,7 @@ export const stepStatus = Object.freeze({
 
 const FormCreationLayout = () => {
   const navigate = useNavigate()
+  const { apiUrl } = config || {}
 
   const [steps, setSteps] = useState([
     { position: stepPositions.FORM, name: 'Form', status: stepStatus.CURRENT },
@@ -149,7 +151,10 @@ const FormCreationLayout = () => {
     const win = window.open(
       `https://api.notion.com/v1/oauth/authorize?owner=user&client_id=${
         process.env.REACT_APP_NOTION_CLIENT_ID
-      }&response_type=code&state=${_.get(user, 'email')}`,
+      }&redirect_uri=${apiUrl}notion/authCallback&response_type=code&state=${_.get(
+        user,
+        'email'
+      )}`,
       '_blank',
       'location=yes,height=800,width=600,scrollbars=yes,status=yes'
     )
@@ -167,7 +172,7 @@ const FormCreationLayout = () => {
         win.close()
       }
     }, 1000)
-  }, [user, initialize])
+  }, [user, initialize, apiUrl])
 
   return (
     <>

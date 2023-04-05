@@ -3,6 +3,7 @@ import MainForm from './Form'
 import { useContextForm } from './Contexts/behaviour'
 import _ from 'lodash'
 import { useParams } from 'react-router-dom'
+import { config } from '../../../config'
 
 const FormLayout = () => {
   // const [databaseInfo, setDatabaseInfo] = useState(null)
@@ -76,6 +77,8 @@ const FormLayout = () => {
   } = useContextForm()
   const { idForm } = useParams()
 
+  const { apiUrl } = config || {}
+
   const [url, setUrl] = useState(null)
 
   const handleChangeUrl = useCallback((event) => {
@@ -130,7 +133,7 @@ const FormLayout = () => {
     const win = window.open(
       `https://api.notion.com/v1/oauth/authorize?owner=user&client_id=${
         process.env.REACT_APP_NOTION_CLIENT_ID
-      }&response_type=code&state=idDatabase${_.get(
+      }&redirect_uri=${apiUrl}notion/callback&response_type=code&state=idDatabase${_.get(
         localDatabase,
         'idDatabase'
       )}idForm${idForm}`,
@@ -150,7 +153,7 @@ const FormLayout = () => {
         win.close()
       }
     }, 500)
-  }, [idForm, localDatabase, onCloseWindow])
+  }, [idForm, localDatabase, onCloseWindow, apiUrl])
 
   return (
     <>
