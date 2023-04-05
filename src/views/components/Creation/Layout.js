@@ -171,7 +171,7 @@ const FormCreationLayout = () => {
         win.close()
       }
     }, 1000)
-  }, [user, initialize])
+  }, [user, initialize, apiUrl])
 
   return (
     <>
