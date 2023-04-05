@@ -43,7 +43,7 @@ const URLField = ({ label, name, ...others }) => {
 }
 
 URLField.propTypes = {
-  label: PropTypes.string,
+  label: PropTypes.any,
   name: PropTypes.string.isRequired
 }
 

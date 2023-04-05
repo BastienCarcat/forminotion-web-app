@@ -34,7 +34,7 @@ const TextField = ({ label, name, ...others }) => {
 }
 
 TextField.propTypes = {
-  label: PropTypes.string,
+  label: PropTypes.any,
   name: PropTypes.string.isRequired
 }
 

@@ -42,7 +42,7 @@ const MailField = ({ label, name, ...others }) => {
 }
 
 MailField.propTypes = {
-  label: PropTypes.string,
+  label: PropTypes.any,
   name: PropTypes.string.isRequired
 }
 

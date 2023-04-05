@@ -64,7 +64,10 @@ module.exports = {
         'notion-blue-bg': '#DDEBF1',
         'notion-purple-bg': '#EAE4F2',
         'notion-pink-bg': '#F4DFEB',
-        'notion-red-bg': '#FBE4E4'
+        'notion-red-bg': '#FBE4E4',
+
+        'notion-dark-bg': '#2F3437',
+        'notion-dark-txt': '#FFFFFF90'
       },
       fontFamily: {
         main: ['DM Sans']

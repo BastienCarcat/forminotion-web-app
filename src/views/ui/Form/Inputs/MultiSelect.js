@@ -8,7 +8,7 @@ import { CheckIcon, ChevronDownIcon, XIcon } from '@heroicons/react/outline'
 const MultiSelectField = ({
   label,
   name,
-  options,
+  options = [],
   optionColor,
   getOptionLabel,
   ...others
@@ -133,7 +133,7 @@ const MultiSelectField = ({
 }
 
 MultiSelectField.propTypes = {
-  label: PropTypes.string,
+  label: PropTypes.any,
   name: PropTypes.string.isRequired,
   options: PropTypes.array.isRequired,
   getOptionLabel: PropTypes.func.isRequired,

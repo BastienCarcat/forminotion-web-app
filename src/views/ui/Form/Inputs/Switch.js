@@ -45,7 +45,7 @@ const SwitchField = ({ label, name, ...others }) => {
 }
 
 SwitchField.propTypes = {
-  label: PropTypes.string,
+  label: PropTypes.any,
   name: PropTypes.string.isRequired
 }
 

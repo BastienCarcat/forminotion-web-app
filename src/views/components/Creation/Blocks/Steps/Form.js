@@ -4,7 +4,7 @@ import { PropTypes } from 'prop-types'
 import { stepPositions } from '../../Layout'
 import { Field, FormSpy, useForm } from 'react-final-form'
 import _ from 'lodash'
-import SelectField from '../../../../../ui/Form/Inputs/Select'
+import SelectField from '../../../../ui/Form/Inputs/Select'
 
 const FormCreationStepForm = ({
   setCurrentStep,
@@ -50,7 +50,7 @@ const FormCreationStepForm = ({
             break
           case 'rich_text':
           case 'title':
-            _.set(defaultValues, id, [{ text: { content: null } }])
+            _.set(defaultValues, id, [{ text: { content: '' } }])
             break
           case 'checkbox':
             _.set(defaultValues, id, false)
@@ -63,7 +63,7 @@ const FormCreationStepForm = ({
             _.set(defaultValues, id, { start: null })
             break
           default:
-            _.set(defaultValues, id, null)
+            _.set(defaultValues, id, '')
             break
         }
       })

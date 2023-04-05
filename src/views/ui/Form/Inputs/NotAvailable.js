@@ -40,7 +40,7 @@ const NotAvailableField = ({ label, type, ...others }) => {
 }
 
 NotAvailableField.propTypes = {
-  label: PropTypes.string,
+  label: PropTypes.any,
   type: PropTypes.string
 }
 

@@ -67,7 +67,7 @@ const NumberField = ({ label, name, ...others }) => {
 }
 
 NumberField.propTypes = {
-  label: PropTypes.string,
+  label: PropTypes.any,
   name: PropTypes.string.isRequired
 }
 
