@@ -3,7 +3,7 @@ import axios from 'axios'
 import React, { useEffect } from 'react'
 import { Route, Routes, Navigate } from 'react-router-dom'
 import { config } from './../../config/index'
-import FormScreen from './Form'
+import FormOldScreen from './FormOld'
 import HomeScreen from './Home'
 import FormsListScreen from './Forms'
 import FormEditionScreen from './Edition'
@@ -15,6 +15,7 @@ import TermsAndConditions from '../components/Global/Footer/TermsAndConditions'
 import PrivcyLegacy from '../components/Global/Footer/PrivcyLegacy'
 import FormCreationScreen from './Creation'
 import AuthorizeScreen from './Authorize'
+import FormScreen from './Form'
 
 const App = () => {
   const { apiUrl } = config || {}
@@ -70,6 +71,7 @@ const App = () => {
             <Route path="/details/:idForm" element={<FormDetailsScreen />} />
           </>
         )}
+        <Route path="/formOld/:idForm" element={<FormOldScreen />} />
         <Route path="/form/:idForm" element={<FormScreen />} />
         <Route
           path="/authorize/:idAuthorization"

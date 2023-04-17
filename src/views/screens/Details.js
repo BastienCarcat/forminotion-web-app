@@ -17,8 +17,8 @@ const FormDetailsScreen = () => {
   const [get, loading] = useAxiosGet()
 
   const getDatabaseInfo = useCallback(async () => {
-    const form = await get('form/getById', {
-      params: { id: idForm }
+    const form = await get('form/getFormById', {
+      params: { idForm }
     })
     setForm(form)
   }, [get, idForm])

@@ -9,3 +9,6 @@ export const config = {
   staging: staging,
   production: production
 }[process.env.REACT_APP_ENVIRONMENT || 'development']
+
+// export const fetcher = (url, params) =>
+//   axios.get(url, params && { params }).then((res) => res.data)
