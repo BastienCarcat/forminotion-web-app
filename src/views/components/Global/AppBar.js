@@ -1,4 +1,4 @@
-import React, { Fragment, useMemo, useState } from 'react'
+import React, { Fragment, useCallback, useMemo, useState } from 'react'
 import { Dialog, Menu, Transition } from '@headlessui/react'
 import { MenuAlt1Icon, XIcon, FolderIcon } from '@heroicons/react/outline'
 import { SelectorIcon } from '@heroicons/react/solid'
@@ -11,6 +11,11 @@ import Logo from '../../../Images/logo.svg'
 
 const UserMenu = () => {
   const navigate = useNavigate()
+
+  const redirectToWebsite = useCallback(() => {
+    window.location.href = 'https://www.forminotion.com/'
+  }, [])
+
   return (
     <Transition
       as={Fragment}
@@ -43,7 +48,7 @@ const UserMenu = () => {
           <Menu.Item>
             {({ active }) => (
               <button
-                onClick={() => navigate('/')}
+                onClick={redirectToWebsite}
                 className={clsx(
                   'w-full px-4 py-2 text-left text-sm',
                   active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'

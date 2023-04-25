@@ -21,6 +21,7 @@ const Auth0ProviderWithHistory = ({ children }) => {
       redirectUri={window.location.origin}
       onRedirectCallback={onRedirectCallback}
       useRefreshTokens={true}
+      cookieDomain=".forminotion.com"
     >
       {children}
     </Auth0Provider>
