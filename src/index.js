@@ -10,13 +10,11 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
 root.render(
-  <React.StrictMode>
-    <Router>
-      <Auth0ProviderWithHistory>
-        <DndProvider backend={HTML5Backend}>
-          <App />
-        </DndProvider>
-      </Auth0ProviderWithHistory>
-    </Router>
-  </React.StrictMode>
+  <Router>
+    <Auth0ProviderWithHistory>
+      <DndProvider backend={HTML5Backend}>
+        <App />
+      </DndProvider>
+    </Auth0ProviderWithHistory>
+  </Router>
 )

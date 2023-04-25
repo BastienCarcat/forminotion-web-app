@@ -1,25 +1,25 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useAuth0 } from '@auth0/auth0-react'
 import Loader from '../ui/Globals/Loader'
+import { useAuth0 } from '@auth0/auth0-react'
 
-const LogoutScreen = () => {
+const LoginRedirect = () => {
+  const { loginWithRedirect, handleRedirectCallback } = useAuth0()
   const navigate = useNavigate()
-  const { logout } = useAuth0()
 
   useEffect(() => {
-    const func = async () => {
+    const init = async () => {
       try {
-        logout({
-          returnTo: 'https://www.forminotion.com/'
-        })
+        await handleRedirectCallback()
+        navigate('/')
       } catch (e) {
         console.error(e)
-        navigate('/logout-fail', { replace: true })
+        await loginWithRedirect()
       }
     }
-    func()
-  }, [navigate, logout])
+
+    init()
+  }, [])
 
   return (
     <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
@@ -28,4 +28,6 @@ const LogoutScreen = () => {
   )
 }
 
-export default LogoutScreen
+LoginRedirect.propTypes = {}
+
+export default LoginRedirect
