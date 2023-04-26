@@ -275,9 +275,10 @@ const MainForm = ({ databaseInfo }) => {
             </div>
             <div className="flex justify-between">
               <a
-                href="/"
+                href="https://www.forminotion.com/"
                 target="_blank"
                 className="pt-1 text-xs text-gray-400 hover:underline"
+                rel="noreferrer"
               >
                 Powered by Forminotion
               </a>
