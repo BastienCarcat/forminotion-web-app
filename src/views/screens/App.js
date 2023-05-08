@@ -14,6 +14,7 @@ import PrivcyLegacy from '../components/Global/Footer/PrivcyLegacy'
 import FormCreationScreen from './Creation'
 import LoginRedirect from '../redirections/login'
 import StripeRedirect from '../redirections/Stripe'
+import ProfileScreen from './Profile'
 
 const App = () => {
   const { apiUrl } = config || {}
@@ -37,6 +38,7 @@ const App = () => {
         <Route path="/creation" element={<FormCreationScreen />} />
         <Route path="/edition/:idForm" element={<FormEditionScreen />} />
         <Route path="/details/:idForm" element={<FormDetailsScreen />} />
+        <Route path="/profile" element={<ProfileScreen />} />
         <Route path="/" element={<FormsListScreen />} />
         <Route path="/stripe-redirect" element={<StripeRedirect />} />
 
