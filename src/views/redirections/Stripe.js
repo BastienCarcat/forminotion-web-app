@@ -8,7 +8,7 @@ const StripeRedirect = () => {
 
   useEffect(() => {
     const init = async () => {
-      window.location.href = `https://buy.stripe.com/dR67vD89I3zd9DGbII?client_reference_id=${_.chain(
+      window.location.href = `https://buy.stripe.com/8wMdU1gGe9XB3fi001?client_reference_id=${_.chain(
         user
       )
         .get('sub')
