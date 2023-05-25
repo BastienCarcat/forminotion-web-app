@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { ArrowRightIcon } from '@heroicons/react/outline'
+import { ArrowRightIcon, RefreshIcon } from '@heroicons/react/outline'
 import { PropTypes } from 'prop-types'
 import { stepPositions } from '../../Layout'
 import { Field, FormSpy, useForm } from 'react-final-form'
@@ -11,6 +11,7 @@ const FormCreationStepForm = ({
   authorizations,
   databases,
   searhDatabases,
+  loadingDatabase,
   disabledFieldTypes
 }) => {
   const { change, batch } = useForm()
@@ -112,8 +113,25 @@ const FormCreationStepForm = ({
                   <SelectField
                     name="database"
                     label="Notion Database"
+                    loading={loadingDatabase}
+                    {...(_.get(values, 'authorization') && {
+                      action: (
+                        <button
+                          title={'Reload databases'}
+                          disabled={loadingDatabase}
+                          onClick={() =>
+                            searhDatabases(_.get(values, 'authorization'))
+                          }
+                          type="button"
+                        >
+                          <RefreshIcon className="h-4 w-4" />
+                        </button>
+                      )
+                    })}
                     options={databases}
-                    disabled={!_.get(values, 'authorization')}
+                    disabled={
+                      !_.get(values, 'authorization') || loadingDatabase
+                    }
                     getOptionLabel={(opt) => {
                       if (opt) {
                         return `${_.get(opt, 'icon.emoji', '')} ${_.get(
@@ -202,6 +220,7 @@ FormCreationStepForm.propTypes = {
   authorizations: PropTypes.array,
   searhDatabases: PropTypes.func,
   databases: PropTypes.array,
+  loadingDatabase: PropTypes.bool,
   disabledFieldTypes: PropTypes.array
 }
 
