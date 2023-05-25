@@ -49,6 +49,7 @@ const FormCreationLayout = () => {
   //State here to prevent re-init when goback
   const [databases, setDatabases] = useState([])
   const [loading, setLoading] = useState(false)
+  const [loadingDatabase, setLoadingDatabase] = useState(false)
 
   const { user } = useAuth0()
   const [get] = useAxiosGet()
@@ -71,6 +72,7 @@ const FormCreationLayout = () => {
   const searhDatabases = useCallback(
     async (authorization) => {
       try {
+        setLoadingDatabase(true)
         const data = await post('notion/searchDatabases', {
           idAuthorization: _.get(authorization, 'id')
         })
@@ -82,6 +84,8 @@ const FormCreationLayout = () => {
       } catch (e) {
         setDatabases([])
         throw new Error(e)
+      } finally {
+        setLoadingDatabase(false)
       }
     },
     [setDatabases, post]
@@ -224,6 +228,7 @@ const FormCreationLayout = () => {
                           authorizations={authorizations}
                           searhDatabases={searhDatabases}
                           databases={databases}
+                          loadingDatabase={loadingDatabase}
                           disabledFieldTypes={disabledFieldTypes}
                         />
                       )}
